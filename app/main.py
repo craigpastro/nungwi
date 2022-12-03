@@ -12,10 +12,12 @@ from .validate import validate_rewrite, validate_user
 
 
 app = FastAPI()
-app.state.prolog = Prolog()
-app.state.prolog.consult("app/zanzibar.pl")
-app.state.prolog.dynamic("config/3")
-app.state.prolog.dynamic("tuple/4")
+
+p = Prolog()
+p.consult("app/zanzibar.pl")
+p.dynamic("config/3")
+p.dynamic("tuple/4")
+app.state.prolog = p
 
 app.state.log = get_logger()
 
