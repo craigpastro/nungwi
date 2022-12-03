@@ -1,19 +1,19 @@
 from fastapi import FastAPI, HTTPException
 from pyswip import Prolog
 from structlog import get_logger
-from schemas import (
+from .schemas import (
     CheckRequest,
     ListObjectsRequest,
     WriteSchemaRequest,
     WriteTuplesRequest,
     DeleteTuplesRequest,
 )
-from validate import validate_rewrite, validate_user
+from .validate import validate_rewrite, validate_user
 
 
 app = FastAPI()
 app.state.prolog = Prolog()
-app.state.prolog.consult("zanzibar.pl")
+app.state.prolog.consult("app/zanzibar.pl")
 app.state.prolog.dynamic("config/3")
 app.state.prolog.dynamic("tuple/4")
 
