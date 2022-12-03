@@ -5,12 +5,12 @@ checkWR(Namespace, Id, _, User, computedUserset(Rel0)) :- tuple(Namespace, Id, R
 
 checkWR(Namespace, Id, _, User, tupleToUserset(S, T)) :-
     tuple(Namespace, Id, S, object(Namespace0, Id0)),
-    schema(Namespace0, T, Rewrite),
+    config(Namespace0, T, Rewrite),
     checkWR(Namespace0, Id0, T, User, Rewrite).
 
 checkWR(Namespace, Id, _, User, tupleToUserset(S, T)) :-
     tuple(Namespace, Id, S, userset(Namespace0, Id0, T)),
-    schema(Namespace0, T, Rewrite),
+    config(Namespace0, T, Rewrite),
     checkWR(Namespace0, Id0, T, User, Rewrite).
 
 checkWR(Namespace, Id, Rel, User, union(S, _)) :- checkWR(Namespace, Id, Rel, User, S).
@@ -26,9 +26,9 @@ checkWR(Namespace, Id, Rel, User, exclusion(S, T)) :-
 
 % check add the cut at the end so it just finds the answer and won't backtrack.
 check(Namespace, Id, Rel, User) :-
-    schema(Namespace, Rel, Rewrite),
+    config(Namespace, Rel, Rewrite),
     checkWR(Namespace, Id, Rel, User, Rewrite), !.
 
 list(Namespace, Id, Rel, User) :-
-    schema(Namespace, Rel, Rewrite),
+    config(Namespace, Rel, Rewrite),
     checkWR(Namespace, Id, Rel, User, Rewrite).
