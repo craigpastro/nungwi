@@ -14,7 +14,7 @@ from validate import validate_rewrite, validate_user
 app = FastAPI()
 app.state.prolog = Prolog()
 app.state.prolog.consult("zanzibar.pl")
-app.state.prolog.dynamic("schema/3")
+app.state.prolog.dynamic("config/3")
 app.state.prolog.dynamic("tuple/4")
 
 app.state.log = get_logger()
@@ -22,23 +22,26 @@ app.state.log = get_logger()
 
 @app.post("/write-schema")
 def write_schema(req: WriteSchemaRequest):
-    for config in req.schema:
+    for config in req.configs:
         if not validate_rewrite(config.rewrite):
             raise HTTPException(
                 status_code=400,
                 detail=f"rewrite not valid in relation config: {config}",
             )
 
-        if len(list(app.state.prolog.query(config))) == 0:
-            app.state.prolog.assertz(config)
-            app.state.log.info("assertz", config=config)
+        s = config.to_prolog()
+        app.state.log.info("assertz", config=s)
+
+        if len(list(app.state.prolog.query(s))) == 0:
+            app.state.log.info("assertz", config=s)
+            app.state.prolog.assertz(s)
 
     return {}
 
 
 @app.post("/delete-schema")
 def delete_schema():
-    app.state.prolog.retractall("schema(_, _, _)")
+    app.state.prolog.retractall("config(_, _, _)")
     return {}
 
 
@@ -50,9 +53,10 @@ def write_tuples(req: WriteTuplesRequest):
                 status_code=400, detail=f"user not valid in tuple: {tuple}"
             )
 
-        if len(list(app.state.prolog.query(tuple))) == 0:
-            app.state.prolog.assertz(tuple)
-            app.state.log.info("assertz", tuple=tuple)
+        t = tuple.to_prolog()
+        if len(list(app.state.prolog.query(t))) == 0:
+            app.state.prolog.assertz(t)
+            app.state.log.info("assertz", tuple=t)
 
     return {}
 
@@ -61,9 +65,11 @@ def write_tuples(req: WriteTuplesRequest):
 def delete_tuples(req: DeleteTuplesRequest):
     for tuple in req.tuples:
         try:
-            app.state.prolog.retract(tuple)
+            app.state.prolog.retract(tuple.to_prolog())
         except StopIteration:
-            app.state.log.info("try to delete tuple which does not exist", tuple=tuple)
+            app.state.log.info(
+                "tried to delete tuple which does not exist", tuple=tuple
+            )
 
     return {}
 

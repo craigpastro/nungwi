@@ -6,6 +6,9 @@ class RelationConfig(BaseModel):
     relation: str
     rewrite: str
 
+    def to_prolog(self) -> str:
+        return f"config({self.namespace},{self.relation},{self.rewrite})"
+
 
 class Tuple(BaseModel):
     namespace: str
@@ -13,9 +16,12 @@ class Tuple(BaseModel):
     relation: str
     user: str
 
+    def to_prolog(self) -> str:
+        return f"tuple({self.namespace},{self.id},{self.relation},{self.user})"
+
 
 class WriteSchemaRequest(BaseModel):
-    schema: list[RelationConfig]
+    configs: list[RelationConfig]
 
 
 class WriteTuplesRequest(BaseModel):

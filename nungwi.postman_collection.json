@@ -13,7 +13,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"namespaces\": [\n        {\n            \"name\": \"folder\",\n            \"relations\": {\n                \"viewer\": {\n                    \"this\": {}\n                }\n            }\n        },\n        {\n            \"name\": \"document\",\n            \"relations\": {\n                \"viewer\": {\n                    \"union\": {\n                        \"elem1\": {\n                            \"this\": {}\n                        },\n                        \"elem2\": {\n                            \"tuple_to_userset\": {\n                                \"tupleset\": \"parent\",\n                                \"computed_userset\": \"viewer\"\n                            }\n                        }\n                    }\n                }\n            }\n        }\n    ]\n}",
+					"raw": "{\n    \"configs\": [\n        {\n            \"namespace\": \"folder\",\n            \"relation\": \"viewer\",\n            \"rewrite\": \"self\"\n        },\n        {\n            \"namespace\": \"document\",\n            \"relation\": \"viewer\",\n            \"rewrite\": \"union(self, tupleToUserset(parent, viewer))\"\n        }\n    ]\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -41,7 +41,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"tuples\": [\n        {\n            \"namespace\": \"folder\",\n            \"id\": \"x\",\n            \"relation\": \"viewer\",\n            \"user\": {\n                \"user_id\": \"abigail\"\n            }\n        },\n        {\n            \"namespace\": \"document\",\n            \"id\": \"1\",\n            \"relation\": \"parent\",\n            \"user\": {\n                \"object\": {\n                    \"namespace\": \"folder\",\n                    \"id\": \"x\"\n                }\n            }\n        },\n        {\n            \"namespace\": \"document\",\n            \"id\": \"2\",\n            \"relation\": \"parent\",\n            \"user\": {\n                \"object\": {\n                    \"namespace\": \"folder\",\n                    \"id\": \"x\"\n                }\n            }\n        },\n        {\n            \"namespace\": \"document\",\n            \"id\": \"1\"\n            \"relation\": \"viewer\",\n            \"user\": {\n                \"user_id\": \"beatrix\"\n            }\n        }\n    ]\n}",
+					"raw": "{\n    \"tuples\": [\n        {\n            \"namespace\": \"folder\",\n            \"id\": \"x\",\n            \"relation\": \"viewer\",\n            \"user\": \"abigail\"\n        },\n        {\n            \"namespace\": \"document\",\n            \"id\": \"1\",\n            \"relation\": \"parent\",\n            \"user\": \"object(folder, x)\"\n        },\n        {\n            \"namespace\": \"document\",\n            \"id\": \"2\",\n            \"relation\": \"parent\",\n            \"user\": \"object(folder, x)\"\n        },\n        {\n            \"namespace\": \"document\",\n            \"id\": \"1\",\n            \"relation\": \"viewer\",\n            \"user\": \"beatrix\"\n        }\n    ]\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -69,7 +69,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n        \"namespace\": \"document\",\n        \"id\": \"1\",\n    \"relation\": \"viewer\",\n    \"user\": {\n        \"user_id\": \"abigail\"\n    }\n}",
+					"raw": "{\n    \"namespace\": \"document\",\n    \"id\": \"1\",\n    \"relation\": \"viewer\",\n    \"user\": \"abigail\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -97,7 +97,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"namespace\": \"document\",\n    \"relation\": \"viewer\",\n    \"user\": {\n        \"user_id\": \"abigail\"\n    }\n}",
+					"raw": "{\n    \"namespace\": \"document\",\n    \"relation\": \"viewer\",\n    \"user\": \"abigail\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -144,7 +144,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"tuples\": [\n        {\n            \"object\": {\n                \"namespace\": \"folder\",\n                \"id\": \"x\"\n            },\n            \"relation\": \"viewer\",\n            \"user\": {\n                \"user_id\": \"abigail\"\n            }\n        },\n        {\n            \"object\": {\n                \"namespace\": \"document\",\n                \"id\": \"1\"\n            },\n            \"relation\": \"parent\",\n            \"user\": {\n                \"object\": {\n                    \"namespace\": \"folder\",\n                    \"id\": \"x\"\n                }\n            }\n        },\n        {\n            \"object\": {\n                \"namespace\": \"document\",\n                \"id\": \"1\"\n            },\n            \"relation\": \"viewer\",\n            \"user\": {\n                \"user_id\": \"beatrix\"\n            }\n        }\n    ]\n}",
+					"raw": "{\n    \"tuples\": [\n        {\n            \"namespace\": \"folder\",\n            \"id\": \"x\",\n            \"relation\": \"viewer\",\n            \"user\": \"abigail\"\n        },\n        {\n            \"namespace\": \"document\",\n            \"id\": \"1\",\n            \"relation\": \"parent\",\n            \"user\": \"object(folder, x)\"\n        },\n        {\n            \"namespace\": \"document\",\n            \"id\": \"2\",\n            \"relation\": \"parent\",\n            \"user\": \"object(folder, x)\"\n        },\n        {\n            \"namespace\": \"document\",\n            \"id\": \"1\",\n            \"relation\": \"viewer\",\n            \"user\": \"beatrix\"\n        }\n    ]\n}",
 					"options": {
 						"raw": {
 							"language": "json"
