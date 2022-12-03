@@ -1,5 +1,9 @@
 # Nungwi
 
+Nungwi is a authorization service inspired by [Google Zanzibar](https://research.google/pubs/pub48190/). It is also is a village located at the northern end of the island of Zanzibar.
+
+Nungwi is extremely experimental and is very much a WIP.
+
 ## Example Usage
 
 ```console
@@ -82,12 +86,32 @@ $ curl -XPOST 'http://localhost:8000/list-objects' \
 
 ## Modelling
 
-TODO
+### Schema
 
-## This is a WIP!
+A rewrite can be any of the following:
+- `self`.
+- `computedUserset(relation: str)`
+- `tupleToUserset(tupleset: str, computedUserset: str)`
+- `union(p1: rewrite, p2: rewrite)`
+- `intersection(p1: rewrite, p2: rewrite)`
+- `exclusion(minuend: rewrite, subtrahend: rewrite)`
+The `str` type indicates that the argument must be a string, and the `rewrite` type indicates that the argument is a rewrite itself.
 
-I am still learning Python, FastAPI, Prolog... and everything else. Updates coming soon. Reach out if you want to know more.
+A relation config consists of a namespace, relation, and rewrite. We will write these as
+```python
+config(namespace, relation, rewrite)
+```
 
-## What is Nungwi?
+A schema consists of one or more relation configs.
 
-Nungwi is a village located at the northern end of the island of Zanzibar.
+### Tuples
+
+A user can be any of the following:
+- `userId: str`
+- `object(namespace: str, id: str)`
+- `userset(namespace: str, id: str, relation: str)`
+
+A tuple consists of a namespace, id, relation, and user. We will write these as
+```python
+tuple(namespace, id, relation, user)
+```
