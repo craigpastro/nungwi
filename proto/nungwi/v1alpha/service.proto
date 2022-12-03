@@ -1,0 +1,152 @@
+syntax = "proto3";
+
+package nungwi.v1alpha;
+
+import "validate/validate.proto";
+
+service NungwiService {
+  rpc WriteSchema(WriteSchemaRequest) returns (WriteSchemaResponse) {}
+
+  rpc GetSchema(GetSchemaRequest) returns (GetSchemaResponse) {}
+
+  rpc DeleteModel(DeleteSchemaRequest) returns (DeleteSchemaResponse) {}
+
+  rpc AddTuples(AddTuplesRequest) returns (AddTuplesResponse) {}
+
+  rpc DeleteTuples(DeleteTuplesRequest) returns (DeleteTuplesResponse) {}
+
+  rpc Checks(ChecksRequest) returns (ChecksResponse) {}
+}
+
+message WriteSchemaRequest {
+  map<string, Namespace> namespaces = 1;
+}
+
+message WriteSchemaResponse {}
+
+message GetSchemaRequest {}
+
+message GetSchemaResponse {
+  map<string, Namespace> namespaces = 1;
+}
+
+message DeleteSchemaRequest {}
+
+message DeleteSchemaResponse {}
+
+message AddTuplesRequest {
+  repeated Tuple tuples = 2;
+}
+
+message AddTuplesResponse {}
+
+message DeleteTuplesRequest {
+  repeated Tuple tuples = 2;
+}
+
+message DeleteTuplesResponse {}
+
+message ChecksRequest {
+  repeated Tuple tuples = 2;
+}
+
+message ChecksResponse {
+  repeated bool results = 1;
+}
+
+message Tuple {
+  Object object = 1 [(validate.rules).message.required = true];
+  string relation = 2 [(validate.rules).string = {
+    min_len: 1,
+    max_len: 100
+  }];
+  User user = 3 [(validate.rules).message.required = true];
+}
+
+message Object {
+  string namespace = 1 [(validate.rules).string = {
+    min_len: 1,
+    max_len: 100
+  }];
+  string id = 2 [(validate.rules).string = {
+    min_len: 1,
+    max_len: 100
+  }];
+}
+
+message User {
+  oneof ref {
+    string id = 1 [(validate.rules).string = {
+      min_len: 1,
+      max_len: 100
+    }];
+    Object object = 2;
+    Userset userset = 3;
+  }
+}
+
+message Userset {
+  Object object = 1 [(validate.rules).message.required = true];
+  string relation = 2;
+}
+
+message Namespace {
+  string name = 1;
+  map<string, UsersetRewrite> relations = 2;
+}
+
+message UsersetRewrite {
+  oneof rewrite {
+    This this = 1;
+    ComputedUserset computed_userset = 2;
+    TupleToUserset tuple_to_userset = 3;
+    Union union = 4;
+    Intersection intersection = 5;
+    Exclusion exclusion = 6;
+  }
+}
+
+message This {}
+
+message ComputedUserset {
+  string relation = 1;
+}
+
+message TupleToUserset {
+  string tupleset = 1;
+  string computed_userset = 2;
+}
+
+message Union {
+  repeated UsersetRewrite children = 1;
+}
+
+message Intersection {
+  repeated UsersetRewrite children = 1;
+}
+
+message Exclusion {
+  UsersetRewrite minuend = 1;
+  UsersetRewrite subtrahend = 2;
+}
+
+// Namespaces is only used for marshalling for storage
+message Namespaces {
+  map<string, Namespace> namespaces = 1;
+}
+
+// Tuples is only used for testing
+message Tuples {
+  repeated Tuple tuples = 1;
+}
+
+// Assertions is only used for testing
+message Assertions {
+  repeated Assertion assertions = 1;
+}
+
+// Assertions is only used for testing
+message Assertion {
+  Tuple tuple = 1;
+  bool allowed = 2;
+}
