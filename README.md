@@ -95,6 +95,7 @@ A rewrite can be any of the following:
 - `union(p1: rewrite, p2: rewrite)`
 - `intersection(p1: rewrite, p2: rewrite)`
 - `exclusion(minuend: rewrite, subtrahend: rewrite)`
+
 The `str` type indicates that the argument must be a string, and the `rewrite` type indicates that the argument is a rewrite itself.
 
 A relation config consists of a namespace, relation, and rewrite. We will write these as
