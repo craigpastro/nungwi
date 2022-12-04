@@ -1,7 +1,9 @@
 from fastapi import FastAPI, HTTPException
 from pyswip import Prolog
 from structlog import get_logger
-from .schemas import (
+from threading import Lock
+
+from .schema import (
     CheckRequest,
     ListObjectsRequest,
     WriteSchemaRequest,
@@ -12,12 +14,15 @@ from .validate import validate_rewrite, validate_user
 
 
 app = FastAPI()
-app.state.prolog = Prolog()
-app.state.prolog.consult("app/zanzibar.pl")
-app.state.prolog.dynamic("config/3")
-app.state.prolog.dynamic("tuple/4")
 
-app.state.log = get_logger()
+prolog = Prolog()
+prolog.consult("app/zanzibar.pl")
+prolog.dynamic("config/3")
+prolog.dynamic("tuple/4")
+
+log = get_logger()
+
+mutex = Lock()
 
 
 @app.post("/write-schema")
@@ -30,18 +35,27 @@ def write_schema(req: WriteSchemaRequest):
             )
 
         s = config.to_prolog()
-        app.state.log.info("assertz", config=s)
+        log.info("assertz", config=s)
 
-        if len(list(app.state.prolog.query(s))) == 0:
-            app.state.log.info("assertz", config=s)
-            app.state.prolog.assertz(s)
+        mutex.acquire()
+        try:
+            if len(list(prolog.query(s))) == 0:
+                log.info("assertz", config=s)
+                prolog.assertz(s)
+        finally:
+            mutex.release()
 
     return {}
 
 
 @app.post("/delete-schema")
 def delete_schema():
-    app.state.prolog.retractall("config(_, _, _)")
+    mutex.acquire()
+    try:
+        prolog.retractall("config(_, _, _)")
+    finally:
+        mutex.release()
+
     return {}
 
 
@@ -54,9 +68,14 @@ def write_tuples(req: WriteTuplesRequest):
             )
 
         t = tuple.to_prolog()
-        if len(list(app.state.prolog.query(t))) == 0:
-            app.state.prolog.assertz(t)
-            app.state.log.info("assertz", tuple=t)
+
+        mutex.acquire()
+        try:
+            if len(list(prolog.query(t))) == 0:
+                prolog.assertz(t)
+                log.info("assertz", tuple=t)
+        finally:
+            mutex.release()
 
     return {}
 
@@ -64,19 +83,25 @@ def write_tuples(req: WriteTuplesRequest):
 @app.post("/delete-tuples")
 def delete_tuples(req: DeleteTuplesRequest):
     for tuple in req.tuples:
+        mutex.acquire()
         try:
-            app.state.prolog.retract(tuple.to_prolog())
+            prolog.retract(tuple.to_prolog())
         except StopIteration:
-            app.state.log.info(
-                "tried to delete tuple which does not exist", tuple=tuple
-            )
+            log.info("tried to delete tuple which does not exist", tuple=tuple)
+        finally:
+            mutex.release()
 
     return {}
 
 
 @app.post("/delete-all-tuples")
 def delete_tuples():
-    app.state.prolog.retractall("tuple(_, _, _, _)")
+    mutex.acquire()
+    try:
+        prolog.retractall("tuple(_, _, _, _)")
+    finally:
+        mutex.release()
+
     return {}
 
 
@@ -86,13 +111,18 @@ def check(req: CheckRequest):
         raise HTTPException(status_code=400, detail=f"user not valid: {user}")
 
     query = f"check({req.namespace}, {req.id}, {req.relation}, {req.user})"
-    check = list(app.state.prolog.query(query))
+
+    mutex.acquire()
+    try:
+        check = list(prolog.query(query))
+    finally:
+        mutex.release()
 
     allowed = False
     if len(check) == 1:
         allowed = True
 
-    app.state.log.info("check", query=query, allowed=allowed)
+    log.info("check", query=query, allowed=allowed)
 
     return {"allowed": allowed}
 
@@ -103,7 +133,14 @@ def check(req: ListObjectsRequest):
         raise HTTPException(status_code=400, detail=f"user not valid: {user}")
 
     query = f"list({req.namespace}, X, {req.relation}, {req.user})"
-    objs = [obj["X"] for obj in app.state.prolog.query(query)]
+
+    mutex.acquire()
+    try:
+        res = prolog.query(query)
+    finally:
+        mutex.release()
+
+    objs = [obj["X"] for obj in res]
 
     app.state.log.info("check", query=query, objs=objs)
 
