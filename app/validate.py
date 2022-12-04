@@ -4,7 +4,7 @@ pattern = "^[a-z][a-zA-Z0-9_-]*$"
 
 
 def validate_rewrite(rewrite: str) -> bool:
-    rewrite = re.sub("\s+", "", rewrite)
+    rewrite = re.sub(r"\s+", "", rewrite)
 
     if rewrite == "self":
         return True
@@ -27,7 +27,7 @@ def validate_rewrite(rewrite: str) -> bool:
 
 
 def validate_user(user: str) -> bool:
-    user = re.sub("\s+", "", user)
+    user = re.sub(r"\s+", "", user)
 
     if user.startswith("object(") and user.endswith(")"):
         try:

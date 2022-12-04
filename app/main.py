@@ -1,7 +1,7 @@
 from fastapi import FastAPI, HTTPException
 from pyswip import Prolog
 from structlog import get_logger
-from .schemas import (
+from .schema import (
     CheckRequest,
     ListObjectsRequest,
     WriteSchemaRequest,
