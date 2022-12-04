@@ -21,7 +21,6 @@ prolog.dynamic("config/3")
 prolog.dynamic("tuple/4")
 
 log = get_logger()
-
 mutex = Lock()
 
 
@@ -142,6 +141,16 @@ def check(req: ListObjectsRequest):
 
     objs = [obj["X"] for obj in res]
 
-    app.state.log.info("check", query=query, objs=objs)
+    log.info("check", query=query, objs=objs)
 
     return {"object_ids": objs}
+
+
+@app.on_event("startup")
+def shutdown_event():
+    log.info("🙌 starting nungwi")
+
+
+@app.on_event("shutdown")
+def shutdown_event():
+    log.info("shutting down nungwi 👋")
