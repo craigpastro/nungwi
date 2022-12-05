@@ -1,6 +1,8 @@
 import re
 
+# pattern is used to match underlying namespace or relation names
 pattern = "^[a-z][a-zA-Z0-9_-]*$"
+id_pattern = "^[a-zA-Z0-9_-]+$"
 
 
 def validate_rewrite(rewrite: str) -> bool:
@@ -34,7 +36,7 @@ def validate_user(user: str) -> bool:
             namespace, id = user[7:-1].split(",")
         except ValueError:
             return False
-        return re.match(pattern, namespace) and re.match(pattern, id)
+        return re.match(pattern, namespace) and re.match(id_pattern, id)
     elif user.startswith("userset(") and user.endswith(")"):
         try:
             namespace, id, relation = user[8:-1].split(",")
@@ -42,7 +44,7 @@ def validate_user(user: str) -> bool:
             return False
         return (
             re.match(pattern, namespace)
-            and re.match(pattern, id)
+            and re.match(id_pattern, id)
             and re.match(pattern, relation)
         )
     else:
