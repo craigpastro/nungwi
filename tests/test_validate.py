@@ -27,3 +27,19 @@ def test_validate_exclusion_rewrite():
     assert validate_rewrite(
         "exclusion(computedUserset(writer), computedUserset(banned))"
     )
+
+
+def test_validate_user_id():
+    assert validate_user("abigail")
+    assert not validate_user("1")
+
+
+def test_validate_user_object():
+    assert validate_user("object(document, 1)")
+    assert not validate_user("object(1, 1)")
+
+
+def test_validate_user_userset():
+    assert validate_user("userset(document, 1, viewer)")
+    assert not validate_user("object(1, 1, viewer)")
+    assert not validate_user("object(document, 1, 1)")

@@ -1,8 +1,8 @@
 # Nungwi
 
-Nungwi is a authorization service inspired by [Google Zanzibar](https://research.google/pubs/pub48190/). It is also is a village located at the northern end of the island of Zanzibar.
+Nungwi is a authorization service inspired by [Google Zanzibar](https://research.google/pubs/pub48190/). It is written in Prolog and wrapped with Python. Nungwi is also is a village located at the northern end of the island of Zanzibar.
 
-Nungwi is extremely experimental and is very much a WIP.
+This is very much a WIP and I welcome all contributions!
 
 ## Example Usage
 
