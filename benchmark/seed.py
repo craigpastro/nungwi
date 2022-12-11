@@ -26,7 +26,7 @@ def write_tuples(reqs, num_tuples_per_req):
             tuples.append(
                 {
                     "namespace": "document",
-                    "id": f"{i}-{j}",
+                    "id": f"{i}A{j}",
                     "relation": "viewer",
                     "user": "abigail",
                 }
