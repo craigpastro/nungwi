@@ -12,11 +12,10 @@ import (
 	"github.com/bufbuild/connect-go"
 	grpcreflect "github.com/bufbuild/connect-grpcreflect-go"
 	"github.com/craigpastro/nungwi/internal/gen/nungwi/v1alpha/nungwiv1alphaconnect"
-	"github.com/craigpastro/nungwi/internal/interpreter"
 	"github.com/craigpastro/nungwi/internal/middleware"
+	"github.com/craigpastro/nungwi/internal/prolog"
 	"github.com/craigpastro/nungwi/server"
 	"github.com/felixge/fgtrace"
-	"github.com/ichiban/prolog"
 	"github.com/sethvargo/go-envconfig"
 	"go.uber.org/zap"
 	"golang.org/x/net/http2"
@@ -34,12 +33,10 @@ func main() {
 		log.Fatal(err)
 	}
 
-	run(&config)
+	run(&config, zap.Must(zap.NewDevelopment()))
 }
 
-func run(config *config) {
-	logger := zap.Must(zap.NewDevelopment())
-
+func run(config *config, logger *zap.Logger) {
 	if config.EnableProfiler {
 		http.Handle("/debug/fgtrace", fgtrace.Config{})
 		srv := &http.Server{
@@ -59,19 +56,14 @@ func run(config *config) {
 	}
 
 	ctx := context.Background()
-
-	interpreter := interpreter.NewInterpreter(prolog.New(nil, nil))
-	err := interpreter.Interpreter.Compile(ctx, "tuple(a, b, c, d). human(craig).")
-	if err != nil {
-		panic(err)
-	}
+	p := prolog.MustNew(logger)
 
 	mux := http.NewServeMux()
 	reflector := grpcreflect.NewStaticReflector(nungwiv1alphaconnect.NungwiServiceName)
 	mux.Handle(grpcreflect.NewHandlerV1(reflector))
 	mux.Handle(grpcreflect.NewHandlerV1Alpha(reflector))
 	mux.Handle(nungwiv1alphaconnect.NewNungwiServiceHandler(
-		server.NewServer(interpreter, logger),
+		server.NewServer(p, logger),
 		connect.WithInterceptors(
 			middleware.NewLoggingInterceptor(logger),
 		),
@@ -84,7 +76,7 @@ func run(config *config) {
 	}
 
 	go func() {
-		logger.Info("starting nungwi", zap.String("addr", srv.Addr))
+		logger.Info("🙌 starting nungwi", zap.String("addr", srv.Addr))
 
 		if err := srv.ListenAndServe(); err != nil && err != http.ErrServerClosed {
 			logger.Fatal("failed to start nungwi", zap.Error(err))
@@ -104,5 +96,5 @@ func run(config *config) {
 		log.Fatal("nungwi shutdown failed", zap.Error(err))
 	}
 
-	logger.Info("nungwi shutdown gracefully. goodbye 👋")
+	logger.Info("nungwi shutdown gracefully. bye 👋")
 }

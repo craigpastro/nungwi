@@ -6,31 +6,40 @@ import (
 	"github.com/bufbuild/connect-go"
 	pb "github.com/craigpastro/nungwi/internal/gen/nungwi/v1alpha"
 	"github.com/craigpastro/nungwi/internal/gen/nungwi/v1alpha/nungwiv1alphaconnect"
-	"github.com/craigpastro/nungwi/internal/interpreter"
+	"github.com/craigpastro/nungwi/internal/prolog"
 	"go.uber.org/zap"
 )
 
 type server struct {
 	nungwiv1alphaconnect.UnimplementedNungwiServiceHandler
 
-	Interpreter *interpreter.Interpreter
-	Logger      *zap.Logger
+	prolog *prolog.Prolog
+	logger *zap.Logger
 }
 
-func NewServer(interpreter *interpreter.Interpreter, logger *zap.Logger) *server {
+func NewServer(prolog *prolog.Prolog, logger *zap.Logger) *server {
 	return &server{
-		Interpreter: interpreter,
-		Logger:      logger,
+		prolog: prolog,
+		logger: logger,
 	}
 }
 
 func (s *server) WriteSchema(ctx context.Context, req *connect.Request[pb.WriteSchemaRequest]) (*connect.Response[pb.WriteSchemaResponse], error) {
+	if err := s.prolog.WriteSchema(ctx, req.Msg.GetConfigs()); err != nil {
+		return nil, err
+	}
+
 	return connect.NewResponse(&pb.WriteSchemaResponse{}), nil
 }
 
 func (s *server) GetSchema(ctx context.Context, req *connect.Request[pb.GetSchemaRequest]) (*connect.Response[pb.GetSchemaResponse], error) {
+	configs, err := s.prolog.GetSchema(ctx)
+	if err != nil {
+		return nil, err
+	}
+
 	return connect.NewResponse(&pb.GetSchemaResponse{
-		Namespaces: nil,
+		Configs: configs,
 	}), nil
 }
 
@@ -38,24 +47,58 @@ func (s *server) DeleteSchema(ctx context.Context, req *connect.Request[pb.Delet
 	return connect.NewResponse(&pb.DeleteSchemaResponse{}), nil
 }
 
-func (s *server) AddTuples(ctx context.Context, req *connect.Request[pb.AddTuplesRequest]) (*connect.Response[pb.AddTuplesResponse], error) {
-	if err := s.Interpreter.AddTuples(ctx, req.Msg.GetTuples()); err != nil {
+func (s *server) WriteTuples(ctx context.Context, req *connect.Request[pb.WriteTuplesRequest]) (*connect.Response[pb.WriteTuplesResponse], error) {
+	if err := s.prolog.WriteTuples(ctx, req.Msg.GetTuples()); err != nil {
 		return nil, err
 	}
 
-	return connect.NewResponse(&pb.AddTuplesResponse{}), nil
+	return connect.NewResponse(&pb.WriteTuplesResponse{}), nil
+}
+
+func (s *server) GetTuples(ctx context.Context, req *connect.Request[pb.GetTuplesRequest]) (*connect.Response[pb.GetTuplesResponse], error) {
+	tuples, err := s.prolog.GetTuples(ctx)
+	if err != nil {
+		return nil, err
+	}
+
+	return connect.NewResponse(&pb.GetTuplesResponse{
+		Tuples: tuples,
+	}), nil
 }
 
 func (s *server) DeleteTuples(ctx context.Context, req *connect.Request[pb.DeleteTuplesRequest]) (*connect.Response[pb.DeleteTuplesResponse], error) {
-	if err := s.Interpreter.DeleteTuples(ctx, req.Msg.GetTuples()); err != nil {
+	if err := s.prolog.DeleteTuples(ctx, req.Msg.GetTuples()); err != nil {
 		return nil, err
 	}
 
 	return connect.NewResponse(&pb.DeleteTuplesResponse{}), nil
 }
 
-func (s *server) Checks(ctx context.Context, req *connect.Request[pb.ChecksRequest]) (*connect.Response[pb.ChecksResponse], error) {
-	return connect.NewResponse(&pb.ChecksResponse{
-		Results: nil,
+func (s *server) Check(ctx context.Context, req *connect.Request[pb.CheckRequest]) (*connect.Response[pb.CheckResponse], error) {
+	msg := req.Msg
+	allowed, err := s.prolog.Check(ctx, &pb.Tuple{
+		Namespace: msg.GetNamespace(),
+		Id:        msg.GetId(),
+		Relation:  msg.GetRelation(),
+		User:      msg.GetUser(),
+	})
+	if err != nil {
+		return nil, err
+	}
+
+	return connect.NewResponse(&pb.CheckResponse{
+		Allowed: allowed,
+	}), nil
+}
+
+func (s *server) ListObjects(ctx context.Context, req *connect.Request[pb.ListObjectsRequest]) (*connect.Response[pb.ListObjectsResponse], error) {
+	msg := req.Msg
+	ids, err := s.prolog.ListObjects(ctx, msg.GetNamespace(), msg.GetRelation(), msg.GetUser())
+	if err != nil {
+		return nil, err
+	}
+
+	return connect.NewResponse(&pb.ListObjectsResponse{
+		Ids: ids,
 	}), nil
 }

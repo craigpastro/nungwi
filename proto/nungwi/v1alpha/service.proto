@@ -9,17 +9,60 @@ service NungwiService {
 
   rpc GetSchema(GetSchemaRequest) returns (GetSchemaResponse) {}
 
-  rpc DeleteModel(DeleteSchemaRequest) returns (DeleteSchemaResponse) {}
+  rpc DeleteSchema(DeleteSchemaRequest) returns (DeleteSchemaResponse) {}
 
-  rpc AddTuples(AddTuplesRequest) returns (AddTuplesResponse) {}
+  rpc WriteTuples(WriteTuplesRequest) returns (WriteTuplesResponse) {}
+
+  rpc GetTuples(GetTuplesRequest) returns (GetTuplesResponse) {}
 
   rpc DeleteTuples(DeleteTuplesRequest) returns (DeleteTuplesResponse) {}
 
-  rpc Checks(ChecksRequest) returns (ChecksResponse) {}
+  rpc Check(CheckRequest) returns (CheckResponse) {}
+
+  rpc ListObjects(ListObjectsRequest) returns (ListObjectsResponse) {}
+}
+
+message RelationConfig {
+  string namespace = 1 [(validate.rules).string = {
+    min_len: 1,
+    max_len: 500
+  }];
+
+  string relation = 2 [(validate.rules).string = {
+    min_len: 1,
+    max_len: 500
+  }];
+
+  string rewrite = 3 [(validate.rules).string = {
+    min_len: 1,
+    max_len: 1000
+  }];
+}
+
+message Tuple {
+  string namespace = 1 [(validate.rules).string = {
+    min_len: 1,
+    max_len: 500
+  }];
+
+  string id = 2 [(validate.rules).string = {
+    min_len: 1,
+    max_len: 500
+  }];
+
+  string relation = 3 [(validate.rules).string = {
+    min_len: 1,
+    max_len: 500
+  }];
+
+  string user = 4 [(validate.rules).string = {
+    min_len: 1,
+    max_len: 500
+  }];
 }
 
 message WriteSchemaRequest {
-  map<string, Namespace> namespaces = 1;
+  repeated RelationConfig configs = 1;
 }
 
 message WriteSchemaResponse {}
@@ -27,112 +70,76 @@ message WriteSchemaResponse {}
 message GetSchemaRequest {}
 
 message GetSchemaResponse {
-  map<string, Namespace> namespaces = 1;
+  repeated RelationConfig configs = 1;
 }
 
 message DeleteSchemaRequest {}
 
 message DeleteSchemaResponse {}
 
-message AddTuplesRequest {
-  repeated Tuple tuples = 2;
+message WriteTuplesRequest {
+  repeated Tuple tuples = 1;
 }
 
-message AddTuplesResponse {}
+message WriteTuplesResponse {}
+
+message GetTuplesRequest {}
+
+message GetTuplesResponse {
+  repeated Tuple tuples = 1;
+}
 
 message DeleteTuplesRequest {
-  repeated Tuple tuples = 2;
+  repeated Tuple tuples = 1;
 }
 
 message DeleteTuplesResponse {}
 
-message ChecksRequest {
-  repeated Tuple tuples = 2;
-}
-
-message ChecksResponse {
-  repeated bool results = 1;
-}
-
-message Tuple {
-  Object object = 1 [(validate.rules).message.required = true];
-  string relation = 2 [(validate.rules).string = {
-    min_len: 1,
-    max_len: 100
-  }];
-  User user = 3 [(validate.rules).message.required = true];
-}
-
-message Object {
+message CheckRequest {
   string namespace = 1 [(validate.rules).string = {
     min_len: 1,
-    max_len: 100
+    max_len: 500
   }];
+
   string id = 2 [(validate.rules).string = {
     min_len: 1,
-    max_len: 100
+    max_len: 500
+  }];
+
+  string relation = 3 [(validate.rules).string = {
+    min_len: 1,
+    max_len: 500
+  }];
+
+  string user = 4 [(validate.rules).string = {
+    min_len: 1,
+    max_len: 500
   }];
 }
 
-message User {
-  oneof ref {
-    string id = 1 [(validate.rules).string = {
-      min_len: 1,
-      max_len: 100
-    }];
-    Object object = 2;
-    Userset userset = 3;
-  }
+message CheckResponse {
+  bool allowed = 1;
 }
 
-message Userset {
-  Object object = 1 [(validate.rules).message.required = true];
-  string relation = 2;
+message ListObjectsRequest {
+  string namespace = 1 [(validate.rules).string = {
+    min_len: 1,
+    max_len: 500
+  }];
+
+  string relation = 3 [(validate.rules).string = {
+    min_len: 1,
+    max_len: 500
+  }];
+
+  string user = 4 [(validate.rules).string = {
+    min_len: 1,
+    max_len: 500
+  }];
 }
 
-message Namespace {
-  string name = 1;
-  map<string, UsersetRewrite> relations = 2;
-}
-
-message UsersetRewrite {
-  oneof rewrite {
-    This this = 1;
-    ComputedUserset computed_userset = 2;
-    TupleToUserset tuple_to_userset = 3;
-    Union union = 4;
-    Intersection intersection = 5;
-    Exclusion exclusion = 6;
-  }
-}
-
-message This {}
-
-message ComputedUserset {
-  string relation = 1;
-}
-
-message TupleToUserset {
-  string tupleset = 1;
-  string computed_userset = 2;
-}
-
-message Union {
-  repeated UsersetRewrite children = 1;
-}
-
-message Intersection {
-  repeated UsersetRewrite children = 1;
-}
-
-message Exclusion {
-  UsersetRewrite minuend = 1;
-  UsersetRewrite subtrahend = 2;
-}
-
-// Namespaces is only used for marshalling for storage
-message Namespaces {
-  map<string, Namespace> namespaces = 1;
+message ListObjectsResponse {
+  repeated string ids = 1;
 }
 
 // Tuples is only used for testing
