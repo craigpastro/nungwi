@@ -65,6 +65,7 @@ func run(config *config, logger *zap.Logger) {
 	mux.Handle(nungwiv1alphaconnect.NewNungwiServiceHandler(
 		server.NewServer(p, logger),
 		connect.WithInterceptors(
+			middleware.NewValidatorInterceptor(),
 			middleware.NewLoggingInterceptor(logger),
 		),
 	))

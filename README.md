@@ -22,6 +22,11 @@ $ curl -XPOST 'http://localhost:8080/nungwi.v1alpha.NungwiService/WriteSchema' \
         },
         {
             "namespace": "document",
+            "relation": "parent",
+            "rewrite": "self"
+        },
+        {
+            "namespace": "document",
             "relation": "viewer",
             "rewrite": "union(self, tupleToUserset(parent, viewer))"
         }
