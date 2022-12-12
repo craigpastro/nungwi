@@ -1,0 +1,60 @@
+ab -n 2000 -c 20 -p body.txt -T application/json http://127.0.0.1:8000/check
+
+
+This is ApacheBench, Version 2.3 <$Revision: 1901567 $>
+Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
+Licensed to The Apache Software Foundation, http://www.apache.org/
+
+Benchmarking 127.0.0.1 (be patient)
+Completed 200 requests
+Completed 400 requests
+Completed 600 requests
+Completed 800 requests
+Completed 1000 requests
+Completed 1200 requests
+Completed 1400 requests
+Completed 1600 requests
+Completed 1800 requests
+Completed 2000 requests
+Finished 2000 requests
+
+
+Server Software:        uvicorn
+Server Hostname:        127.0.0.1
+Server Port:            8000
+
+Document Path:          /check
+Document Length:        17 bytes
+
+Concurrency Level:      20
+Time taken for tests:   3.325 seconds
+Complete requests:      2000
+Failed requests:        0
+Total transferred:      322000 bytes
+Total body sent:        472000
+HTML transferred:       34000 bytes
+Requests per second:    601.45 [#/sec] (mean)
+Time per request:       33.253 [ms] (mean)
+Time per request:       1.663 [ms] (mean, across all concurrent requests)
+Transfer rate:          94.56 [Kbytes/sec] received
+                        138.62 kb/s sent
+                        233.18 kb/s total
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:        0    0   0.8      0      12
+Processing:     6   33  12.9     28      93
+Waiting:        5   29  12.1     25      87
+Total:          6   33  13.0     28      93
+
+Percentage of the requests served within a certain time (ms)
+  50%     28
+  66%     31
+  75%     34
+  80%     36
+  90%     54
+  95%     67
+  98%     72
+  99%     78
+ 100%     93 (longest request)
+ 

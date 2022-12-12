@@ -1,0 +1,188 @@
+{
+	"info": {
+		"_postman_id": "a883b9a1-38f7-4b9f-b460-53fab5f513ae",
+		"name": "Nungwi",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17972870"
+	},
+	"item": [
+		{
+			"name": "Write schema",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"configs\": [\n        {\n            \"namespace\": \"folder\",\n            \"relation\": \"viewer\",\n            \"rewrite\": \"self\"\n        },\n        {\n            \"namespace\": \"document\",\n            \"relation\": \"viewer\",\n            \"rewrite\": \"union(self, tupleToUserset(parent, viewer))\"\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/write-schema",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"write-schema"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Write tuples",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"tuples\": [\n        {\n            \"namespace\": \"folder\",\n            \"id\": \"x\",\n            \"relation\": \"viewer\",\n            \"user\": \"abigail\"\n        },\n        {\n            \"namespace\": \"document\",\n            \"id\": \"1\",\n            \"relation\": \"parent\",\n            \"user\": \"object(folder, x)\"\n        },\n        {\n            \"namespace\": \"document\",\n            \"id\": \"2\",\n            \"relation\": \"parent\",\n            \"user\": \"object(folder, x)\"\n        },\n        {\n            \"namespace\": \"document\",\n            \"id\": \"1\",\n            \"relation\": \"viewer\",\n            \"user\": \"beatrix\"\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/write-tuples",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"write-tuples"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Check",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"namespace\": \"document\",\n    \"id\": \"1\",\n    \"relation\": \"viewer\",\n    \"user\": \"abigail\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/check",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"check"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List objects",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"namespace\": \"document\",\n    \"relation\": \"viewer\",\n    \"user\": \"abigail\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/list-objects",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"list-objects"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete schema",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/delete-schema",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"delete-schema"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete tuples",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"tuples\": [\n        {\n            \"namespace\": \"folder\",\n            \"id\": \"x\",\n            \"relation\": \"viewer\",\n            \"user\": \"abigail\"\n        },\n        {\n            \"namespace\": \"document\",\n            \"id\": \"1\",\n            \"relation\": \"parent\",\n            \"user\": \"object(folder, x)\"\n        },\n        {\n            \"namespace\": \"document\",\n            \"id\": \"2\",\n            \"relation\": \"parent\",\n            \"user\": \"object(folder, x)\"\n        },\n        {\n            \"namespace\": \"document\",\n            \"id\": \"1\",\n            \"relation\": \"viewer\",\n            \"user\": \"beatrix\"\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/delete-tuples",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"delete-tuples"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete all tuples",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/delete-all-tuples",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"delete-all-tuples"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
