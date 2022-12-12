@@ -23,7 +23,7 @@ import (
 )
 
 type config struct {
-	Addr           string `env:"ADDR,default=0.0.0.0:8080"`
+	Addr           string `env:"ADDR,default=:8080"`
 	EnableProfiler bool   `env:"ENABLE_PROFILER,default=false"`
 }
 
@@ -33,7 +33,9 @@ func main() {
 		log.Fatal(err)
 	}
 
-	run(&config, zap.Must(zap.NewDevelopment()))
+	logger := zap.Must(zap.NewDevelopment())
+
+	run(&config, logger)
 }
 
 func run(config *config, logger *zap.Logger) {
