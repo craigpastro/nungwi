@@ -264,7 +264,7 @@ func (m *Tuple) validate(all bool) error {
 	if !_Tuple_Id_Pattern.MatchString(m.GetId()) {
 		err := TupleValidationError{
 			field:  "Id",
-			reason: "value does not match regex pattern \"^[a-z0-9][-_a-zA-Z0-9]*$\"",
+			reason: "value does not match regex pattern \"^[a-z][-_a-zA-Z0-9]*$\"",
 		}
 		if !all {
 			return err
@@ -395,7 +395,7 @@ var _ interface {
 
 var _Tuple_Namespace_Pattern = regexp.MustCompile("^[a-z][-_a-zA-Z0-9]*$")
 
-var _Tuple_Id_Pattern = regexp.MustCompile("^[a-z0-9][-_a-zA-Z0-9]*$")
+var _Tuple_Id_Pattern = regexp.MustCompile("^[a-z][-_a-zA-Z0-9]*$")
 
 var _Tuple_Relation_Pattern = regexp.MustCompile("^[a-z][-_a-zA-Z0-9]*$")
 
@@ -1849,7 +1849,7 @@ func (m *CheckRequest) validate(all bool) error {
 	if !_CheckRequest_Id_Pattern.MatchString(m.GetId()) {
 		err := CheckRequestValidationError{
 			field:  "Id",
-			reason: "value does not match regex pattern \"^[a-z0-9][-_a-zA-Z0-9]*$\"",
+			reason: "value does not match regex pattern \"^[a-z][-_a-zA-Z0-9]*$\"",
 		}
 		if !all {
 			return err
@@ -1980,7 +1980,7 @@ var _ interface {
 
 var _CheckRequest_Namespace_Pattern = regexp.MustCompile("^[a-z][-_a-zA-Z0-9]*$")
 
-var _CheckRequest_Id_Pattern = regexp.MustCompile("^[a-z0-9][-_a-zA-Z0-9]*$")
+var _CheckRequest_Id_Pattern = regexp.MustCompile("^[a-z][-_a-zA-Z0-9]*$")
 
 var _CheckRequest_Relation_Pattern = regexp.MustCompile("^[a-z][-_a-zA-Z0-9]*$")
 

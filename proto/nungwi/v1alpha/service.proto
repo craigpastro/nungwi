@@ -46,7 +46,7 @@ message Tuple {
   }];
 
   string id = 2 [(validate.rules).string = {
-    pattern: "^[a-z0-9][-_a-zA-Z0-9]*$",
+    pattern: "^[a-z][-_a-zA-Z0-9]*$",
     max_bytes: 256
   }];
 
@@ -102,7 +102,7 @@ message CheckRequest {
   }];
 
   string id = 2 [(validate.rules).string = {
-    pattern: "^[a-z0-9][-_a-zA-Z0-9]*$",
+    pattern: "^[a-z][-_a-zA-Z0-9]*$",
     max_bytes: 256
   }];
 
