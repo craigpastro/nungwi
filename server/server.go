@@ -2,6 +2,7 @@ package server
 
 import (
 	"context"
+	"errors"
 
 	"github.com/bufbuild/connect-go"
 	pb "github.com/craigpastro/nungwi/internal/gen/nungwi/v1alpha"
@@ -25,6 +26,15 @@ func NewServer(prolog *prolog.Prolog, logger *zap.Logger) *server {
 }
 
 func (s *server) WriteSchema(ctx context.Context, req *connect.Request[pb.WriteSchemaRequest]) (*connect.Response[pb.WriteSchemaResponse], error) {
+	schema, err := s.prolog.GetSchema(ctx)
+	if err != nil {
+		return nil, err
+	}
+
+	if len(schema) > 0 {
+		return nil, connect.NewError(connect.CodeAlreadyExists, errors.New("schema already exists"))
+	}
+
 	if err := s.prolog.WriteSchema(ctx, req.Msg.GetConfigs()); err != nil {
 		return nil, err
 	}
@@ -44,6 +54,19 @@ func (s *server) GetSchema(ctx context.Context, req *connect.Request[pb.GetSchem
 }
 
 func (s *server) DeleteSchema(ctx context.Context, req *connect.Request[pb.DeleteSchemaRequest]) (*connect.Response[pb.DeleteSchemaResponse], error) {
+	tuples, err := s.prolog.GetTuples(ctx)
+	if err != nil {
+		return nil, err
+	}
+
+	if len(tuples) > 0 {
+		return nil, connect.NewError(connect.CodeFailedPrecondition, errors.New("please remove all tuples before deleting schema"))
+	}
+
+	if err := s.prolog.DeleteSchema(ctx); err != nil {
+		return nil, err
+	}
+
 	return connect.NewResponse(&pb.DeleteSchemaResponse{}), nil
 }
 

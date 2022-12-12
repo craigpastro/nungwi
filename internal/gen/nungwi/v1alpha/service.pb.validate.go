@@ -57,10 +57,10 @@ func (m *RelationConfig) validate(all bool) error {
 
 	var errors []error
 
-	if l := utf8.RuneCountInString(m.GetNamespace()); l < 1 || l > 500 {
+	if len(m.GetNamespace()) > 256 {
 		err := RelationConfigValidationError{
 			field:  "Namespace",
-			reason: "value length must be between 1 and 500 runes, inclusive",
+			reason: "value length must be at most 256 bytes",
 		}
 		if !all {
 			return err
@@ -68,10 +68,21 @@ func (m *RelationConfig) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if l := utf8.RuneCountInString(m.GetRelation()); l < 1 || l > 500 {
+	if !_RelationConfig_Namespace_Pattern.MatchString(m.GetNamespace()) {
+		err := RelationConfigValidationError{
+			field:  "Namespace",
+			reason: "value does not match regex pattern \"^[a-zA-Z0-9]+$\"",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(m.GetRelation()) > 256 {
 		err := RelationConfigValidationError{
 			field:  "Relation",
-			reason: "value length must be between 1 and 500 runes, inclusive",
+			reason: "value length must be at most 256 bytes",
 		}
 		if !all {
 			return err
@@ -79,10 +90,32 @@ func (m *RelationConfig) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if l := utf8.RuneCountInString(m.GetRewrite()); l < 1 || l > 1000 {
+	if !_RelationConfig_Relation_Pattern.MatchString(m.GetRelation()) {
+		err := RelationConfigValidationError{
+			field:  "Relation",
+			reason: "value does not match regex pattern \"^[a-zA-Z0-9]+$\"",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(m.GetRewrite()) > 1024 {
 		err := RelationConfigValidationError{
 			field:  "Rewrite",
-			reason: "value length must be between 1 and 1000 runes, inclusive",
+			reason: "value length must be at most 1024 bytes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if !_RelationConfig_Rewrite_Pattern.MatchString(m.GetRewrite()) {
+		err := RelationConfigValidationError{
+			field:  "Rewrite",
+			reason: "value does not match regex pattern \"^[a-zA-Z0-9(), ]+$\"",
 		}
 		if !all {
 			return err
@@ -168,6 +201,12 @@ var _ interface {
 	ErrorName() string
 } = RelationConfigValidationError{}
 
+var _RelationConfig_Namespace_Pattern = regexp.MustCompile("^[a-zA-Z0-9]+$")
+
+var _RelationConfig_Relation_Pattern = regexp.MustCompile("^[a-zA-Z0-9]+$")
+
+var _RelationConfig_Rewrite_Pattern = regexp.MustCompile("^[a-zA-Z0-9(), ]+$")
+
 // Validate checks the field values on Tuple with the rules defined in the
 // proto definition for this message. If any rules are violated, the first
 // error encountered is returned, or nil if there are no violations.
@@ -189,10 +228,10 @@ func (m *Tuple) validate(all bool) error {
 
 	var errors []error
 
-	if l := utf8.RuneCountInString(m.GetNamespace()); l < 1 || l > 500 {
+	if len(m.GetNamespace()) > 256 {
 		err := TupleValidationError{
 			field:  "Namespace",
-			reason: "value length must be between 1 and 500 runes, inclusive",
+			reason: "value length must be at most 256 bytes",
 		}
 		if !all {
 			return err
@@ -200,10 +239,21 @@ func (m *Tuple) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if l := utf8.RuneCountInString(m.GetId()); l < 1 || l > 500 {
+	if !_Tuple_Namespace_Pattern.MatchString(m.GetNamespace()) {
+		err := TupleValidationError{
+			field:  "Namespace",
+			reason: "value does not match regex pattern \"^[a-zA-Z0-9]+$\"",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(m.GetId()) > 256 {
 		err := TupleValidationError{
 			field:  "Id",
-			reason: "value length must be between 1 and 500 runes, inclusive",
+			reason: "value length must be at most 256 bytes",
 		}
 		if !all {
 			return err
@@ -211,10 +261,21 @@ func (m *Tuple) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if l := utf8.RuneCountInString(m.GetRelation()); l < 1 || l > 500 {
+	if !_Tuple_Id_Pattern.MatchString(m.GetId()) {
+		err := TupleValidationError{
+			field:  "Id",
+			reason: "value does not match regex pattern \"^[a-zA-Z0-9]+$\"",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(m.GetRelation()) > 256 {
 		err := TupleValidationError{
 			field:  "Relation",
-			reason: "value length must be between 1 and 500 runes, inclusive",
+			reason: "value length must be at most 256 bytes",
 		}
 		if !all {
 			return err
@@ -222,10 +283,32 @@ func (m *Tuple) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if l := utf8.RuneCountInString(m.GetUser()); l < 1 || l > 500 {
+	if !_Tuple_Relation_Pattern.MatchString(m.GetRelation()) {
+		err := TupleValidationError{
+			field:  "Relation",
+			reason: "value does not match regex pattern \"^[a-zA-Z0-9]+$\"",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(m.GetUser()) > 512 {
 		err := TupleValidationError{
 			field:  "User",
-			reason: "value length must be between 1 and 500 runes, inclusive",
+			reason: "value length must be at most 512 bytes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if !_Tuple_User_Pattern.MatchString(m.GetUser()) {
+		err := TupleValidationError{
+			field:  "User",
+			reason: "value does not match regex pattern \"^[a-zA-Z0-9(), ]+$\"",
 		}
 		if !all {
 			return err
@@ -309,6 +392,14 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = TupleValidationError{}
+
+var _Tuple_Namespace_Pattern = regexp.MustCompile("^[a-zA-Z0-9]+$")
+
+var _Tuple_Id_Pattern = regexp.MustCompile("^[a-zA-Z0-9]+$")
+
+var _Tuple_Relation_Pattern = regexp.MustCompile("^[a-zA-Z0-9]+$")
+
+var _Tuple_User_Pattern = regexp.MustCompile("^[a-zA-Z0-9(), ]+$")
 
 // Validate checks the field values on WriteSchemaRequest with the rules
 // defined in the proto definition for this message. If any rules are
@@ -1722,10 +1813,10 @@ func (m *CheckRequest) validate(all bool) error {
 
 	var errors []error
 
-	if l := utf8.RuneCountInString(m.GetNamespace()); l < 1 || l > 500 {
+	if len(m.GetNamespace()) > 256 {
 		err := CheckRequestValidationError{
 			field:  "Namespace",
-			reason: "value length must be between 1 and 500 runes, inclusive",
+			reason: "value length must be at most 256 bytes",
 		}
 		if !all {
 			return err
@@ -1733,10 +1824,21 @@ func (m *CheckRequest) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if l := utf8.RuneCountInString(m.GetId()); l < 1 || l > 500 {
+	if !_CheckRequest_Namespace_Pattern.MatchString(m.GetNamespace()) {
+		err := CheckRequestValidationError{
+			field:  "Namespace",
+			reason: "value does not match regex pattern \"^[a-zA-Z0-9]+$\"",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(m.GetId()) > 256 {
 		err := CheckRequestValidationError{
 			field:  "Id",
-			reason: "value length must be between 1 and 500 runes, inclusive",
+			reason: "value length must be at most 256 bytes",
 		}
 		if !all {
 			return err
@@ -1744,10 +1846,21 @@ func (m *CheckRequest) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if l := utf8.RuneCountInString(m.GetRelation()); l < 1 || l > 500 {
+	if !_CheckRequest_Id_Pattern.MatchString(m.GetId()) {
+		err := CheckRequestValidationError{
+			field:  "Id",
+			reason: "value does not match regex pattern \"^[a-zA-Z0-9]+$\"",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(m.GetRelation()) > 256 {
 		err := CheckRequestValidationError{
 			field:  "Relation",
-			reason: "value length must be between 1 and 500 runes, inclusive",
+			reason: "value length must be at most 256 bytes",
 		}
 		if !all {
 			return err
@@ -1755,10 +1868,32 @@ func (m *CheckRequest) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if l := utf8.RuneCountInString(m.GetUser()); l < 1 || l > 500 {
+	if !_CheckRequest_Relation_Pattern.MatchString(m.GetRelation()) {
+		err := CheckRequestValidationError{
+			field:  "Relation",
+			reason: "value does not match regex pattern \"^[a-zA-Z0-9]+$\"",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(m.GetUser()) > 512 {
 		err := CheckRequestValidationError{
 			field:  "User",
-			reason: "value length must be between 1 and 500 runes, inclusive",
+			reason: "value length must be at most 512 bytes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if !_CheckRequest_User_Pattern.MatchString(m.GetUser()) {
+		err := CheckRequestValidationError{
+			field:  "User",
+			reason: "value does not match regex pattern \"^[a-zA-Z0-9(), ]+$\"",
 		}
 		if !all {
 			return err
@@ -1842,6 +1977,14 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = CheckRequestValidationError{}
+
+var _CheckRequest_Namespace_Pattern = regexp.MustCompile("^[a-zA-Z0-9]+$")
+
+var _CheckRequest_Id_Pattern = regexp.MustCompile("^[a-zA-Z0-9]+$")
+
+var _CheckRequest_Relation_Pattern = regexp.MustCompile("^[a-zA-Z0-9]+$")
+
+var _CheckRequest_User_Pattern = regexp.MustCompile("^[a-zA-Z0-9(), ]+$")
 
 // Validate checks the field values on CheckResponse with the rules defined in
 // the proto definition for this message. If any rules are violated, the first
@@ -1967,10 +2110,10 @@ func (m *ListObjectsRequest) validate(all bool) error {
 
 	var errors []error
 
-	if l := utf8.RuneCountInString(m.GetNamespace()); l < 1 || l > 500 {
+	if len(m.GetNamespace()) > 256 {
 		err := ListObjectsRequestValidationError{
 			field:  "Namespace",
-			reason: "value length must be between 1 and 500 runes, inclusive",
+			reason: "value length must be at most 256 bytes",
 		}
 		if !all {
 			return err
@@ -1978,10 +2121,21 @@ func (m *ListObjectsRequest) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if l := utf8.RuneCountInString(m.GetRelation()); l < 1 || l > 500 {
+	if !_ListObjectsRequest_Namespace_Pattern.MatchString(m.GetNamespace()) {
+		err := ListObjectsRequestValidationError{
+			field:  "Namespace",
+			reason: "value does not match regex pattern \"^[a-zA-Z0-9]+$\"",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(m.GetRelation()) > 256 {
 		err := ListObjectsRequestValidationError{
 			field:  "Relation",
-			reason: "value length must be between 1 and 500 runes, inclusive",
+			reason: "value length must be at most 256 bytes",
 		}
 		if !all {
 			return err
@@ -1989,10 +2143,32 @@ func (m *ListObjectsRequest) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if l := utf8.RuneCountInString(m.GetUser()); l < 1 || l > 500 {
+	if !_ListObjectsRequest_Relation_Pattern.MatchString(m.GetRelation()) {
+		err := ListObjectsRequestValidationError{
+			field:  "Relation",
+			reason: "value does not match regex pattern \"^[a-zA-Z0-9]+$\"",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(m.GetUser()) > 512 {
 		err := ListObjectsRequestValidationError{
 			field:  "User",
-			reason: "value length must be between 1 and 500 runes, inclusive",
+			reason: "value length must be at most 512 bytes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if !_ListObjectsRequest_User_Pattern.MatchString(m.GetUser()) {
+		err := ListObjectsRequestValidationError{
+			field:  "User",
+			reason: "value does not match regex pattern \"^[a-zA-Z0-9(), ]+$\"",
 		}
 		if !all {
 			return err
@@ -2079,6 +2255,12 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = ListObjectsRequestValidationError{}
+
+var _ListObjectsRequest_Namespace_Pattern = regexp.MustCompile("^[a-zA-Z0-9]+$")
+
+var _ListObjectsRequest_Relation_Pattern = regexp.MustCompile("^[a-zA-Z0-9]+$")
+
+var _ListObjectsRequest_User_Pattern = regexp.MustCompile("^[a-zA-Z0-9(), ]+$")
 
 // Validate checks the field values on ListObjectsResponse with the rules
 // defined in the proto definition for this message. If any rules are
