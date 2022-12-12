@@ -71,7 +71,7 @@ func (m *RelationConfig) validate(all bool) error {
 	if !_RelationConfig_Namespace_Pattern.MatchString(m.GetNamespace()) {
 		err := RelationConfigValidationError{
 			field:  "Namespace",
-			reason: "value does not match regex pattern \"^[a-z][a-zA-Z0-9]*$\"",
+			reason: "value does not match regex pattern \"^[a-z][-_a-zA-Z0-9]*$\"",
 		}
 		if !all {
 			return err
@@ -93,7 +93,7 @@ func (m *RelationConfig) validate(all bool) error {
 	if !_RelationConfig_Relation_Pattern.MatchString(m.GetRelation()) {
 		err := RelationConfigValidationError{
 			field:  "Relation",
-			reason: "value does not match regex pattern \"^[a-z][a-zA-Z0-9]*$\"",
+			reason: "value does not match regex pattern \"^[a-z][-_a-zA-Z0-9]*$\"",
 		}
 		if !all {
 			return err
@@ -115,7 +115,7 @@ func (m *RelationConfig) validate(all bool) error {
 	if !_RelationConfig_Rewrite_Pattern.MatchString(m.GetRewrite()) {
 		err := RelationConfigValidationError{
 			field:  "Rewrite",
-			reason: "value does not match regex pattern \"^[a-z][a-zA-Z0-9(), ]*$\"",
+			reason: "value does not match regex pattern \"^[a-z][-_a-zA-Z0-9(), ]*$\"",
 		}
 		if !all {
 			return err
@@ -201,11 +201,11 @@ var _ interface {
 	ErrorName() string
 } = RelationConfigValidationError{}
 
-var _RelationConfig_Namespace_Pattern = regexp.MustCompile("^[a-z][a-zA-Z0-9]*$")
+var _RelationConfig_Namespace_Pattern = regexp.MustCompile("^[a-z][-_a-zA-Z0-9]*$")
 
-var _RelationConfig_Relation_Pattern = regexp.MustCompile("^[a-z][a-zA-Z0-9]*$")
+var _RelationConfig_Relation_Pattern = regexp.MustCompile("^[a-z][-_a-zA-Z0-9]*$")
 
-var _RelationConfig_Rewrite_Pattern = regexp.MustCompile("^[a-z][a-zA-Z0-9(), ]*$")
+var _RelationConfig_Rewrite_Pattern = regexp.MustCompile("^[a-z][-_a-zA-Z0-9(), ]*$")
 
 // Validate checks the field values on Tuple with the rules defined in the
 // proto definition for this message. If any rules are violated, the first
@@ -242,7 +242,7 @@ func (m *Tuple) validate(all bool) error {
 	if !_Tuple_Namespace_Pattern.MatchString(m.GetNamespace()) {
 		err := TupleValidationError{
 			field:  "Namespace",
-			reason: "value does not match regex pattern \"^[a-z][a-zA-Z0-9]*$\"",
+			reason: "value does not match regex pattern \"^[a-z][-_a-zA-Z0-9]*$\"",
 		}
 		if !all {
 			return err
@@ -264,7 +264,7 @@ func (m *Tuple) validate(all bool) error {
 	if !_Tuple_Id_Pattern.MatchString(m.GetId()) {
 		err := TupleValidationError{
 			field:  "Id",
-			reason: "value does not match regex pattern \"^[a-zA-Z0-9]+$\"",
+			reason: "value does not match regex pattern \"^[a-z0-9][-_a-zA-Z0-9]*$\"",
 		}
 		if !all {
 			return err
@@ -286,7 +286,7 @@ func (m *Tuple) validate(all bool) error {
 	if !_Tuple_Relation_Pattern.MatchString(m.GetRelation()) {
 		err := TupleValidationError{
 			field:  "Relation",
-			reason: "value does not match regex pattern \"^[a-z][a-zA-Z0-9]*$\"",
+			reason: "value does not match regex pattern \"^[a-z][-_a-zA-Z0-9]*$\"",
 		}
 		if !all {
 			return err
@@ -308,7 +308,7 @@ func (m *Tuple) validate(all bool) error {
 	if !_Tuple_User_Pattern.MatchString(m.GetUser()) {
 		err := TupleValidationError{
 			field:  "User",
-			reason: "value does not match regex pattern \"^[a-z][a-zA-Z0-9(), ]*$\"",
+			reason: "value does not match regex pattern \"^[a-z][-_a-zA-Z0-9(), ]*$\"",
 		}
 		if !all {
 			return err
@@ -393,13 +393,13 @@ var _ interface {
 	ErrorName() string
 } = TupleValidationError{}
 
-var _Tuple_Namespace_Pattern = regexp.MustCompile("^[a-z][a-zA-Z0-9]*$")
+var _Tuple_Namespace_Pattern = regexp.MustCompile("^[a-z][-_a-zA-Z0-9]*$")
 
-var _Tuple_Id_Pattern = regexp.MustCompile("^[a-zA-Z0-9]+$")
+var _Tuple_Id_Pattern = regexp.MustCompile("^[a-z0-9][-_a-zA-Z0-9]*$")
 
-var _Tuple_Relation_Pattern = regexp.MustCompile("^[a-z][a-zA-Z0-9]*$")
+var _Tuple_Relation_Pattern = regexp.MustCompile("^[a-z][-_a-zA-Z0-9]*$")
 
-var _Tuple_User_Pattern = regexp.MustCompile("^[a-z][a-zA-Z0-9(), ]*$")
+var _Tuple_User_Pattern = regexp.MustCompile("^[a-z][-_a-zA-Z0-9(), ]*$")
 
 // Validate checks the field values on WriteSchemaRequest with the rules
 // defined in the proto definition for this message. If any rules are
@@ -1827,7 +1827,7 @@ func (m *CheckRequest) validate(all bool) error {
 	if !_CheckRequest_Namespace_Pattern.MatchString(m.GetNamespace()) {
 		err := CheckRequestValidationError{
 			field:  "Namespace",
-			reason: "value does not match regex pattern \"^[a-z][a-zA-Z0-9]*$\"",
+			reason: "value does not match regex pattern \"^[a-z][-_a-zA-Z0-9]*$\"",
 		}
 		if !all {
 			return err
@@ -1849,7 +1849,7 @@ func (m *CheckRequest) validate(all bool) error {
 	if !_CheckRequest_Id_Pattern.MatchString(m.GetId()) {
 		err := CheckRequestValidationError{
 			field:  "Id",
-			reason: "value does not match regex pattern \"^[a-zA-Z0-9]+$\"",
+			reason: "value does not match regex pattern \"^[a-z0-9][-_a-zA-Z0-9]*$\"",
 		}
 		if !all {
 			return err
@@ -1871,7 +1871,7 @@ func (m *CheckRequest) validate(all bool) error {
 	if !_CheckRequest_Relation_Pattern.MatchString(m.GetRelation()) {
 		err := CheckRequestValidationError{
 			field:  "Relation",
-			reason: "value does not match regex pattern \"^[a-z][a-zA-Z0-9]*$\"",
+			reason: "value does not match regex pattern \"^[a-z][-_a-zA-Z0-9]*$\"",
 		}
 		if !all {
 			return err
@@ -1893,7 +1893,7 @@ func (m *CheckRequest) validate(all bool) error {
 	if !_CheckRequest_User_Pattern.MatchString(m.GetUser()) {
 		err := CheckRequestValidationError{
 			field:  "User",
-			reason: "value does not match regex pattern \"^[a-z][a-zA-Z0-9(), ]*$\"",
+			reason: "value does not match regex pattern \"^[a-z][-_a-zA-Z0-9(), ]*$\"",
 		}
 		if !all {
 			return err
@@ -1978,13 +1978,13 @@ var _ interface {
 	ErrorName() string
 } = CheckRequestValidationError{}
 
-var _CheckRequest_Namespace_Pattern = regexp.MustCompile("^[a-z][a-zA-Z0-9]*$")
+var _CheckRequest_Namespace_Pattern = regexp.MustCompile("^[a-z][-_a-zA-Z0-9]*$")
 
-var _CheckRequest_Id_Pattern = regexp.MustCompile("^[a-zA-Z0-9]+$")
+var _CheckRequest_Id_Pattern = regexp.MustCompile("^[a-z0-9][-_a-zA-Z0-9]*$")
 
-var _CheckRequest_Relation_Pattern = regexp.MustCompile("^[a-z][a-zA-Z0-9]*$")
+var _CheckRequest_Relation_Pattern = regexp.MustCompile("^[a-z][-_a-zA-Z0-9]*$")
 
-var _CheckRequest_User_Pattern = regexp.MustCompile("^[a-z][a-zA-Z0-9(), ]*$")
+var _CheckRequest_User_Pattern = regexp.MustCompile("^[a-z][-_a-zA-Z0-9(), ]*$")
 
 // Validate checks the field values on CheckResponse with the rules defined in
 // the proto definition for this message. If any rules are violated, the first
@@ -2124,7 +2124,7 @@ func (m *ListObjectsRequest) validate(all bool) error {
 	if !_ListObjectsRequest_Namespace_Pattern.MatchString(m.GetNamespace()) {
 		err := ListObjectsRequestValidationError{
 			field:  "Namespace",
-			reason: "value does not match regex pattern \"^[a-z][a-zA-Z0-9]*$\"",
+			reason: "value does not match regex pattern \"^[a-z][-_a-zA-Z0-9]*$\"",
 		}
 		if !all {
 			return err
@@ -2146,7 +2146,7 @@ func (m *ListObjectsRequest) validate(all bool) error {
 	if !_ListObjectsRequest_Relation_Pattern.MatchString(m.GetRelation()) {
 		err := ListObjectsRequestValidationError{
 			field:  "Relation",
-			reason: "value does not match regex pattern \"^[a-z][a-zA-Z0-9]*$\"",
+			reason: "value does not match regex pattern \"^[a-z][-_a-zA-Z0-9]*$\"",
 		}
 		if !all {
 			return err
@@ -2168,7 +2168,7 @@ func (m *ListObjectsRequest) validate(all bool) error {
 	if !_ListObjectsRequest_User_Pattern.MatchString(m.GetUser()) {
 		err := ListObjectsRequestValidationError{
 			field:  "User",
-			reason: "value does not match regex pattern \"^[a-z][a-zA-Z0-9(), ]*$\"",
+			reason: "value does not match regex pattern \"^[a-z][-_a-zA-Z0-9(), ]*$\"",
 		}
 		if !all {
 			return err
@@ -2256,11 +2256,11 @@ var _ interface {
 	ErrorName() string
 } = ListObjectsRequestValidationError{}
 
-var _ListObjectsRequest_Namespace_Pattern = regexp.MustCompile("^[a-z][a-zA-Z0-9]*$")
+var _ListObjectsRequest_Namespace_Pattern = regexp.MustCompile("^[a-z][-_a-zA-Z0-9]*$")
 
-var _ListObjectsRequest_Relation_Pattern = regexp.MustCompile("^[a-z][a-zA-Z0-9]*$")
+var _ListObjectsRequest_Relation_Pattern = regexp.MustCompile("^[a-z][-_a-zA-Z0-9]*$")
 
-var _ListObjectsRequest_User_Pattern = regexp.MustCompile("^[a-z][a-zA-Z0-9(), ]*$")
+var _ListObjectsRequest_User_Pattern = regexp.MustCompile("^[a-z][-_a-zA-Z0-9(), ]*$")
 
 // Validate checks the field values on ListObjectsResponse with the rules
 // defined in the proto definition for this message. If any rules are
@@ -2363,398 +2363,3 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = ListObjectsResponseValidationError{}
-
-// Validate checks the field values on Tuples with the rules defined in the
-// proto definition for this message. If any rules are violated, the first
-// error encountered is returned, or nil if there are no violations.
-func (m *Tuples) Validate() error {
-	return m.validate(false)
-}
-
-// ValidateAll checks the field values on Tuples with the rules defined in the
-// proto definition for this message. If any rules are violated, the result is
-// a list of violation errors wrapped in TuplesMultiError, or nil if none found.
-func (m *Tuples) ValidateAll() error {
-	return m.validate(true)
-}
-
-func (m *Tuples) validate(all bool) error {
-	if m == nil {
-		return nil
-	}
-
-	var errors []error
-
-	for idx, item := range m.GetTuples() {
-		_, _ = idx, item
-
-		if all {
-			switch v := interface{}(item).(type) {
-			case interface{ ValidateAll() error }:
-				if err := v.ValidateAll(); err != nil {
-					errors = append(errors, TuplesValidationError{
-						field:  fmt.Sprintf("Tuples[%v]", idx),
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			case interface{ Validate() error }:
-				if err := v.Validate(); err != nil {
-					errors = append(errors, TuplesValidationError{
-						field:  fmt.Sprintf("Tuples[%v]", idx),
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			}
-		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
-			if err := v.Validate(); err != nil {
-				return TuplesValidationError{
-					field:  fmt.Sprintf("Tuples[%v]", idx),
-					reason: "embedded message failed validation",
-					cause:  err,
-				}
-			}
-		}
-
-	}
-
-	if len(errors) > 0 {
-		return TuplesMultiError(errors)
-	}
-
-	return nil
-}
-
-// TuplesMultiError is an error wrapping multiple validation errors returned by
-// Tuples.ValidateAll() if the designated constraints aren't met.
-type TuplesMultiError []error
-
-// Error returns a concatenation of all the error messages it wraps.
-func (m TuplesMultiError) Error() string {
-	var msgs []string
-	for _, err := range m {
-		msgs = append(msgs, err.Error())
-	}
-	return strings.Join(msgs, "; ")
-}
-
-// AllErrors returns a list of validation violation errors.
-func (m TuplesMultiError) AllErrors() []error { return m }
-
-// TuplesValidationError is the validation error returned by Tuples.Validate if
-// the designated constraints aren't met.
-type TuplesValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e TuplesValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e TuplesValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e TuplesValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e TuplesValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e TuplesValidationError) ErrorName() string { return "TuplesValidationError" }
-
-// Error satisfies the builtin error interface
-func (e TuplesValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sTuples.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = TuplesValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = TuplesValidationError{}
-
-// Validate checks the field values on Assertions with the rules defined in the
-// proto definition for this message. If any rules are violated, the first
-// error encountered is returned, or nil if there are no violations.
-func (m *Assertions) Validate() error {
-	return m.validate(false)
-}
-
-// ValidateAll checks the field values on Assertions with the rules defined in
-// the proto definition for this message. If any rules are violated, the
-// result is a list of violation errors wrapped in AssertionsMultiError, or
-// nil if none found.
-func (m *Assertions) ValidateAll() error {
-	return m.validate(true)
-}
-
-func (m *Assertions) validate(all bool) error {
-	if m == nil {
-		return nil
-	}
-
-	var errors []error
-
-	for idx, item := range m.GetAssertions() {
-		_, _ = idx, item
-
-		if all {
-			switch v := interface{}(item).(type) {
-			case interface{ ValidateAll() error }:
-				if err := v.ValidateAll(); err != nil {
-					errors = append(errors, AssertionsValidationError{
-						field:  fmt.Sprintf("Assertions[%v]", idx),
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			case interface{ Validate() error }:
-				if err := v.Validate(); err != nil {
-					errors = append(errors, AssertionsValidationError{
-						field:  fmt.Sprintf("Assertions[%v]", idx),
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			}
-		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
-			if err := v.Validate(); err != nil {
-				return AssertionsValidationError{
-					field:  fmt.Sprintf("Assertions[%v]", idx),
-					reason: "embedded message failed validation",
-					cause:  err,
-				}
-			}
-		}
-
-	}
-
-	if len(errors) > 0 {
-		return AssertionsMultiError(errors)
-	}
-
-	return nil
-}
-
-// AssertionsMultiError is an error wrapping multiple validation errors
-// returned by Assertions.ValidateAll() if the designated constraints aren't met.
-type AssertionsMultiError []error
-
-// Error returns a concatenation of all the error messages it wraps.
-func (m AssertionsMultiError) Error() string {
-	var msgs []string
-	for _, err := range m {
-		msgs = append(msgs, err.Error())
-	}
-	return strings.Join(msgs, "; ")
-}
-
-// AllErrors returns a list of validation violation errors.
-func (m AssertionsMultiError) AllErrors() []error { return m }
-
-// AssertionsValidationError is the validation error returned by
-// Assertions.Validate if the designated constraints aren't met.
-type AssertionsValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e AssertionsValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e AssertionsValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e AssertionsValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e AssertionsValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e AssertionsValidationError) ErrorName() string { return "AssertionsValidationError" }
-
-// Error satisfies the builtin error interface
-func (e AssertionsValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sAssertions.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = AssertionsValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = AssertionsValidationError{}
-
-// Validate checks the field values on Assertion with the rules defined in the
-// proto definition for this message. If any rules are violated, the first
-// error encountered is returned, or nil if there are no violations.
-func (m *Assertion) Validate() error {
-	return m.validate(false)
-}
-
-// ValidateAll checks the field values on Assertion with the rules defined in
-// the proto definition for this message. If any rules are violated, the
-// result is a list of violation errors wrapped in AssertionMultiError, or nil
-// if none found.
-func (m *Assertion) ValidateAll() error {
-	return m.validate(true)
-}
-
-func (m *Assertion) validate(all bool) error {
-	if m == nil {
-		return nil
-	}
-
-	var errors []error
-
-	if all {
-		switch v := interface{}(m.GetTuple()).(type) {
-		case interface{ ValidateAll() error }:
-			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, AssertionValidationError{
-					field:  "Tuple",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		case interface{ Validate() error }:
-			if err := v.Validate(); err != nil {
-				errors = append(errors, AssertionValidationError{
-					field:  "Tuple",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		}
-	} else if v, ok := interface{}(m.GetTuple()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return AssertionValidationError{
-				field:  "Tuple",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
-
-	// no validation rules for Allowed
-
-	if len(errors) > 0 {
-		return AssertionMultiError(errors)
-	}
-
-	return nil
-}
-
-// AssertionMultiError is an error wrapping multiple validation errors returned
-// by Assertion.ValidateAll() if the designated constraints aren't met.
-type AssertionMultiError []error
-
-// Error returns a concatenation of all the error messages it wraps.
-func (m AssertionMultiError) Error() string {
-	var msgs []string
-	for _, err := range m {
-		msgs = append(msgs, err.Error())
-	}
-	return strings.Join(msgs, "; ")
-}
-
-// AllErrors returns a list of validation violation errors.
-func (m AssertionMultiError) AllErrors() []error { return m }
-
-// AssertionValidationError is the validation error returned by
-// Assertion.Validate if the designated constraints aren't met.
-type AssertionValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e AssertionValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e AssertionValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e AssertionValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e AssertionValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e AssertionValidationError) ErrorName() string { return "AssertionValidationError" }
-
-// Error satisfies the builtin error interface
-func (e AssertionValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sAssertion.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = AssertionValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = AssertionValidationError{}

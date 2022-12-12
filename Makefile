@@ -10,6 +10,11 @@ buf-format: buf-mod-update
 buf-generate: buf-format
 	buf generate
 
+.PHONY: gen-rewrite-parser
+gen-parser: Rewrite.g4
+	antlr -Dlanguage=Go -o internal/gen/rewrite/parser Rewrite.g4
+	antlr -Dlanguage=Go -o internal/gen/user/parser User.g4
+
 .PHONY: lint
 lint: buf-generate
 	golangci-lint run

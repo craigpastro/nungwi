@@ -8,6 +8,7 @@ import (
 	pb "github.com/craigpastro/nungwi/internal/gen/nungwi/v1alpha"
 	"github.com/craigpastro/nungwi/internal/gen/nungwi/v1alpha/nungwiv1alphaconnect"
 	"github.com/craigpastro/nungwi/internal/prolog"
+	"github.com/craigpastro/nungwi/internal/validate"
 	"go.uber.org/zap"
 )
 
@@ -35,7 +36,13 @@ func (s *server) WriteSchema(ctx context.Context, req *connect.Request[pb.WriteS
 		return nil, connect.NewError(connect.CodeAlreadyExists, errors.New("schema already exists"))
 	}
 
-	if err := s.prolog.WriteSchema(ctx, req.Msg.GetConfigs()); err != nil {
+	configs := req.Msg.GetConfigs()
+
+	if err := validate.ValidateConfigs(configs); err != nil {
+		return nil, connect.NewError(connect.CodeInvalidArgument, err)
+	}
+
+	if err := s.prolog.WriteSchema(ctx, configs); err != nil {
 		return nil, connect.NewError(connect.CodeInternal, err)
 	}
 
@@ -71,7 +78,13 @@ func (s *server) DeleteSchema(ctx context.Context, req *connect.Request[pb.Delet
 }
 
 func (s *server) WriteTuples(ctx context.Context, req *connect.Request[pb.WriteTuplesRequest]) (*connect.Response[pb.WriteTuplesResponse], error) {
-	if err := s.prolog.WriteTuples(ctx, req.Msg.GetTuples()); err != nil {
+	tuples := req.Msg.GetTuples()
+
+	if err := validate.ValidateTuples(tuples); err != nil {
+		return nil, connect.NewError(connect.CodeInvalidArgument, err)
+	}
+
+	if err := s.prolog.WriteTuples(ctx, tuples); err != nil {
 		return nil, connect.NewError(connect.CodeInternal, err)
 	}
 
