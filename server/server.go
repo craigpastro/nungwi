@@ -28,7 +28,7 @@ func NewServer(prolog *prolog.Prolog, logger *zap.Logger) *server {
 func (s *server) WriteSchema(ctx context.Context, req *connect.Request[pb.WriteSchemaRequest]) (*connect.Response[pb.WriteSchemaResponse], error) {
 	schema, err := s.prolog.GetSchema(ctx)
 	if err != nil {
-		return nil, err
+		return nil, connect.NewError(connect.CodeInternal, err)
 	}
 
 	if len(schema) > 0 {
@@ -36,7 +36,7 @@ func (s *server) WriteSchema(ctx context.Context, req *connect.Request[pb.WriteS
 	}
 
 	if err := s.prolog.WriteSchema(ctx, req.Msg.GetConfigs()); err != nil {
-		return nil, err
+		return nil, connect.NewError(connect.CodeInternal, err)
 	}
 
 	return connect.NewResponse(&pb.WriteSchemaResponse{}), nil
@@ -45,7 +45,7 @@ func (s *server) WriteSchema(ctx context.Context, req *connect.Request[pb.WriteS
 func (s *server) GetSchema(ctx context.Context, req *connect.Request[pb.GetSchemaRequest]) (*connect.Response[pb.GetSchemaResponse], error) {
 	configs, err := s.prolog.GetSchema(ctx)
 	if err != nil {
-		return nil, err
+		return nil, connect.NewError(connect.CodeInternal, err)
 	}
 
 	return connect.NewResponse(&pb.GetSchemaResponse{
@@ -56,7 +56,7 @@ func (s *server) GetSchema(ctx context.Context, req *connect.Request[pb.GetSchem
 func (s *server) DeleteSchema(ctx context.Context, req *connect.Request[pb.DeleteSchemaRequest]) (*connect.Response[pb.DeleteSchemaResponse], error) {
 	tuples, err := s.prolog.GetTuples(ctx)
 	if err != nil {
-		return nil, err
+		return nil, connect.NewError(connect.CodeInternal, err)
 	}
 
 	if len(tuples) > 0 {
@@ -64,7 +64,7 @@ func (s *server) DeleteSchema(ctx context.Context, req *connect.Request[pb.Delet
 	}
 
 	if err := s.prolog.DeleteSchema(ctx); err != nil {
-		return nil, err
+		return nil, connect.NewError(connect.CodeInternal, err)
 	}
 
 	return connect.NewResponse(&pb.DeleteSchemaResponse{}), nil
@@ -72,7 +72,7 @@ func (s *server) DeleteSchema(ctx context.Context, req *connect.Request[pb.Delet
 
 func (s *server) WriteTuples(ctx context.Context, req *connect.Request[pb.WriteTuplesRequest]) (*connect.Response[pb.WriteTuplesResponse], error) {
 	if err := s.prolog.WriteTuples(ctx, req.Msg.GetTuples()); err != nil {
-		return nil, err
+		return nil, connect.NewError(connect.CodeInternal, err)
 	}
 
 	return connect.NewResponse(&pb.WriteTuplesResponse{}), nil
@@ -81,7 +81,7 @@ func (s *server) WriteTuples(ctx context.Context, req *connect.Request[pb.WriteT
 func (s *server) GetTuples(ctx context.Context, req *connect.Request[pb.GetTuplesRequest]) (*connect.Response[pb.GetTuplesResponse], error) {
 	tuples, err := s.prolog.GetTuples(ctx)
 	if err != nil {
-		return nil, err
+		return nil, connect.NewError(connect.CodeInternal, err)
 	}
 
 	return connect.NewResponse(&pb.GetTuplesResponse{
@@ -91,7 +91,7 @@ func (s *server) GetTuples(ctx context.Context, req *connect.Request[pb.GetTuple
 
 func (s *server) DeleteTuples(ctx context.Context, req *connect.Request[pb.DeleteTuplesRequest]) (*connect.Response[pb.DeleteTuplesResponse], error) {
 	if err := s.prolog.DeleteTuples(ctx, req.Msg.GetTuples()); err != nil {
-		return nil, err
+		return nil, connect.NewError(connect.CodeInternal, err)
 	}
 
 	return connect.NewResponse(&pb.DeleteTuplesResponse{}), nil
@@ -106,7 +106,7 @@ func (s *server) Check(ctx context.Context, req *connect.Request[pb.CheckRequest
 		User:      msg.GetUser(),
 	})
 	if err != nil {
-		return nil, err
+		return nil, connect.NewError(connect.CodeInternal, err)
 	}
 
 	return connect.NewResponse(&pb.CheckResponse{
@@ -118,7 +118,7 @@ func (s *server) ListObjects(ctx context.Context, req *connect.Request[pb.ListOb
 	msg := req.Msg
 	ids, err := s.prolog.ListObjects(ctx, msg.GetNamespace(), msg.GetRelation(), msg.GetUser())
 	if err != nil {
-		return nil, err
+		return nil, connect.NewError(connect.CodeInternal, err)
 	}
 
 	return connect.NewResponse(&pb.ListObjectsResponse{

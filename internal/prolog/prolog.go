@@ -36,10 +36,11 @@ func (p *Prolog) WriteSchema(ctx context.Context, configs []*pb.RelationConfig) 
 	for _, config := range configs {
 		f := fmt.Sprintf("config(%s, %s, %s)", config.Namespace, config.Relation, config.Rewrite)
 		ff := fmt.Sprintf(":- assertz(%s).", f)
-		p.logger.Info(ff)
 		if err := p.interpreter.ExecContext(ctx, ff); err != nil {
 			return fmt.Errorf("prolog exec error: %w", err)
 		}
+
+		p.logger.Info(ff)
 	}
 
 	return nil
@@ -85,11 +86,23 @@ func (p *Prolog) DeleteSchema(ctx context.Context) error {
 func (p *Prolog) WriteTuples(ctx context.Context, tuples []*pb.Tuple) error {
 	for _, tuple := range tuples {
 		f := fmt.Sprintf("tuple(%s, %s, %s, %s)", tuple.Namespace, tuple.Id, tuple.Relation, tuple.User)
+
+		sols, err := p.interpreter.QueryContext(ctx, fmt.Sprintf("%s.", f))
+		if err != nil {
+			return fmt.Errorf("prolog query error: %w", err)
+		}
+
+		if sols.Next() {
+			// Don't insert the same tuple more than once.
+			continue
+		}
+
 		ff := fmt.Sprintf(":- assertz(%s).", f)
-		p.logger.Info(ff)
 		if err := p.interpreter.ExecContext(ctx, ff); err != nil {
 			return fmt.Errorf("prolog exec error: %w", err)
 		}
+
+		p.logger.Info(ff)
 	}
 
 	return nil
@@ -158,7 +171,7 @@ func (p *Prolog) Check(ctx context.Context, tuple *pb.Tuple) (bool, error) {
 }
 
 func (p *Prolog) ListObjects(ctx context.Context, namespace, relation, user string) ([]string, error) {
-	f := fmt.Sprintf("list(%s, X, %s, %s).", namespace, relation, user)
+	f := fmt.Sprintf("list(%s, Id, %s, %s).", namespace, relation, user)
 	sols, err := p.interpreter.QueryContext(ctx, f)
 	if err != nil {
 		return nil, fmt.Errorf("prolog query error: %w", err)
@@ -167,14 +180,14 @@ func (p *Prolog) ListObjects(ctx context.Context, namespace, relation, user stri
 
 	var ids []string
 	for sols.Next() {
-		var id struct {
-			X prolog.TermString
+		var s struct {
+			Id prolog.TermString
 		}
-		if err := sols.Scan(&id); err != nil {
+		if err := sols.Scan(&s); err != nil {
 			return nil, fmt.Errorf("prolog scan error: %w", err)
 
 		}
-		ids = append(ids, string(id.X))
+		ids = append(ids, string(s.Id))
 	}
 
 	if err := sols.Err(); err != nil {
