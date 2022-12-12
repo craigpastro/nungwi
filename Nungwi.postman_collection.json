@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "e48b0d76-ea39-4d47-8cb0-099d40ed4b2b",
+		"_postman_id": "a883b9a1-38f7-4b9f-b460-53fab5f513ae",
 		"name": "Nungwi",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "6359330"
+		"_exporter_id": "17972870"
 	},
 	"item": [
 		{
@@ -13,7 +13,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"configs\": [\n        {\n            \"namespace\": \"folder\",\n            \"relation\": \"viewer\",\n            \"rewrite\": \"self\"\n        },\n        {\n            \"namespace\": \"document\",\n            \"relation\": \"parent\",\n            \"rewrite\": \"self\"\n        },\n        {\n            \"namespace\": \"document\",\n            \"relation\": \"viewer\",\n            \"rewrite\": \"union(self, tupleToUserset(parent, viewer))\"\n        }\n    ]\n}",
+					"raw": "{\n    \"configs\": [\n        {\n            \"namespace\": \"folder\",\n            \"relation\": \"viewer\",\n            \"rewrite\": \"self\"\n        },\n        {\n            \"namespace\": \"document\",\n            \"relation\": \"viewer\",\n            \"rewrite\": \"union(self, tupleToUserset(parent, viewer))\"\n        }\n    ]\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -21,15 +21,14 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/nungwi.v1alpha.NungwiService/WriteSchema",
+					"raw": "http://localhost:8000/write-schema",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "8000",
 					"path": [
-						"nungwi.v1alpha.NungwiService",
-						"WriteSchema"
+						"write-schema"
 					]
 				}
 			},
@@ -50,15 +49,14 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/nungwi.v1alpha.NungwiService/WriteTuples",
+					"raw": "http://localhost:8000/write-tuples",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "8000",
 					"path": [
-						"nungwi.v1alpha.NungwiService",
-						"WriteTuples"
+						"write-tuples"
 					]
 				}
 			},
@@ -71,7 +69,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"namespace\": \"document\",\n    \"id\": \"1\",\n    \"relation\": \"viewer\",\n    \"user\": \"beatrix\"\n}",
+					"raw": "{\n    \"namespace\": \"document\",\n    \"id\": \"1\",\n    \"relation\": \"viewer\",\n    \"user\": \"abigail\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -79,15 +77,14 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/nungwi.v1alpha.NungwiService/Check",
+					"raw": "http://localhost:8000/check",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "8000",
 					"path": [
-						"nungwi.v1alpha.NungwiService",
-						"Check"
+						"check"
 					]
 				}
 			},
@@ -108,44 +105,14 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/nungwi.v1alpha.NungwiService/ListObjects",
+					"raw": "http://localhost:8000/list-objects",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "8000",
 					"path": [
-						"nungwi.v1alpha.NungwiService",
-						"ListObjects"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get schema",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:8080/nungwi.v1alpha.NungwiService/GetSchema",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"nungwi.v1alpha.NungwiService",
-						"GetSchema"
+						"list-objects"
 					]
 				}
 			},
@@ -156,54 +123,15 @@
 			"request": {
 				"method": "POST",
 				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{}\n",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
 				"url": {
-					"raw": "http://localhost:8080/nungwi.v1alpha.NungwiService/DeleteSchema",
+					"raw": "http://localhost:8000/delete-schema",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "8000",
 					"path": [
-						"nungwi.v1alpha.NungwiService",
-						"DeleteSchema"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get tuples",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:8080/nungwi.v1alpha.NungwiService/GetTuples",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"nungwi.v1alpha.NungwiService",
-						"GetTuples"
+						"delete-schema"
 					]
 				}
 			},
@@ -224,15 +152,33 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/nungwi.v1alpha.NungwiService/DeleteTuples",
+					"raw": "http://localhost:8000/delete-tuples",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "8000",
 					"path": [
-						"nungwi.v1alpha.NungwiService",
-						"DeleteTuples"
+						"delete-tuples"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete all tuples",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/delete-all-tuples",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"delete-all-tuples"
 					]
 				}
 			},
