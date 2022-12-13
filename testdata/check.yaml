@@ -1,0 +1,73 @@
+tests:
+  - name: This
+    schema:
+      - namespace: document
+        relation: viewer
+        rewrite: self
+    tuples:
+      - namespace: document
+        id: a1
+        relation: viewer
+        user: aardvark
+    assertions:
+      - tuple:
+          namespace: document
+          id: a1
+          relation: viewer
+          user: aardvark
+        expectation: true
+      - tuple:
+          namespace: document
+          id: a2
+          relation: viewer
+          user: aardvark
+        expectation: false
+  
+  - name: ComputedUserset
+    schema:
+      - namespace: document
+        relation: writer
+        rewrite: self
+      - namespace: document
+        relation: viewer
+        rewrite: computedUserset(writer)
+    tuples:
+      - namespace: document
+        id: a1
+        relation: writer
+        user: aardvark
+    assertions:
+      - tuple:
+          namespace: document
+          id: a1
+          relation: viewer
+          user: aardvark
+        expectation: true
+
+  - name: TupleToUserset
+    schema:
+      - namespace: folder
+        relation: viewer
+        rewrite: self
+      - namespace: document
+        relation: parent
+        rewrite: self
+      - namespace: document
+        relation: viewer
+        rewrite: tupleToUserset(parent, viewer)
+    tuples:
+      - namespace: folder
+        id: x
+        relation: viewer
+        user: aardvark
+      - namespace: document
+        id: a1
+        relation: parent
+        user: object(folder, x)
+    assertions:
+      - tuple:
+          namespace: document
+          id: a1
+          relation: viewer
+          user: aardvark
+        expectation: true

@@ -3,7 +3,6 @@ package prolog
 import (
 	"context"
 	"fmt"
-	"os"
 
 	pb "github.com/craigpastro/nungwi/internal/gen/nungwi/v1alpha"
 	"github.com/ichiban/prolog"
@@ -15,14 +14,47 @@ type Prolog struct {
 	interpreter *prolog.Interpreter
 }
 
-func MustNew(logger *zap.Logger) *Prolog {
-	data, err := os.ReadFile("zanzibar.pl")
-	if err != nil {
-		panic(err)
-	}
+const zanzibar string = `
+:- dynamic(config/3).
+:- dynamic(tuple/4).
 
+checkWR(Namespace, Id, Rel, User, self) :- tuple(Namespace, Id, Rel, User).
+
+checkWR(Namespace, Id, _, User, computedUserset(Rel0)) :- tuple(Namespace, Id, Rel0, User).
+
+checkWR(Namespace, Id, _, User, tupleToUserset(S, T)) :-
+    tuple(Namespace, Id, S, object(Namespace0, Id0)),
+    config(Namespace0, T, Rewrite),
+    checkWR(Namespace0, Id0, T, User, Rewrite).
+
+checkWR(Namespace, Id, _, User, tupleToUserset(S, T)) :-
+    tuple(Namespace, Id, S, userset(Namespace0, Id0, T)),
+    config(Namespace0, T, Rewrite),
+    checkWR(Namespace0, Id0, T, User, Rewrite).
+
+checkWR(Namespace, Id, Rel, User, union(S, _)) :- checkWR(Namespace, Id, Rel, User, S).
+checkWR(Namespace, Id, Rel, User, union(_, T)) :- checkWR(Namespace, Id, Rel, User, T).
+
+checkWR(Namespace, Id, Rel, User, intersection(S, T)) :-
+    checkWR(Namespace, Id, Rel, User, S),
+    checkWR(Namespace, Id, Rel, User, T).
+
+checkWR(Namespace, Id, Rel, User, exclusion(S, T)) :-
+    checkWR(Namespace, Id, Rel, User, S),
+    \+ checkWR(Namespace, Id, Rel, User, T).
+
+check(Namespace, Id, Rel, User) :-
+    config(Namespace, Rel, Rewrite),
+    checkWR(Namespace, Id, Rel, User, Rewrite), !.
+
+list(Namespace, Id, Rel, User) :-
+    config(Namespace, Rel, Rewrite),
+    checkWR(Namespace, Id, Rel, User, Rewrite).
+`
+
+func MustNew(logger *zap.Logger) *Prolog {
 	interpreter := prolog.New(nil, nil)
-	if err := interpreter.Exec(string(data)); err != nil {
+	if err := interpreter.Exec(zanzibar); err != nil {
 		panic(err)
 	}
 

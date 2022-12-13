@@ -28,17 +28,18 @@ type config struct {
 }
 
 func main() {
-	var config config
-	if err := envconfig.Process(context.Background(), &config); err != nil {
+	var cfg config
+	if err := envconfig.Process(context.Background(), &cfg); err != nil {
 		log.Fatal(err)
 	}
 
+	ctx := context.Background()
 	logger := zap.Must(zap.NewDevelopment())
 
-	run(&config, logger)
+	run(ctx, &cfg, logger)
 }
 
-func run(config *config, logger *zap.Logger) {
+func run(ctx context.Context, config *config, logger *zap.Logger) {
 	if config.EnableProfiler {
 		http.Handle("/debug/fgtrace", fgtrace.Config{})
 		srv := &http.Server{
@@ -57,13 +58,14 @@ func run(config *config, logger *zap.Logger) {
 		}()
 	}
 
-	ctx := context.Background()
 	p := prolog.MustNew(logger)
 
 	mux := http.NewServeMux()
+
 	reflector := grpcreflect.NewStaticReflector(nungwiv1alphaconnect.NungwiServiceName)
 	mux.Handle(grpcreflect.NewHandlerV1(reflector))
 	mux.Handle(grpcreflect.NewHandlerV1Alpha(reflector))
+
 	mux.Handle(nungwiv1alphaconnect.NewNungwiServiceHandler(
 		server.NewServer(p, logger),
 		connect.WithInterceptors(
@@ -89,7 +91,10 @@ func run(config *config, logger *zap.Logger) {
 	done := make(chan os.Signal, 1)
 	signal.Notify(done, os.Interrupt, syscall.SIGINT, syscall.SIGTERM)
 
-	<-done
+	select {
+	case <-done:
+	case <-ctx.Done():
+	}
 	logger.Info("nungwi attempting to shutdown gracefully")
 
 	ctx, cancel := context.WithTimeout(ctx, 5*time.Second)

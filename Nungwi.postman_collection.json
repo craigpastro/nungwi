@@ -71,7 +71,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"namespace\": \"document\",\n    \"id\": \"a1\",\n    \"relation\": \"viewer\",\n    \"user\": \"beatrix\"\n}",
+					"raw": "{\n    \"namespace\": \"document\",\n    \"id\": \"a1\",\n    \"relation\": \"viewer\",\n    \"user\": \"abigail\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
