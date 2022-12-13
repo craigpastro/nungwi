@@ -8,7 +8,7 @@ This is a PoC WIP. Don't use in production. I welcome all contributions!
 
 ```console
 # Run the server
-$ make run-development
+$ make run
 
 # Write a schema
 $ curl -XPOST 'http://localhost:8080/nungwi.v1alpha.NungwiService/WriteSchema' \
@@ -47,19 +47,19 @@ $ curl -XPOST 'http://localhost:8080/nungwi.v1alpha.NungwiService/WriteTuples' \
         },
         {
             "namespace": "document",
-            "id": "1",
+            "id": "a1",
             "relation": "parent",
             "user": "object(folder, x)"
         },
         {
             "namespace": "document",
-            "id": "2",
+            "id": "a2",
             "relation": "parent",
             "user": "object(folder, x)"
         },
         {
             "namespace": "document",
-            "id": "1",
+            "id": "a1",
             "relation": "viewer",
             "user": "beatrix"
         }
@@ -72,7 +72,7 @@ $ curl -XPOST 'http://localhost:8080/nungwi.v1alpha.NungwiService/Check' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "namespace": "document",
-    "id": "1",
+    "id": "a1",
     "relation": "viewer",
     "user": "abigail"
 }'
@@ -86,7 +86,7 @@ $ curl -XPOST 'http://localhost:8080/nungwi.v1alpha.NungwiService/ListObjects' \
     "relation": "viewer",
     "user": "abigail"
 }'
-{"ids": [1,2]}
+{"ids": [a1, a2]}
 ```
 
 ## Modelling
