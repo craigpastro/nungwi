@@ -42,7 +42,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"tuples\": [\n        {\n            \"namespace\": \"folder\",\n            \"id\": \"x\",\n            \"relation\": \"viewer\",\n            \"user\": \"abigail\"\n        },\n        {\n            \"namespace\": \"document\",\n            \"id\": \"1\",\n            \"relation\": \"parent\",\n            \"user\": \"object(folder, x)\"\n        },\n        {\n            \"namespace\": \"document\",\n            \"id\": \"2\",\n            \"relation\": \"parent\",\n            \"user\": \"object(folder, x)\"\n        },\n        {\n            \"namespace\": \"document\",\n            \"id\": \"1\",\n            \"relation\": \"viewer\",\n            \"user\": \"beatrix\"\n        }\n    ]\n}",
+					"raw": "{\n    \"tuples\": [\n        {\n            \"namespace\": \"folder\",\n            \"id\": \"x\",\n            \"relation\": \"viewer\",\n            \"user\": \"abigail\"\n        },\n        {\n            \"namespace\": \"document\",\n            \"id\": \"a1\",\n            \"relation\": \"parent\",\n            \"user\": \"object(folder, x)\"\n        },\n        {\n            \"namespace\": \"document\",\n            \"id\": \"a2\",\n            \"relation\": \"parent\",\n            \"user\": \"object(folder, x)\"\n        },\n        {\n            \"namespace\": \"document\",\n            \"id\": \"a1\",\n            \"relation\": \"viewer\",\n            \"user\": \"beatrix\"\n        }\n    ]\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -71,7 +71,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"namespace\": \"document\",\n    \"id\": \"1\",\n    \"relation\": \"viewer\",\n    \"user\": \"beatrix\"\n}",
+					"raw": "{\n    \"namespace\": \"document\",\n    \"id\": \"a1\",\n    \"relation\": \"viewer\",\n    \"user\": \"beatrix\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
