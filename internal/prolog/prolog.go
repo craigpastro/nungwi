@@ -109,7 +109,7 @@ func (p *Prolog) WriteTuples(ctx context.Context, tuples []*pb.Tuple) error {
 }
 
 func (p *Prolog) GetTuples(ctx context.Context) ([]*pb.Tuple, error) {
-	sols, err := p.interpreter.QueryContext(ctx, "tuple(Namespace, Id, Relation, User).")
+	sols, err := p.interpreter.QueryContext(ctx, "tuple(Namespace, ID, Relation, User).")
 	if err != nil {
 		return nil, fmt.Errorf("prolog query error: %w", err)
 	}
@@ -118,14 +118,14 @@ func (p *Prolog) GetTuples(ctx context.Context) ([]*pb.Tuple, error) {
 	var tuples []*pb.Tuple
 	for sols.Next() {
 		var tuple struct {
-			Namespace, Id, Relation, User prolog.TermString
+			Namespace, ID, Relation, User prolog.TermString
 		}
 		if err := sols.Scan(&tuple); err != nil {
 			return nil, fmt.Errorf("prolog scan error: %w", err)
 		}
 		tuples = append(tuples, &pb.Tuple{
 			Namespace: string(tuple.Namespace),
-			Id:        string(tuple.Id),
+			Id:        string(tuple.ID),
 			Relation:  string(tuple.Relation),
 			User:      string(tuple.User),
 		})
