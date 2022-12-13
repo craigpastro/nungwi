@@ -171,7 +171,7 @@ func (p *Prolog) Check(ctx context.Context, tuple *pb.Tuple) (bool, error) {
 }
 
 func (p *Prolog) ListObjects(ctx context.Context, namespace, relation, user string) ([]string, error) {
-	f := fmt.Sprintf("list(%s, Id, %s, %s).", namespace, relation, user)
+	f := fmt.Sprintf("list(%s, ID, %s, %s).", namespace, relation, user)
 	sols, err := p.interpreter.QueryContext(ctx, f)
 	if err != nil {
 		return nil, fmt.Errorf("prolog query error: %w", err)
@@ -181,13 +181,13 @@ func (p *Prolog) ListObjects(ctx context.Context, namespace, relation, user stri
 	var ids []string
 	for sols.Next() {
 		var s struct {
-			Id prolog.TermString
+			ID prolog.TermString
 		}
 		if err := sols.Scan(&s); err != nil {
 			return nil, fmt.Errorf("prolog scan error: %w", err)
 
 		}
-		ids = append(ids, string(s.Id))
+		ids = append(ids, string(s.ID))
 	}
 
 	if err := sols.Err(); err != nil {
