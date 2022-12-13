@@ -1,15 +1,32 @@
-.PHONY: install
-install:
-	pip install -r requirements.txt
+.PHONY: buf-mod-update
+buf-mod-update:
+	@test -s ./proto/buf.lock || buf mod update proto
+
+.PHONY: buf-format
+buf-format: buf-mod-update
+	buf format -w
+
+.PHONY: buf-generate
+buf-generate: buf-format
+	buf generate
+
+.PHONY: gen-rewrite-parser
+gen-parser: Rewrite.g4
+	antlr -Dlanguage=Go -o internal/gen/rewrite/parser Rewrite.g4
+	antlr -Dlanguage=Go -o internal/gen/user/parser User.g4
+
+.PHONY: lint
+lint: buf-generate
+	golangci-lint run
 
 .PHONY: test
-test:
-	python3 -m pytest
-	
-.PHONY: run-development
-run-development:
-	uvicorn app.main:app --reload
+test: buf-generate
+	go test -race ./...
+
+.PHONY: build
+build: buf-generate
+	CGO_ENABLED=0 go build -o ./bin/nungwi ./cmd/nungwi
 
 .PHONY: run
-run:
-	uvicorn app.main:app
+run: build
+	./bin/nungwi

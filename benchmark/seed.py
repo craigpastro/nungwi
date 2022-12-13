@@ -1,13 +1,15 @@
+#!/usr/bin/env python3
+
 import httpx
-import uuid
 
 
 def write_schema():
     r = httpx.post(
-        "http://localhost:8000/write-schema",
+        "http://localhost:8080/nungwi.v1alpha.NungwiService/WriteSchema",
         json={
             "configs": [
                 {"namespace": "folder", "relation": "viewer", "rewrite": "self"},
+                {"namespace": "document", "relation": "parent", "rewrite": "self"},
                 {
                     "namespace": "document",
                     "relation": "viewer",
@@ -26,15 +28,27 @@ def write_tuples(reqs, num_tuples_per_req):
             tuples.append(
                 {
                     "namespace": "document",
-                    "id": f"{i}A{j}",
+                    "id": f"a{i}b{j}",
                     "relation": "viewer",
                     "user": "abigail",
                 }
             )
 
-        r = httpx.post("http://localhost:8000/write-tuples", json={"tuples": tuples})
+        r = httpx.post(
+            "http://localhost:8080/nungwi.v1alpha.NungwiService/WriteTuples",
+            json={"tuples": tuples},
+        )
         assert r.status_code == httpx.codes.OK
 
 
-write_schema()
-write_tuples(100, 100)
+try:
+    write_schema()
+except AssertionError:
+    print("failed to write_schema")
+    quit(1)
+
+try:
+    write_tuples(100, 100)
+except AssertionError:
+    print("failed to write_tuples")
+    quit(1)

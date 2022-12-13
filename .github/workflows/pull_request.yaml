@@ -4,13 +4,31 @@ on:
   pull_request:
 
 jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-go@v3
+        with:
+          go-version-file: "./go.mod"
+      - uses: bufbuild/buf-setup-action@v1
+      - uses: bufbuild/buf-lint-action@v1
+      - uses: golangci/golangci-lint-action@v3
+
   test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-python@v4
+      - uses: actions/setup-go@v3
         with:
-          python-version: '3.10'
-          cache: 'pip' # caching pip dependencies
-      - run: pip install -r requirements.txt
-      - run: python -m pytest
+          go-version-file: "./go.mod"
+      - uses: bufbuild/buf-setup-action@v1
+      - uses: actions/cache@v3
+        with:
+          path: |
+            ~/.cache/go-build
+            ~/go/pkg/mod
+          key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+          restore-keys: |
+            ${{ runner.os }}-go-
+      - run: make test

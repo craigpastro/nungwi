@@ -1,3 +1,6 @@
+:- dynamic(config/3).
+:- dynamic(tuple/4).
+
 % checkWR is check with rewrite
 checkWR(Namespace, Id, Rel, User, self) :- tuple(Namespace, Id, Rel, User).
 

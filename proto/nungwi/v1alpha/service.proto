@@ -1,0 +1,143 @@
+syntax = "proto3";
+
+package nungwi.v1alpha;
+
+import "validate/validate.proto";
+
+service NungwiService {
+  rpc WriteSchema(WriteSchemaRequest) returns (WriteSchemaResponse) {}
+
+  rpc GetSchema(GetSchemaRequest) returns (GetSchemaResponse) {}
+
+  rpc DeleteSchema(DeleteSchemaRequest) returns (DeleteSchemaResponse) {}
+
+  rpc WriteTuples(WriteTuplesRequest) returns (WriteTuplesResponse) {}
+
+  rpc GetTuples(GetTuplesRequest) returns (GetTuplesResponse) {}
+
+  rpc DeleteTuples(DeleteTuplesRequest) returns (DeleteTuplesResponse) {}
+
+  rpc Check(CheckRequest) returns (CheckResponse) {}
+
+  rpc ListObjects(ListObjectsRequest) returns (ListObjectsResponse) {}
+}
+
+message RelationConfig {
+  string namespace = 1 [(validate.rules).string = {
+    pattern: "^[a-z][-_a-zA-Z0-9]*$",
+    max_bytes: 256
+  }];
+
+  string relation = 2 [(validate.rules).string = {
+    pattern: "^[a-z][-_a-zA-Z0-9]*$",
+    max_bytes: 256
+  }];
+
+  string rewrite = 3 [(validate.rules).string = {
+    pattern: "^[a-z][-_a-zA-Z0-9(), ]*$",
+    max_bytes: 1024
+  }];
+}
+
+message Tuple {
+  string namespace = 1 [(validate.rules).string = {
+    pattern: "^[a-z][-_a-zA-Z0-9]*$",
+    max_bytes: 256
+  }];
+
+  string id = 2 [(validate.rules).string = {
+    pattern: "^[a-z][-_a-zA-Z0-9]*$",
+    max_bytes: 256
+  }];
+
+  string relation = 3 [(validate.rules).string = {
+    pattern: "^[a-z][-_a-zA-Z0-9]*$",
+    max_bytes: 256
+  }];
+
+  string user = 4 [(validate.rules).string = {
+    pattern: "^[a-z][-_a-zA-Z0-9(), ]*$",
+    max_bytes: 512
+  }];
+}
+
+message WriteSchemaRequest {
+  repeated RelationConfig configs = 1;
+}
+
+message WriteSchemaResponse {}
+
+message GetSchemaRequest {}
+
+message GetSchemaResponse {
+  repeated RelationConfig configs = 1;
+}
+
+message DeleteSchemaRequest {}
+
+message DeleteSchemaResponse {}
+
+message WriteTuplesRequest {
+  repeated Tuple tuples = 1;
+}
+
+message WriteTuplesResponse {}
+
+message GetTuplesRequest {}
+
+message GetTuplesResponse {
+  repeated Tuple tuples = 1;
+}
+
+message DeleteTuplesRequest {
+  repeated Tuple tuples = 1;
+}
+
+message DeleteTuplesResponse {}
+
+message CheckRequest {
+  string namespace = 1 [(validate.rules).string = {
+    pattern: "^[a-z][-_a-zA-Z0-9]*$",
+    max_bytes: 256
+  }];
+
+  string id = 2 [(validate.rules).string = {
+    pattern: "^[a-z][-_a-zA-Z0-9]*$",
+    max_bytes: 256
+  }];
+
+  string relation = 3 [(validate.rules).string = {
+    pattern: "^[a-z][-_a-zA-Z0-9]*$",
+    max_bytes: 256
+  }];
+
+  string user = 4 [(validate.rules).string = {
+    pattern: "^[a-z][-_a-zA-Z0-9(), ]*$",
+    max_bytes: 512
+  }];
+}
+
+message CheckResponse {
+  bool allowed = 1;
+}
+
+message ListObjectsRequest {
+  string namespace = 1 [(validate.rules).string = {
+    pattern: "^[a-z][-_a-zA-Z0-9]*$",
+    max_bytes: 256
+  }];
+
+  string relation = 3 [(validate.rules).string = {
+    pattern: "^[a-z][-_a-zA-Z0-9]*$",
+    max_bytes: 256
+  }];
+
+  string user = 4 [(validate.rules).string = {
+    pattern: "^[a-z][-_a-zA-Z0-9(), ]*$",
+    max_bytes: 512
+  }];
+}
+
+message ListObjectsResponse {
+  repeated string ids = 1;
+}

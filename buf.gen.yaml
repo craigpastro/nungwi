@@ -1,0 +1,20 @@
+ version: v1
+ managed:
+  enabled: true
+  go_package_prefix:
+    default: github.com/craigpastro/nungwi/internal/gen
+    except:
+      - buf.build/googleapis/googleapis
+      - buf.build/envoyproxy/protoc-gen-validate
+ plugins:
+  - remote: buf.build/protocolbuffers/plugins/go
+    out: internal/gen
+    opt: paths=source_relative
+  - remote: buf.build/bufbuild/plugins/connect-go
+    out: internal/gen
+    opt: paths=source_relative
+  - remote: buf.build/jirkad/plugins/protoc-gen-validate:v0.6.7
+    out: internal/gen
+    opt:
+      - paths=source_relative
+      - lang=go

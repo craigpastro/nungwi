@@ -1,8 +1,8 @@
 # Nungwi
 
-Nungwi is a authorization service inspired by [Google Zanzibar](https://research.google/pubs/pub48190/). It is written in Prolog and wrapped with Python. Nungwi is also is a village located at the northern end of the island of Zanzibar.
+Nungwi is a PoC authorization service inspired by [Google Zanzibar](https://research.google/pubs/pub48190/), written in [Ichiban Prolog](https://github.com/ichiban/prolog). Nungwi is also is a village located at the northern end of the island of Zanzibar.
 
-This is very much a WIP and I welcome all contributions!
+This is a PoC WIP. Don't use in production. I welcome all contributions!
 
 ## Example Usage
 
@@ -11,13 +11,18 @@ This is very much a WIP and I welcome all contributions!
 $ make run-development
 
 # Write a schema
-$ curl -XPOST 'http://localhost:8000/write-schema' \
+$ curl -XPOST 'http://localhost:8080/nungwi.v1alpha.NungwiService/WriteSchema' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "configs": [
         {
             "namespace": "folder",
             "relation": "viewer",
+            "rewrite": "self"
+        },
+        {
+            "namespace": "document",
+            "relation": "parent",
             "rewrite": "self"
         },
         {
@@ -30,7 +35,7 @@ $ curl -XPOST 'http://localhost:8000/write-schema' \
 {}
 
 # Write some tuples
-$ curl -XPOST 'http://localhost:8000/write-tuples' \
+$ curl -XPOST 'http://localhost:8080/nungwi.v1alpha.NungwiService/WriteTuples' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "tuples": [
@@ -63,7 +68,7 @@ $ curl -XPOST 'http://localhost:8000/write-tuples' \
 {}
 
 # Check
-$ curl -XPOST 'http://localhost:8000/check' \
+$ curl -XPOST 'http://localhost:8080/nungwi.v1alpha.NungwiService/Check' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "namespace": "document",
@@ -74,14 +79,14 @@ $ curl -XPOST 'http://localhost:8000/check' \
 {"allowed": true}
 
 # List objects
-$ curl -XPOST 'http://localhost:8000/list-objects' \
+$ curl -XPOST 'http://localhost:8080/nungwi.v1alpha.NungwiService/ListObjects' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "namespace": "document",
     "relation": "viewer",
     "user": "abigail"
 }'
-{"object_ids":[1,2]}
+{"ids": [1,2]}
 ```
 
 ## Modelling
@@ -98,7 +103,7 @@ A rewrite can be any of the following:
 
 The `str` type indicates that the argument must be a string, and the `rewrite` type indicates that the argument is a rewrite itself.
 
-A relation config consists of a namespace, relation, and rewrite. We will write these as
+A relation config consists of a namespace, relation, and rewrite. These are written as:
 ```python
 config(namespace, relation, rewrite)
 ```
@@ -112,7 +117,11 @@ A user can be any of the following:
 - `object(namespace: str, id: str)`
 - `userset(namespace: str, id: str, relation: str)`
 
-A tuple consists of a namespace, id, relation, and user. We will write these as
+A tuple consists of a namespace, id, relation, and user. These are written as:
 ```python
 tuple(namespace, id, relation, user)
 ```
+
+## Acknowledgements
+
+- Thank you to @ichiban for helping me with [Ichiban Prolog](https://github.com/ichiban/prolog).
