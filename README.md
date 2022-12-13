@@ -121,3 +121,7 @@ A tuple consists of a namespace, id, relation, and user. These are written as:
 ```python
 tuple(namespace, id, relation, user)
 ```
+
+## Acknowledgements
+
+- Thank you to @ichiban for helping me with [Ichiban Prolog](https://github.com/ichiban/prolog).
