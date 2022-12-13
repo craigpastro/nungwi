@@ -8,7 +8,7 @@ This is a PoC WIP. Don't use in production. I welcome all contributions!
 
 ```console
 # Run the server
-$ make run-development
+$ make run
 
 # Write a schema
 $ curl -XPOST 'http://localhost:8080/nungwi.v1alpha.NungwiService/WriteSchema' \
