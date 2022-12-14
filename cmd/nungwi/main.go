@@ -34,7 +34,7 @@ func main() {
 	}
 
 	ctx := context.Background()
-	logger := zap.Must(zap.NewDevelopment())
+	logger := zap.Must(zap.NewDevelopment(zap.IncreaseLevel(zap.InfoLevel)))
 
 	run(ctx, &cfg, logger)
 }
