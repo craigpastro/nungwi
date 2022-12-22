@@ -29,7 +29,7 @@ func NewLoggingInterceptor(logger *zap.Logger) connect.UnaryInterceptorFunc {
 			}
 
 			fields = append(fields, zap.Any("res", res.Any()))
-			logger.Info("rpc_complete", fields...)
+			logger.Debug("rpc_complete", fields...)
 
 			res.Header().Add("X-Response-Time", took.String())
 

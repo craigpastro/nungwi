@@ -4,11 +4,11 @@ buf-mod-update:
 
 .PHONY: buf-format
 buf-format: buf-mod-update
-	buf format -w
+	@buf format -w
 
 .PHONY: buf-generate
 buf-generate: buf-format
-	buf generate
+	@buf generate
 
 .PHONY: gen-rewrite-parser
 gen-parser: Rewrite.g4
@@ -17,7 +17,7 @@ gen-parser: Rewrite.g4
 
 .PHONY: lint
 lint: buf-generate
-	golangci-lint run
+	@golangci-lint run
 
 .PHONY: test
 test: buf-generate
