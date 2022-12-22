@@ -54,7 +54,8 @@ func TestCheck(t *testing.T) {
 
 	cfg := &config{Addr: fmt.Sprintf(":%d", port)}
 
-	go run(ctx, cfg, zap.Must(zap.NewDevelopment()))
+	// Start the server
+	go run(ctx, cfg, zap.NewNop())
 
 	client := nungwiv1alphaconnect.NewNungwiServiceClient(
 		http.DefaultClient,
@@ -82,14 +83,12 @@ func TestCheck(t *testing.T) {
 			})
 			require.NoError(t, err)
 
-			for _, tuple := range test.Tuples {
-				_, err = client.WriteTuples(ctx, &connect.Request[pb.WriteTuplesRequest]{
-					Msg: &pb.WriteTuplesRequest{
-						Tuples: []*pb.Tuple{tuple},
-					},
-				})
-				require.NoError(t, err)
-			}
+			_, err = client.WriteTuples(ctx, &connect.Request[pb.WriteTuplesRequest]{
+				Msg: &pb.WriteTuplesRequest{
+					Tuples: test.Tuples,
+				},
+			})
+			require.NoError(t, err)
 
 			for _, assertion := range test.Assertions {
 				resp, err := client.Check(ctx, &connect.Request[pb.CheckRequest]{
