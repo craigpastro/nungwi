@@ -10,7 +10,7 @@ buf-format: buf-mod-update
 buf-generate: buf-format
 	@buf generate
 
-.PHONY: gen-rewrite-parser
+.PHONY: gen-parser
 gen-parser: Rewrite.g4
 	antlr -Dlanguage=Go -o internal/gen/rewrite/parser Rewrite.g4
 	antlr -Dlanguage=Go -o internal/gen/user/parser User.g4
