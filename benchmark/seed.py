@@ -30,7 +30,7 @@ def write_tuples(reqs, num_tuples_per_req):
                     "namespace": "document",
                     "id": f"a{i}b{j}",
                     "relation": "viewer",
-                    "user": "abigail",
+                    "user": "aardvark",
                 }
             )
 

@@ -74,7 +74,7 @@ func (p *Prolog) WriteSchema(ctx context.Context, configs []*pb.RelationConfig) 
 			return fmt.Errorf("prolog exec error: %w", err)
 		}
 
-		p.logger.Info(ff)
+		p.logger.Debug(ff)
 	}
 
 	return nil
@@ -136,7 +136,7 @@ func (p *Prolog) WriteTuples(ctx context.Context, tuples []*pb.Tuple) error {
 			return fmt.Errorf("prolog exec error: %w", err)
 		}
 
-		p.logger.Info(ff)
+		p.logger.Debug(ff)
 	}
 
 	return nil
