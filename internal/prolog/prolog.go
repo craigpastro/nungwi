@@ -6,11 +6,10 @@ import (
 
 	pb "github.com/craigpastro/nungwi/internal/gen/nungwi/v1alpha"
 	"github.com/ichiban/prolog"
-	"go.uber.org/zap"
+	"golang.org/x/exp/slog"
 )
 
 type Prolog struct {
-	logger      *zap.Logger
 	interpreter *prolog.Interpreter
 }
 
@@ -54,14 +53,13 @@ list(Namespace, Id, Rel, User) :-
     checkWR(Namespace, Id, Rel, User, Rewrite).
 `
 
-func MustNew(logger *zap.Logger) *Prolog {
+func MustNew() *Prolog {
 	interpreter := prolog.New(nil, nil)
 	if err := interpreter.Exec(zanzibar); err != nil {
 		panic(err)
 	}
 
 	return &Prolog{
-		logger:      logger,
 		interpreter: interpreter,
 	}
 }
@@ -74,7 +72,7 @@ func (p *Prolog) WriteSchema(ctx context.Context, configs []*pb.RelationConfig) 
 			return fmt.Errorf("prolog exec error: %w", err)
 		}
 
-		p.logger.Debug(ff)
+		slog.Info(ff)
 	}
 
 	return nil
@@ -136,7 +134,7 @@ func (p *Prolog) WriteTuples(ctx context.Context, tuples []*pb.Tuple) error {
 			return fmt.Errorf("prolog exec error: %w", err)
 		}
 
-		p.logger.Debug(ff)
+		slog.Info(ff)
 	}
 
 	return nil

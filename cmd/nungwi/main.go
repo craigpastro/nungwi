@@ -17,7 +17,7 @@ import (
 	"github.com/craigpastro/nungwi/server"
 	"github.com/felixge/fgtrace"
 	"github.com/sethvargo/go-envconfig"
-	"go.uber.org/zap"
+	"golang.org/x/exp/slog"
 	"golang.org/x/net/http2"
 	"golang.org/x/net/http2/h2c"
 )
@@ -33,13 +33,14 @@ func main() {
 		log.Fatal(err)
 	}
 
-	ctx := context.Background()
-	logger := zap.Must(zap.NewDevelopment(zap.IncreaseLevel(zap.InfoLevel)))
+	handler := slog.NewTextHandler(os.Stdout)
+	logger := slog.New(handler)
+	ctx := slog.NewContext(context.Background(), logger)
 
-	run(ctx, &cfg, logger)
+	run(ctx, &cfg)
 }
 
-func run(ctx context.Context, config *config, logger *zap.Logger) {
+func run(ctx context.Context, config *config) {
 	if config.EnableProfiler {
 		http.Handle("/debug/fgtrace", fgtrace.Config{})
 		srv := &http.Server{
@@ -48,17 +49,18 @@ func run(ctx context.Context, config *config, logger *zap.Logger) {
 		}
 
 		go func() {
-			logger.Info("🔬 starting fgtrace on 'localhost:6060/debug/fgtrace'")
+			slog.Info("🔬 starting fgtrace on 'localhost:6060/debug/fgtrace'")
 
 			if err := srv.ListenAndServe(); err != nil {
 				if err != http.ErrServerClosed {
-					logger.Fatal("failed to start the profiler", zap.Error(err))
+					slog.Error("failed to start the profiler", err)
+					os.Exit(1)
 				}
 			}
 		}()
 	}
 
-	p := prolog.MustNew(logger)
+	p := prolog.MustNew()
 
 	mux := http.NewServeMux()
 
@@ -67,10 +69,10 @@ func run(ctx context.Context, config *config, logger *zap.Logger) {
 	mux.Handle(grpcreflect.NewHandlerV1Alpha(reflector))
 
 	mux.Handle(nungwiv1alphaconnect.NewNungwiServiceHandler(
-		server.NewServer(p, logger),
+		server.NewServer(p),
 		connect.WithInterceptors(
 			middleware.NewValidatorInterceptor(),
-			middleware.NewLoggingInterceptor(logger),
+			middleware.NewLoggingInterceptor(),
 		),
 	))
 
@@ -81,10 +83,11 @@ func run(ctx context.Context, config *config, logger *zap.Logger) {
 	}
 
 	go func() {
-		logger.Info("🙌 starting nungwi", zap.String("addr", srv.Addr))
+		slog.Info("🙌 starting nungwi", slog.String("addr", srv.Addr))
 
 		if err := srv.ListenAndServe(); err != nil && err != http.ErrServerClosed {
-			logger.Fatal("failed to start nungwi", zap.Error(err))
+			slog.Error("failed to start nungwi", err)
+			os.Exit(1)
 		}
 	}()
 
@@ -95,14 +98,15 @@ func run(ctx context.Context, config *config, logger *zap.Logger) {
 	case <-done:
 	case <-ctx.Done():
 	}
-	logger.Info("nungwi attempting to shutdown gracefully")
+	slog.Info("nungwi attempting to shutdown gracefully")
 
 	ctx, cancel := context.WithTimeout(ctx, 5*time.Second)
 	defer cancel()
 
 	if err := srv.Shutdown(ctx); err != nil {
-		log.Fatal("nungwi shutdown failed", zap.Error(err))
+		slog.Error("nungwi shutdown failed", err)
+		os.Exit(1)
 	}
 
-	logger.Info("nungwi shutdown gracefully. bye 👋")
+	slog.Info("nungwi shutdown gracefully. bye 👋")
 }

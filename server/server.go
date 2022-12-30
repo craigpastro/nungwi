@@ -9,20 +9,17 @@ import (
 	"github.com/craigpastro/nungwi/internal/gen/nungwi/v1alpha/nungwiv1alphaconnect"
 	"github.com/craigpastro/nungwi/internal/prolog"
 	"github.com/craigpastro/nungwi/internal/validate"
-	"go.uber.org/zap"
 )
 
 type server struct {
 	nungwiv1alphaconnect.UnimplementedNungwiServiceHandler
 
 	prolog *prolog.Prolog
-	logger *zap.Logger
 }
 
-func NewServer(prolog *prolog.Prolog, logger *zap.Logger) *server {
+func NewServer(prolog *prolog.Prolog) *server {
 	return &server{
 		prolog: prolog,
-		logger: logger,
 	}
 }
 
