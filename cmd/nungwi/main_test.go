@@ -15,7 +15,6 @@ import (
 	pb "github.com/craigpastro/nungwi/internal/gen/nungwi/v1alpha"
 	"github.com/craigpastro/nungwi/internal/gen/nungwi/v1alpha/nungwiv1alphaconnect"
 	"github.com/stretchr/testify/require"
-	"go.uber.org/zap"
 	"gopkg.in/yaml.v3"
 )
 
@@ -55,7 +54,7 @@ func TestCheck(t *testing.T) {
 	cfg := &config{Addr: fmt.Sprintf(":%d", port)}
 
 	// Start the server
-	go run(ctx, cfg, zap.NewNop())
+	go run(ctx, cfg)
 
 	client := nungwiv1alphaconnect.NewNungwiServiceClient(
 		http.DefaultClient,
