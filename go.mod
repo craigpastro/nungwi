@@ -9,7 +9,7 @@ require (
 	github.com/cenkalti/backoff/v4 v4.2.0
 	github.com/envoyproxy/protoc-gen-validate v0.9.1
 	github.com/felixge/fgtrace v0.2.0
-	github.com/ichiban/prolog v0.15.0
+	github.com/ichiban/prolog v0.15.1
 	github.com/sethvargo/go-envconfig v0.8.3
 	github.com/stretchr/testify v1.8.1
 	golang.org/x/exp v0.0.0-20221230162634-c8adb6e14cba
@@ -21,6 +21,7 @@ require (
 require (
 	github.com/DataDog/gostackparse v0.6.0 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
+	github.com/kr/text v0.2.0 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	golang.org/x/text v0.5.0 // indirect
 )
