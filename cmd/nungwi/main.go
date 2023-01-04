@@ -14,7 +14,7 @@ import (
 	"github.com/craigpastro/nungwi/internal/gen/nungwi/v1alpha/nungwiv1alphaconnect"
 	"github.com/craigpastro/nungwi/internal/middleware"
 	"github.com/craigpastro/nungwi/internal/prolog"
-	"github.com/craigpastro/nungwi/server"
+	"github.com/craigpastro/nungwi/internal/server"
 	"github.com/felixge/fgtrace"
 	"github.com/sethvargo/go-envconfig"
 	"golang.org/x/exp/slog"
