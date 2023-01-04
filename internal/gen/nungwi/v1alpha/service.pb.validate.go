@@ -71,7 +71,7 @@ func (m *RelationConfig) validate(all bool) error {
 	if !_RelationConfig_Namespace_Pattern.MatchString(m.GetNamespace()) {
 		err := RelationConfigValidationError{
 			field:  "Namespace",
-			reason: "value does not match regex pattern \"^[a-z][-_a-zA-Z0-9]*$\"",
+			reason: "value does not match regex pattern \"^[-_a-zA-Z0-9]+$\"",
 		}
 		if !all {
 			return err
@@ -93,7 +93,7 @@ func (m *RelationConfig) validate(all bool) error {
 	if !_RelationConfig_Relation_Pattern.MatchString(m.GetRelation()) {
 		err := RelationConfigValidationError{
 			field:  "Relation",
-			reason: "value does not match regex pattern \"^[a-z][-_a-zA-Z0-9]*$\"",
+			reason: "value does not match regex pattern \"^[-_a-zA-Z0-9]+$\"",
 		}
 		if !all {
 			return err
@@ -115,7 +115,7 @@ func (m *RelationConfig) validate(all bool) error {
 	if !_RelationConfig_Rewrite_Pattern.MatchString(m.GetRewrite()) {
 		err := RelationConfigValidationError{
 			field:  "Rewrite",
-			reason: "value does not match regex pattern \"^[a-z][-_a-zA-Z0-9(), ]*$\"",
+			reason: "value does not match regex pattern \"^[-_a-zA-Z0-9(), ]+$\"",
 		}
 		if !all {
 			return err
@@ -201,11 +201,11 @@ var _ interface {
 	ErrorName() string
 } = RelationConfigValidationError{}
 
-var _RelationConfig_Namespace_Pattern = regexp.MustCompile("^[a-z][-_a-zA-Z0-9]*$")
+var _RelationConfig_Namespace_Pattern = regexp.MustCompile("^[-_a-zA-Z0-9]+$")
 
-var _RelationConfig_Relation_Pattern = regexp.MustCompile("^[a-z][-_a-zA-Z0-9]*$")
+var _RelationConfig_Relation_Pattern = regexp.MustCompile("^[-_a-zA-Z0-9]+$")
 
-var _RelationConfig_Rewrite_Pattern = regexp.MustCompile("^[a-z][-_a-zA-Z0-9(), ]*$")
+var _RelationConfig_Rewrite_Pattern = regexp.MustCompile("^[-_a-zA-Z0-9(), ]+$")
 
 // Validate checks the field values on Tuple with the rules defined in the
 // proto definition for this message. If any rules are violated, the first
@@ -242,7 +242,7 @@ func (m *Tuple) validate(all bool) error {
 	if !_Tuple_Namespace_Pattern.MatchString(m.GetNamespace()) {
 		err := TupleValidationError{
 			field:  "Namespace",
-			reason: "value does not match regex pattern \"^[a-z][-_a-zA-Z0-9]*$\"",
+			reason: "value does not match regex pattern \"^[-_a-zA-Z0-9]+$\"",
 		}
 		if !all {
 			return err
@@ -264,7 +264,7 @@ func (m *Tuple) validate(all bool) error {
 	if !_Tuple_Id_Pattern.MatchString(m.GetId()) {
 		err := TupleValidationError{
 			field:  "Id",
-			reason: "value does not match regex pattern \"^[a-z][-_a-zA-Z0-9]*$\"",
+			reason: "value does not match regex pattern \"^[-_a-zA-Z0-9]+$\"",
 		}
 		if !all {
 			return err
@@ -286,7 +286,7 @@ func (m *Tuple) validate(all bool) error {
 	if !_Tuple_Relation_Pattern.MatchString(m.GetRelation()) {
 		err := TupleValidationError{
 			field:  "Relation",
-			reason: "value does not match regex pattern \"^[a-z][-_a-zA-Z0-9]*$\"",
+			reason: "value does not match regex pattern \"^[-_a-zA-Z0-9]+$\"",
 		}
 		if !all {
 			return err
@@ -308,7 +308,7 @@ func (m *Tuple) validate(all bool) error {
 	if !_Tuple_User_Pattern.MatchString(m.GetUser()) {
 		err := TupleValidationError{
 			field:  "User",
-			reason: "value does not match regex pattern \"^[a-z][-_a-zA-Z0-9(), ]*$\"",
+			reason: "value does not match regex pattern \"^[-_a-zA-Z0-9(), ]+$\"",
 		}
 		if !all {
 			return err
@@ -393,13 +393,13 @@ var _ interface {
 	ErrorName() string
 } = TupleValidationError{}
 
-var _Tuple_Namespace_Pattern = regexp.MustCompile("^[a-z][-_a-zA-Z0-9]*$")
+var _Tuple_Namespace_Pattern = regexp.MustCompile("^[-_a-zA-Z0-9]+$")
 
-var _Tuple_Id_Pattern = regexp.MustCompile("^[a-z][-_a-zA-Z0-9]*$")
+var _Tuple_Id_Pattern = regexp.MustCompile("^[-_a-zA-Z0-9]+$")
 
-var _Tuple_Relation_Pattern = regexp.MustCompile("^[a-z][-_a-zA-Z0-9]*$")
+var _Tuple_Relation_Pattern = regexp.MustCompile("^[-_a-zA-Z0-9]+$")
 
-var _Tuple_User_Pattern = regexp.MustCompile("^[a-z][-_a-zA-Z0-9(), ]*$")
+var _Tuple_User_Pattern = regexp.MustCompile("^[-_a-zA-Z0-9(), ]+$")
 
 // Validate checks the field values on WriteSchemaRequest with the rules
 // defined in the proto definition for this message. If any rules are
@@ -1827,7 +1827,7 @@ func (m *CheckRequest) validate(all bool) error {
 	if !_CheckRequest_Namespace_Pattern.MatchString(m.GetNamespace()) {
 		err := CheckRequestValidationError{
 			field:  "Namespace",
-			reason: "value does not match regex pattern \"^[a-z][-_a-zA-Z0-9]*$\"",
+			reason: "value does not match regex pattern \"^[-_a-zA-Z0-9]+$\"",
 		}
 		if !all {
 			return err
@@ -1849,7 +1849,7 @@ func (m *CheckRequest) validate(all bool) error {
 	if !_CheckRequest_Id_Pattern.MatchString(m.GetId()) {
 		err := CheckRequestValidationError{
 			field:  "Id",
-			reason: "value does not match regex pattern \"^[a-z][-_a-zA-Z0-9]*$\"",
+			reason: "value does not match regex pattern \"^[-_a-zA-Z0-9]+$\"",
 		}
 		if !all {
 			return err
@@ -1871,7 +1871,7 @@ func (m *CheckRequest) validate(all bool) error {
 	if !_CheckRequest_Relation_Pattern.MatchString(m.GetRelation()) {
 		err := CheckRequestValidationError{
 			field:  "Relation",
-			reason: "value does not match regex pattern \"^[a-z][-_a-zA-Z0-9]*$\"",
+			reason: "value does not match regex pattern \"^[-_a-zA-Z0-9]+$\"",
 		}
 		if !all {
 			return err
@@ -1893,7 +1893,7 @@ func (m *CheckRequest) validate(all bool) error {
 	if !_CheckRequest_User_Pattern.MatchString(m.GetUser()) {
 		err := CheckRequestValidationError{
 			field:  "User",
-			reason: "value does not match regex pattern \"^[a-z][-_a-zA-Z0-9(), ]*$\"",
+			reason: "value does not match regex pattern \"^[-_a-zA-Z0-9(), ]+$\"",
 		}
 		if !all {
 			return err
@@ -1978,13 +1978,13 @@ var _ interface {
 	ErrorName() string
 } = CheckRequestValidationError{}
 
-var _CheckRequest_Namespace_Pattern = regexp.MustCompile("^[a-z][-_a-zA-Z0-9]*$")
+var _CheckRequest_Namespace_Pattern = regexp.MustCompile("^[-_a-zA-Z0-9]+$")
 
-var _CheckRequest_Id_Pattern = regexp.MustCompile("^[a-z][-_a-zA-Z0-9]*$")
+var _CheckRequest_Id_Pattern = regexp.MustCompile("^[-_a-zA-Z0-9]+$")
 
-var _CheckRequest_Relation_Pattern = regexp.MustCompile("^[a-z][-_a-zA-Z0-9]*$")
+var _CheckRequest_Relation_Pattern = regexp.MustCompile("^[-_a-zA-Z0-9]+$")
 
-var _CheckRequest_User_Pattern = regexp.MustCompile("^[a-z][-_a-zA-Z0-9(), ]*$")
+var _CheckRequest_User_Pattern = regexp.MustCompile("^[-_a-zA-Z0-9(), ]+$")
 
 // Validate checks the field values on CheckResponse with the rules defined in
 // the proto definition for this message. If any rules are violated, the first
@@ -2124,7 +2124,7 @@ func (m *ListObjectsRequest) validate(all bool) error {
 	if !_ListObjectsRequest_Namespace_Pattern.MatchString(m.GetNamespace()) {
 		err := ListObjectsRequestValidationError{
 			field:  "Namespace",
-			reason: "value does not match regex pattern \"^[a-z][-_a-zA-Z0-9]*$\"",
+			reason: "value does not match regex pattern \"^[-_a-zA-Z0-9]+$\"",
 		}
 		if !all {
 			return err
@@ -2146,7 +2146,7 @@ func (m *ListObjectsRequest) validate(all bool) error {
 	if !_ListObjectsRequest_Relation_Pattern.MatchString(m.GetRelation()) {
 		err := ListObjectsRequestValidationError{
 			field:  "Relation",
-			reason: "value does not match regex pattern \"^[a-z][-_a-zA-Z0-9]*$\"",
+			reason: "value does not match regex pattern \"^[-_a-zA-Z0-9]+$\"",
 		}
 		if !all {
 			return err
@@ -2168,7 +2168,7 @@ func (m *ListObjectsRequest) validate(all bool) error {
 	if !_ListObjectsRequest_User_Pattern.MatchString(m.GetUser()) {
 		err := ListObjectsRequestValidationError{
 			field:  "User",
-			reason: "value does not match regex pattern \"^[a-z][-_a-zA-Z0-9(), ]*$\"",
+			reason: "value does not match regex pattern \"^[-_a-zA-Z0-9(), ]+$\"",
 		}
 		if !all {
 			return err
@@ -2256,11 +2256,11 @@ var _ interface {
 	ErrorName() string
 } = ListObjectsRequestValidationError{}
 
-var _ListObjectsRequest_Namespace_Pattern = regexp.MustCompile("^[a-z][-_a-zA-Z0-9]*$")
+var _ListObjectsRequest_Namespace_Pattern = regexp.MustCompile("^[-_a-zA-Z0-9]+$")
 
-var _ListObjectsRequest_Relation_Pattern = regexp.MustCompile("^[a-z][-_a-zA-Z0-9]*$")
+var _ListObjectsRequest_Relation_Pattern = regexp.MustCompile("^[-_a-zA-Z0-9]+$")
 
-var _ListObjectsRequest_User_Pattern = regexp.MustCompile("^[a-z][-_a-zA-Z0-9(), ]*$")
+var _ListObjectsRequest_User_Pattern = regexp.MustCompile("^[-_a-zA-Z0-9(), ]+$")
 
 // Validate checks the field values on ListObjectsResponse with the rules
 // defined in the proto definition for this message. If any rules are
