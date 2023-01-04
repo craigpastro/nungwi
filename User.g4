@@ -7,5 +7,5 @@ user:
 	| 'object' '(' ID ',' ID ')'
 	| ID;
 
-ID: [a-zA-Z][a-zA-Z0-9_-]*;
+ID: [a-zA-Z0-9_-]+;
 WS: [ \t\n\r\f]+ -> skip;

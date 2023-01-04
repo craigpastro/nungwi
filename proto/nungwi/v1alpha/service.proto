@@ -24,39 +24,39 @@ service NungwiService {
 
 message RelationConfig {
   string namespace = 1 [(validate.rules).string = {
-    pattern: "^[a-z][-_a-zA-Z0-9]*$",
+    pattern: "^[-_a-zA-Z0-9]+$",
     max_bytes: 256
   }];
 
   string relation = 2 [(validate.rules).string = {
-    pattern: "^[a-z][-_a-zA-Z0-9]*$",
+    pattern: "^[-_a-zA-Z0-9]+$",
     max_bytes: 256
   }];
 
   string rewrite = 3 [(validate.rules).string = {
-    pattern: "^[a-z][-_a-zA-Z0-9(), ]*$",
+    pattern: "^[-_a-zA-Z0-9(), ]+$",
     max_bytes: 1024
   }];
 }
 
 message Tuple {
   string namespace = 1 [(validate.rules).string = {
-    pattern: "^[a-z][-_a-zA-Z0-9]*$",
+    pattern: "^[-_a-zA-Z0-9]+$",
     max_bytes: 256
   }];
 
   string id = 2 [(validate.rules).string = {
-    pattern: "^[a-z][-_a-zA-Z0-9]*$",
+    pattern: "^[-_a-zA-Z0-9]+$",
     max_bytes: 256
   }];
 
   string relation = 3 [(validate.rules).string = {
-    pattern: "^[a-z][-_a-zA-Z0-9]*$",
+    pattern: "^[-_a-zA-Z0-9]+$",
     max_bytes: 256
   }];
 
   string user = 4 [(validate.rules).string = {
-    pattern: "^[a-z][-_a-zA-Z0-9(), ]*$",
+    pattern: "^[-_a-zA-Z0-9(), ]+$",
     max_bytes: 512
   }];
 }
@@ -97,22 +97,22 @@ message DeleteTuplesResponse {}
 
 message CheckRequest {
   string namespace = 1 [(validate.rules).string = {
-    pattern: "^[a-z][-_a-zA-Z0-9]*$",
+    pattern: "^[-_a-zA-Z0-9]+$",
     max_bytes: 256
   }];
 
   string id = 2 [(validate.rules).string = {
-    pattern: "^[a-z][-_a-zA-Z0-9]*$",
+    pattern: "^[-_a-zA-Z0-9]+$",
     max_bytes: 256
   }];
 
   string relation = 3 [(validate.rules).string = {
-    pattern: "^[a-z][-_a-zA-Z0-9]*$",
+    pattern: "^[-_a-zA-Z0-9]+$",
     max_bytes: 256
   }];
 
   string user = 4 [(validate.rules).string = {
-    pattern: "^[a-z][-_a-zA-Z0-9(), ]*$",
+    pattern: "^[-_a-zA-Z0-9(), ]+$",
     max_bytes: 512
   }];
 }
@@ -123,17 +123,17 @@ message CheckResponse {
 
 message ListObjectsRequest {
   string namespace = 1 [(validate.rules).string = {
-    pattern: "^[a-z][-_a-zA-Z0-9]*$",
+    pattern: "^[-_a-zA-Z0-9]+$",
     max_bytes: 256
   }];
 
   string relation = 3 [(validate.rules).string = {
-    pattern: "^[a-z][-_a-zA-Z0-9]*$",
+    pattern: "^[-_a-zA-Z0-9]+$",
     max_bytes: 256
   }];
 
   string user = 4 [(validate.rules).string = {
-    pattern: "^[a-z][-_a-zA-Z0-9(), ]*$",
+    pattern: "^[-_a-zA-Z0-9(), ]+$",
     max_bytes: 512
   }];
 }
