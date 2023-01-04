@@ -2,7 +2,7 @@
 
 Nungwi is a PoC authorization service inspired by [Google Zanzibar](https://research.google/pubs/pub48190/), written in [Ichiban Prolog](https://github.com/ichiban/prolog). Nungwi is also is a village located at the northern end of the island of Zanzibar.
 
-This is a PoC WIP. Don't use in production. I welcome all contributions!
+This is a PoC WIP. Don't use in production! I welcome all contributions.
 
 ## Example Usage
 
