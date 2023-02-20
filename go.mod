@@ -10,7 +10,7 @@ require (
 	github.com/envoyproxy/protoc-gen-validate v0.9.1
 	github.com/felixge/fgtrace v0.2.0
 	github.com/ichiban/prolog v1.0.0
-	github.com/sethvargo/go-envconfig v0.8.3
+	github.com/sethvargo/go-envconfig v0.9.0
 	github.com/stretchr/testify v1.8.1
 	golang.org/x/exp v0.0.0-20221230162634-c8adb6e14cba
 	golang.org/x/net v0.6.0
