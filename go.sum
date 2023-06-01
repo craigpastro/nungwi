@@ -12,8 +12,8 @@ github.com/creack/pty v1.1.9/go.mod h1:oKZEueFk5CKHvIhNR5MUki03XCEU+Q6VDXinZuGJ3
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
-github.com/envoyproxy/protoc-gen-validate v1.0.0 h1:FPFO7LWZ2pfphahSUMX8L5p/6FqSzRYRxq6V74eG8ZI=
-github.com/envoyproxy/protoc-gen-validate v1.0.0/go.mod h1:0vj8bNkYbSTNS2PIyH87KZaeN4x9zpL9Qt8fQC7d+vs=
+github.com/envoyproxy/protoc-gen-validate v1.0.1 h1:kt9FtLiooDc0vbwTLhdg3dyNX1K9Qwa1EK9LcD4jVUQ=
+github.com/envoyproxy/protoc-gen-validate v1.0.1/go.mod h1:0vj8bNkYbSTNS2PIyH87KZaeN4x9zpL9Qt8fQC7d+vs=
 github.com/felixge/fgtrace v0.2.0 h1:lq7RO6ELjR+S74+eD+ai/vhYvsjno7Vb84yzU6RPSeU=
 github.com/felixge/fgtrace v0.2.0/go.mod h1:q9vMuItthu3CRfNhirTCTwzBcJ8atUFkrJUhgQbjg8c=
 github.com/golang/protobuf v1.5.0/go.mod h1:FsONVRAS9T7sI+LIUmWTfcYkHO4aIWwzhcaSAoJOfIk=

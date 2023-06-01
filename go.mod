@@ -7,7 +7,7 @@ require (
 	github.com/bufbuild/connect-go v1.8.0
 	github.com/bufbuild/connect-grpcreflect-go v1.1.0
 	github.com/cenkalti/backoff/v4 v4.2.1
-	github.com/envoyproxy/protoc-gen-validate v1.0.0
+	github.com/envoyproxy/protoc-gen-validate v1.0.1
 	github.com/felixge/fgtrace v0.2.0
 	github.com/ichiban/prolog v1.1.0
 	github.com/sethvargo/go-envconfig v0.9.0
