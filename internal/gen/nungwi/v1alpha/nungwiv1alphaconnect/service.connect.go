@@ -25,6 +25,37 @@ const (
 	NungwiServiceName = "nungwi.v1alpha.NungwiService"
 )
 
+// These constants are the fully-qualified names of the RPCs defined in this package. They're
+// exposed at runtime as Spec.Procedure and as the final two segments of the HTTP route.
+//
+// Note that these are different from the fully-qualified method names used by
+// google.golang.org/protobuf/reflect/protoreflect. To convert from these constants to
+// reflection-formatted method names, remove the leading slash and convert the remaining slash to a
+// period.
+const (
+	// NungwiServiceWriteSchemaProcedure is the fully-qualified name of the NungwiService's WriteSchema
+	// RPC.
+	NungwiServiceWriteSchemaProcedure = "/nungwi.v1alpha.NungwiService/WriteSchema"
+	// NungwiServiceGetSchemaProcedure is the fully-qualified name of the NungwiService's GetSchema RPC.
+	NungwiServiceGetSchemaProcedure = "/nungwi.v1alpha.NungwiService/GetSchema"
+	// NungwiServiceDeleteSchemaProcedure is the fully-qualified name of the NungwiService's
+	// DeleteSchema RPC.
+	NungwiServiceDeleteSchemaProcedure = "/nungwi.v1alpha.NungwiService/DeleteSchema"
+	// NungwiServiceWriteTuplesProcedure is the fully-qualified name of the NungwiService's WriteTuples
+	// RPC.
+	NungwiServiceWriteTuplesProcedure = "/nungwi.v1alpha.NungwiService/WriteTuples"
+	// NungwiServiceGetTuplesProcedure is the fully-qualified name of the NungwiService's GetTuples RPC.
+	NungwiServiceGetTuplesProcedure = "/nungwi.v1alpha.NungwiService/GetTuples"
+	// NungwiServiceDeleteTuplesProcedure is the fully-qualified name of the NungwiService's
+	// DeleteTuples RPC.
+	NungwiServiceDeleteTuplesProcedure = "/nungwi.v1alpha.NungwiService/DeleteTuples"
+	// NungwiServiceCheckProcedure is the fully-qualified name of the NungwiService's Check RPC.
+	NungwiServiceCheckProcedure = "/nungwi.v1alpha.NungwiService/Check"
+	// NungwiServiceListObjectsProcedure is the fully-qualified name of the NungwiService's ListObjects
+	// RPC.
+	NungwiServiceListObjectsProcedure = "/nungwi.v1alpha.NungwiService/ListObjects"
+)
+
 // NungwiServiceClient is a client for the nungwi.v1alpha.NungwiService service.
 type NungwiServiceClient interface {
 	WriteSchema(context.Context, *connect_go.Request[v1alpha.WriteSchemaRequest]) (*connect_go.Response[v1alpha.WriteSchemaResponse], error)
@@ -49,42 +80,42 @@ func NewNungwiServiceClient(httpClient connect_go.HTTPClient, baseURL string, op
 	return &nungwiServiceClient{
 		writeSchema: connect_go.NewClient[v1alpha.WriteSchemaRequest, v1alpha.WriteSchemaResponse](
 			httpClient,
-			baseURL+"/nungwi.v1alpha.NungwiService/WriteSchema",
+			baseURL+NungwiServiceWriteSchemaProcedure,
 			opts...,
 		),
 		getSchema: connect_go.NewClient[v1alpha.GetSchemaRequest, v1alpha.GetSchemaResponse](
 			httpClient,
-			baseURL+"/nungwi.v1alpha.NungwiService/GetSchema",
+			baseURL+NungwiServiceGetSchemaProcedure,
 			opts...,
 		),
 		deleteSchema: connect_go.NewClient[v1alpha.DeleteSchemaRequest, v1alpha.DeleteSchemaResponse](
 			httpClient,
-			baseURL+"/nungwi.v1alpha.NungwiService/DeleteSchema",
+			baseURL+NungwiServiceDeleteSchemaProcedure,
 			opts...,
 		),
 		writeTuples: connect_go.NewClient[v1alpha.WriteTuplesRequest, v1alpha.WriteTuplesResponse](
 			httpClient,
-			baseURL+"/nungwi.v1alpha.NungwiService/WriteTuples",
+			baseURL+NungwiServiceWriteTuplesProcedure,
 			opts...,
 		),
 		getTuples: connect_go.NewClient[v1alpha.GetTuplesRequest, v1alpha.GetTuplesResponse](
 			httpClient,
-			baseURL+"/nungwi.v1alpha.NungwiService/GetTuples",
+			baseURL+NungwiServiceGetTuplesProcedure,
 			opts...,
 		),
 		deleteTuples: connect_go.NewClient[v1alpha.DeleteTuplesRequest, v1alpha.DeleteTuplesResponse](
 			httpClient,
-			baseURL+"/nungwi.v1alpha.NungwiService/DeleteTuples",
+			baseURL+NungwiServiceDeleteTuplesProcedure,
 			opts...,
 		),
 		check: connect_go.NewClient[v1alpha.CheckRequest, v1alpha.CheckResponse](
 			httpClient,
-			baseURL+"/nungwi.v1alpha.NungwiService/Check",
+			baseURL+NungwiServiceCheckProcedure,
 			opts...,
 		),
 		listObjects: connect_go.NewClient[v1alpha.ListObjectsRequest, v1alpha.ListObjectsResponse](
 			httpClient,
-			baseURL+"/nungwi.v1alpha.NungwiService/ListObjects",
+			baseURL+NungwiServiceListObjectsProcedure,
 			opts...,
 		),
 	}
@@ -160,48 +191,68 @@ type NungwiServiceHandler interface {
 // By default, handlers support the Connect, gRPC, and gRPC-Web protocols with the binary Protobuf
 // and JSON codecs. They also support gzip compression.
 func NewNungwiServiceHandler(svc NungwiServiceHandler, opts ...connect_go.HandlerOption) (string, http.Handler) {
-	mux := http.NewServeMux()
-	mux.Handle("/nungwi.v1alpha.NungwiService/WriteSchema", connect_go.NewUnaryHandler(
-		"/nungwi.v1alpha.NungwiService/WriteSchema",
+	nungwiServiceWriteSchemaHandler := connect_go.NewUnaryHandler(
+		NungwiServiceWriteSchemaProcedure,
 		svc.WriteSchema,
 		opts...,
-	))
-	mux.Handle("/nungwi.v1alpha.NungwiService/GetSchema", connect_go.NewUnaryHandler(
-		"/nungwi.v1alpha.NungwiService/GetSchema",
+	)
+	nungwiServiceGetSchemaHandler := connect_go.NewUnaryHandler(
+		NungwiServiceGetSchemaProcedure,
 		svc.GetSchema,
 		opts...,
-	))
-	mux.Handle("/nungwi.v1alpha.NungwiService/DeleteSchema", connect_go.NewUnaryHandler(
-		"/nungwi.v1alpha.NungwiService/DeleteSchema",
+	)
+	nungwiServiceDeleteSchemaHandler := connect_go.NewUnaryHandler(
+		NungwiServiceDeleteSchemaProcedure,
 		svc.DeleteSchema,
 		opts...,
-	))
-	mux.Handle("/nungwi.v1alpha.NungwiService/WriteTuples", connect_go.NewUnaryHandler(
-		"/nungwi.v1alpha.NungwiService/WriteTuples",
+	)
+	nungwiServiceWriteTuplesHandler := connect_go.NewUnaryHandler(
+		NungwiServiceWriteTuplesProcedure,
 		svc.WriteTuples,
 		opts...,
-	))
-	mux.Handle("/nungwi.v1alpha.NungwiService/GetTuples", connect_go.NewUnaryHandler(
-		"/nungwi.v1alpha.NungwiService/GetTuples",
+	)
+	nungwiServiceGetTuplesHandler := connect_go.NewUnaryHandler(
+		NungwiServiceGetTuplesProcedure,
 		svc.GetTuples,
 		opts...,
-	))
-	mux.Handle("/nungwi.v1alpha.NungwiService/DeleteTuples", connect_go.NewUnaryHandler(
-		"/nungwi.v1alpha.NungwiService/DeleteTuples",
+	)
+	nungwiServiceDeleteTuplesHandler := connect_go.NewUnaryHandler(
+		NungwiServiceDeleteTuplesProcedure,
 		svc.DeleteTuples,
 		opts...,
-	))
-	mux.Handle("/nungwi.v1alpha.NungwiService/Check", connect_go.NewUnaryHandler(
-		"/nungwi.v1alpha.NungwiService/Check",
+	)
+	nungwiServiceCheckHandler := connect_go.NewUnaryHandler(
+		NungwiServiceCheckProcedure,
 		svc.Check,
 		opts...,
-	))
-	mux.Handle("/nungwi.v1alpha.NungwiService/ListObjects", connect_go.NewUnaryHandler(
-		"/nungwi.v1alpha.NungwiService/ListObjects",
+	)
+	nungwiServiceListObjectsHandler := connect_go.NewUnaryHandler(
+		NungwiServiceListObjectsProcedure,
 		svc.ListObjects,
 		opts...,
-	))
-	return "/nungwi.v1alpha.NungwiService/", mux
+	)
+	return "/nungwi.v1alpha.NungwiService/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		switch r.URL.Path {
+		case NungwiServiceWriteSchemaProcedure:
+			nungwiServiceWriteSchemaHandler.ServeHTTP(w, r)
+		case NungwiServiceGetSchemaProcedure:
+			nungwiServiceGetSchemaHandler.ServeHTTP(w, r)
+		case NungwiServiceDeleteSchemaProcedure:
+			nungwiServiceDeleteSchemaHandler.ServeHTTP(w, r)
+		case NungwiServiceWriteTuplesProcedure:
+			nungwiServiceWriteTuplesHandler.ServeHTTP(w, r)
+		case NungwiServiceGetTuplesProcedure:
+			nungwiServiceGetTuplesHandler.ServeHTTP(w, r)
+		case NungwiServiceDeleteTuplesProcedure:
+			nungwiServiceDeleteTuplesHandler.ServeHTTP(w, r)
+		case NungwiServiceCheckProcedure:
+			nungwiServiceCheckHandler.ServeHTTP(w, r)
+		case NungwiServiceListObjectsProcedure:
+			nungwiServiceListObjectsHandler.ServeHTTP(w, r)
+		default:
+			http.NotFound(w, r)
+		}
+	})
 }
 
 // UnimplementedNungwiServiceHandler returns CodeUnimplemented from all methods.

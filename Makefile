@@ -25,8 +25,8 @@ test: buf-generate
 
 .PHONY: build
 build: buf-generate
-	CGO_ENABLED=0 go build -o ./bin/nungwi ./cmd/nungwi
+	CGO_ENABLED=0 go build -o ./nungwi ./cmd/nungwi
 
 .PHONY: run
 run: build
-	./bin/nungwi
+	./nungwi

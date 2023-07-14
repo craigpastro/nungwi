@@ -1,0 +1,6 @@
+.antlr
+.github
+benchmark
+bin
+testdata
+.golangci.yaml

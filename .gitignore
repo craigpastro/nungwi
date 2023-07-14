@@ -1,2 +1,4 @@
 .antlr/
 bin/
+!nungwi/
+nungwi

@@ -1,8 +1,13 @@
 # Nungwi
 
-Nungwi is a PoC authorization service inspired by [Google Zanzibar](https://research.google/pubs/pub48190/), written in [Ichiban Prolog](https://github.com/ichiban/prolog). Nungwi is also is a village located at the northern end of the island of Zanzibar.
+Nungwi is a ReBAC style PoC authorization service inspired by
+[Google Zanzibar](https://research.google/pubs/pub48190/), written in
+[Ichiban Prolog](https://github.com/ichiban/prolog). Nungwi is also is a village
+located at the northern end of the island of Zanzibar.
 
-This is a PoC WIP. Don't use in production! I welcome all contributions.
+This is a PoC WIP. Don't use in production :stuck_out_tongue_closed_eyes:
+
+I welcome all contributions.
 
 ## Example Usage
 
@@ -94,6 +99,7 @@ $ curl -XPOST 'http://localhost:8080/nungwi.v1alpha.NungwiService/ListObjects' \
 ### Schema
 
 A rewrite can be any of the following:
+
 - `self`.
 - `computedUserset(relation: str)`
 - `tupleToUserset(tupleset: str, computedUserset: str)`
@@ -101,9 +107,12 @@ A rewrite can be any of the following:
 - `intersection(p1: rewrite, p2: rewrite)`
 - `exclusion(minuend: rewrite, subtrahend: rewrite)`
 
-The `str` type indicates that the argument must be a string, and the `rewrite` type indicates that the argument is a rewrite itself.
+The `str` type indicates that the argument must be a string, and the `rewrite`
+type indicates that the argument is a rewrite itself.
 
-A relation config consists of a namespace, relation, and rewrite. These are written as:
+A relation config consists of a namespace, relation, and rewrite. These are
+written as:
+
 ```python
 config(namespace, relation, rewrite)
 ```
@@ -113,15 +122,26 @@ A schema consists of one or more relation configs.
 ### Tuples
 
 A user can be any of the following:
+
 - `userId: str`
 - `object(namespace: str, id: str)`
 - `userset(namespace: str, id: str, relation: str)`
 
 A tuple consists of a namespace, id, relation, and user. These are written as:
+
 ```python
 tuple(namespace, id, relation, user)
 ```
 
+## Try it out
+
+You can run nungwi using Docker with:
+
+```
+docker compose up
+```
+
 ## Acknowledgements
 
-- Thank you to @ichiban for helping me with [Ichiban Prolog](https://github.com/ichiban/prolog).
+- Thank you to @ichiban for helping me with
+  [Ichiban Prolog](https://github.com/ichiban/prolog).
