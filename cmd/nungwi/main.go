@@ -33,14 +33,14 @@ func main() {
 		log.Fatal(err)
 	}
 
-	handler := slog.NewTextHandler(os.Stdout)
-	logger := slog.New(handler)
-	ctx := slog.NewContext(context.Background(), logger)
-
-	run(ctx, &cfg)
+	run(context.Background(), &cfg)
 }
 
 func run(ctx context.Context, config *config) {
+	handler := slog.NewTextHandler(os.Stdout, nil)
+	logger := slog.New(handler)
+	slog.SetDefault(logger)
+
 	if config.EnableProfiler {
 		http.Handle("/debug/fgtrace", fgtrace.Config{})
 		srv := &http.Server{

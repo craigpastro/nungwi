@@ -1,7 +1,7 @@
 package parser
 
 import (
-	"github.com/antlr/antlr4/runtime/Go/antlr/v4"
+	"github.com/antlr4-go/antlr/v4"
 	rewrite "github.com/craigpastro/nungwi/internal/gen/rewrite/parser"
 	user "github.com/craigpastro/nungwi/internal/gen/user/parser"
 )

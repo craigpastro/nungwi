@@ -4,7 +4,13 @@ run:
 
 linters:
   enable:
+    - bodyclose
     - errname
     - gofmt
     - goimports
     - stylecheck
+    - unconvert
+    - unparam
+
+issues:
+  fix: true
