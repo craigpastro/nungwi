@@ -1,4 +1,4 @@
-// Code generated from java-escape by ANTLR 4.11.1. DO NOT EDIT.
+// Code generated from Rewrite.g4 by ANTLR 4.13.0. DO NOT EDIT.
 
 package parser // Rewrite
 
@@ -7,7 +7,7 @@ import (
 	"strconv"
 	"sync"
 
-	"github.com/antlr/antlr4/runtime/Go/antlr/v4"
+	"github.com/antlr4-go/antlr/v4"
 )
 
 // Suppress unused import errors
@@ -19,30 +19,30 @@ type RewriteParser struct {
 	*antlr.BaseParser
 }
 
-var rewriteParserStaticData struct {
+var RewriteParserStaticData struct {
 	once                   sync.Once
 	serializedATN          []int32
-	literalNames           []string
-	symbolicNames          []string
-	ruleNames              []string
-	predictionContextCache *antlr.PredictionContextCache
+	LiteralNames           []string
+	SymbolicNames          []string
+	RuleNames              []string
+	PredictionContextCache *antlr.PredictionContextCache
 	atn                    *antlr.ATN
 	decisionToDFA          []*antlr.DFA
 }
 
 func rewriteParserInit() {
-	staticData := &rewriteParserStaticData
-	staticData.literalNames = []string{
+	staticData := &RewriteParserStaticData
+	staticData.LiteralNames = []string{
 		"", "'self'", "'computedUserset'", "'('", "')'", "'tupleToUserset'",
 		"','", "'union'", "'intersection'", "'exclusion'",
 	}
-	staticData.symbolicNames = []string{
+	staticData.SymbolicNames = []string{
 		"", "", "", "", "", "", "", "", "", "", "ID", "WS",
 	}
-	staticData.ruleNames = []string{
+	staticData.RuleNames = []string{
 		"term", "rewrite",
 	}
-	staticData.predictionContextCache = antlr.NewPredictionContextCache()
+	staticData.PredictionContextCache = antlr.NewPredictionContextCache()
 	staticData.serializedATN = []int32{
 		4, 1, 11, 42, 2, 0, 7, 0, 2, 1, 7, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1,
 		1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
@@ -77,7 +77,7 @@ func rewriteParserInit() {
 // NewRewriteParser(). You can call this function if you wish to initialize the static state ahead
 // of time.
 func RewriteParserInit() {
-	staticData := &rewriteParserStaticData
+	staticData := &RewriteParserStaticData
 	staticData.once.Do(rewriteParserInit)
 }
 
@@ -86,12 +86,12 @@ func NewRewriteParser(input antlr.TokenStream) *RewriteParser {
 	RewriteParserInit()
 	this := new(RewriteParser)
 	this.BaseParser = antlr.NewBaseParser(input)
-	staticData := &rewriteParserStaticData
-	this.Interpreter = antlr.NewParserATNSimulator(this, staticData.atn, staticData.decisionToDFA, staticData.predictionContextCache)
-	this.RuleNames = staticData.ruleNames
-	this.LiteralNames = staticData.literalNames
-	this.SymbolicNames = staticData.symbolicNames
-	this.GrammarFileName = "java-escape"
+	staticData := &RewriteParserStaticData
+	this.Interpreter = antlr.NewParserATNSimulator(this, staticData.atn, staticData.decisionToDFA, staticData.PredictionContextCache)
+	this.RuleNames = staticData.RuleNames
+	this.LiteralNames = staticData.LiteralNames
+	this.SymbolicNames = staticData.SymbolicNames
+	this.GrammarFileName = "Rewrite.g4"
 
 	return this
 }
@@ -125,20 +125,29 @@ type ITermContext interface {
 	// GetParser returns the parser.
 	GetParser() antlr.Parser
 
+	// Getter signatures
+	Rewrite() IRewriteContext
+	EOF() antlr.TerminalNode
+
 	// IsTermContext differentiates from other interfaces.
 	IsTermContext()
 }
 
 type TermContext struct {
-	*antlr.BaseParserRuleContext
+	antlr.BaseParserRuleContext
 	parser antlr.Parser
 }
 
 func NewEmptyTermContext() *TermContext {
 	var p = new(TermContext)
-	p.BaseParserRuleContext = antlr.NewBaseParserRuleContext(nil, -1)
+	antlr.InitBaseParserRuleContext(&p.BaseParserRuleContext, nil, -1)
 	p.RuleIndex = RewriteParserRULE_term
 	return p
+}
+
+func InitEmptyTermContext(p *TermContext) {
+	antlr.InitBaseParserRuleContext(&p.BaseParserRuleContext, nil, -1)
+	p.RuleIndex = RewriteParserRULE_term
 }
 
 func (*TermContext) IsTermContext() {}
@@ -146,7 +155,7 @@ func (*TermContext) IsTermContext() {}
 func NewTermContext(parser antlr.Parser, parent antlr.ParserRuleContext, invokingState int) *TermContext {
 	var p = new(TermContext)
 
-	p.BaseParserRuleContext = antlr.NewBaseParserRuleContext(parent, invokingState)
+	antlr.InitBaseParserRuleContext(&p.BaseParserRuleContext, parent, invokingState)
 
 	p.parser = parser
 	p.RuleIndex = RewriteParserRULE_term
@@ -197,28 +206,8 @@ func (s *TermContext) ExitRule(listener antlr.ParseTreeListener) {
 }
 
 func (p *RewriteParser) Term() (localctx ITermContext) {
-	this := p
-	_ = this
-
 	localctx = NewTermContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 0, RewriteParserRULE_term)
-
-	defer func() {
-		p.ExitRule()
-	}()
-
-	defer func() {
-		if err := recover(); err != nil {
-			if v, ok := err.(antlr.RecognitionException); ok {
-				localctx.SetException(v)
-				p.GetErrorHandler().ReportError(p, v)
-				p.GetErrorHandler().Recover(p, v)
-			} else {
-				panic(err)
-			}
-		}
-	}()
-
 	p.EnterOuterAlt(localctx, 1)
 	{
 		p.SetState(4)
@@ -227,9 +216,23 @@ func (p *RewriteParser) Term() (localctx ITermContext) {
 	{
 		p.SetState(5)
 		p.Match(RewriteParserEOF)
+		if p.HasError() {
+			// Recognition error - abort rule
+			goto errorExit
+		}
 	}
 
+errorExit:
+	if p.HasError() {
+		v := p.GetError()
+		localctx.SetException(v)
+		p.GetErrorHandler().ReportError(p, v)
+		p.GetErrorHandler().Recover(p, v)
+		p.SetError(nil)
+	}
+	p.ExitRule()
 	return localctx
+	goto errorExit // Trick to prevent compiler error if the label is not used
 }
 
 // IRewriteContext is an interface to support dynamic dispatch.
@@ -239,20 +242,31 @@ type IRewriteContext interface {
 	// GetParser returns the parser.
 	GetParser() antlr.Parser
 
+	// Getter signatures
+	AllID() []antlr.TerminalNode
+	ID(i int) antlr.TerminalNode
+	AllRewrite() []IRewriteContext
+	Rewrite(i int) IRewriteContext
+
 	// IsRewriteContext differentiates from other interfaces.
 	IsRewriteContext()
 }
 
 type RewriteContext struct {
-	*antlr.BaseParserRuleContext
+	antlr.BaseParserRuleContext
 	parser antlr.Parser
 }
 
 func NewEmptyRewriteContext() *RewriteContext {
 	var p = new(RewriteContext)
-	p.BaseParserRuleContext = antlr.NewBaseParserRuleContext(nil, -1)
+	antlr.InitBaseParserRuleContext(&p.BaseParserRuleContext, nil, -1)
 	p.RuleIndex = RewriteParserRULE_rewrite
 	return p
+}
+
+func InitEmptyRewriteContext(p *RewriteContext) {
+	antlr.InitBaseParserRuleContext(&p.BaseParserRuleContext, nil, -1)
+	p.RuleIndex = RewriteParserRULE_rewrite
 }
 
 func (*RewriteContext) IsRewriteContext() {}
@@ -260,7 +274,7 @@ func (*RewriteContext) IsRewriteContext() {}
 func NewRewriteContext(parser antlr.Parser, parent antlr.ParserRuleContext, invokingState int) *RewriteContext {
 	var p = new(RewriteContext)
 
-	p.BaseParserRuleContext = antlr.NewBaseParserRuleContext(parent, invokingState)
+	antlr.InitBaseParserRuleContext(&p.BaseParserRuleContext, parent, invokingState)
 
 	p.parser = parser
 	p.RuleIndex = RewriteParserRULE_rewrite
@@ -340,30 +354,13 @@ func (s *RewriteContext) ExitRule(listener antlr.ParseTreeListener) {
 }
 
 func (p *RewriteParser) Rewrite() (localctx IRewriteContext) {
-	this := p
-	_ = this
-
 	localctx = NewRewriteContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 2, RewriteParserRULE_rewrite)
-
-	defer func() {
-		p.ExitRule()
-	}()
-
-	defer func() {
-		if err := recover(); err != nil {
-			if v, ok := err.(antlr.RecognitionException); ok {
-				localctx.SetException(v)
-				p.GetErrorHandler().ReportError(p, v)
-				p.GetErrorHandler().Recover(p, v)
-			} else {
-				panic(err)
-			}
-		}
-	}()
-
 	p.SetState(39)
 	p.GetErrorHandler().Sync(p)
+	if p.HasError() {
+		goto errorExit
+	}
 
 	switch p.GetTokenStream().LA(1) {
 	case RewriteParserT__0:
@@ -371,6 +368,10 @@ func (p *RewriteParser) Rewrite() (localctx IRewriteContext) {
 		{
 			p.SetState(7)
 			p.Match(RewriteParserT__0)
+			if p.HasError() {
+				// Recognition error - abort rule
+				goto errorExit
+			}
 		}
 
 	case RewriteParserT__1:
@@ -378,18 +379,34 @@ func (p *RewriteParser) Rewrite() (localctx IRewriteContext) {
 		{
 			p.SetState(8)
 			p.Match(RewriteParserT__1)
+			if p.HasError() {
+				// Recognition error - abort rule
+				goto errorExit
+			}
 		}
 		{
 			p.SetState(9)
 			p.Match(RewriteParserT__2)
+			if p.HasError() {
+				// Recognition error - abort rule
+				goto errorExit
+			}
 		}
 		{
 			p.SetState(10)
 			p.Match(RewriteParserID)
+			if p.HasError() {
+				// Recognition error - abort rule
+				goto errorExit
+			}
 		}
 		{
 			p.SetState(11)
 			p.Match(RewriteParserT__3)
+			if p.HasError() {
+				// Recognition error - abort rule
+				goto errorExit
+			}
 		}
 
 	case RewriteParserT__4:
@@ -397,26 +414,50 @@ func (p *RewriteParser) Rewrite() (localctx IRewriteContext) {
 		{
 			p.SetState(12)
 			p.Match(RewriteParserT__4)
+			if p.HasError() {
+				// Recognition error - abort rule
+				goto errorExit
+			}
 		}
 		{
 			p.SetState(13)
 			p.Match(RewriteParserT__2)
+			if p.HasError() {
+				// Recognition error - abort rule
+				goto errorExit
+			}
 		}
 		{
 			p.SetState(14)
 			p.Match(RewriteParserID)
+			if p.HasError() {
+				// Recognition error - abort rule
+				goto errorExit
+			}
 		}
 		{
 			p.SetState(15)
 			p.Match(RewriteParserT__5)
+			if p.HasError() {
+				// Recognition error - abort rule
+				goto errorExit
+			}
 		}
 		{
 			p.SetState(16)
 			p.Match(RewriteParserID)
+			if p.HasError() {
+				// Recognition error - abort rule
+				goto errorExit
+			}
 		}
 		{
 			p.SetState(17)
 			p.Match(RewriteParserT__3)
+			if p.HasError() {
+				// Recognition error - abort rule
+				goto errorExit
+			}
 		}
 
 	case RewriteParserT__6:
@@ -424,10 +465,18 @@ func (p *RewriteParser) Rewrite() (localctx IRewriteContext) {
 		{
 			p.SetState(18)
 			p.Match(RewriteParserT__6)
+			if p.HasError() {
+				// Recognition error - abort rule
+				goto errorExit
+			}
 		}
 		{
 			p.SetState(19)
 			p.Match(RewriteParserT__2)
+			if p.HasError() {
+				// Recognition error - abort rule
+				goto errorExit
+			}
 		}
 		{
 			p.SetState(20)
@@ -436,6 +485,10 @@ func (p *RewriteParser) Rewrite() (localctx IRewriteContext) {
 		{
 			p.SetState(21)
 			p.Match(RewriteParserT__5)
+			if p.HasError() {
+				// Recognition error - abort rule
+				goto errorExit
+			}
 		}
 		{
 			p.SetState(22)
@@ -444,6 +497,10 @@ func (p *RewriteParser) Rewrite() (localctx IRewriteContext) {
 		{
 			p.SetState(23)
 			p.Match(RewriteParserT__3)
+			if p.HasError() {
+				// Recognition error - abort rule
+				goto errorExit
+			}
 		}
 
 	case RewriteParserT__7:
@@ -451,10 +508,18 @@ func (p *RewriteParser) Rewrite() (localctx IRewriteContext) {
 		{
 			p.SetState(25)
 			p.Match(RewriteParserT__7)
+			if p.HasError() {
+				// Recognition error - abort rule
+				goto errorExit
+			}
 		}
 		{
 			p.SetState(26)
 			p.Match(RewriteParserT__2)
+			if p.HasError() {
+				// Recognition error - abort rule
+				goto errorExit
+			}
 		}
 		{
 			p.SetState(27)
@@ -463,6 +528,10 @@ func (p *RewriteParser) Rewrite() (localctx IRewriteContext) {
 		{
 			p.SetState(28)
 			p.Match(RewriteParserT__5)
+			if p.HasError() {
+				// Recognition error - abort rule
+				goto errorExit
+			}
 		}
 		{
 			p.SetState(29)
@@ -471,6 +540,10 @@ func (p *RewriteParser) Rewrite() (localctx IRewriteContext) {
 		{
 			p.SetState(30)
 			p.Match(RewriteParserT__3)
+			if p.HasError() {
+				// Recognition error - abort rule
+				goto errorExit
+			}
 		}
 
 	case RewriteParserT__8:
@@ -478,10 +551,18 @@ func (p *RewriteParser) Rewrite() (localctx IRewriteContext) {
 		{
 			p.SetState(32)
 			p.Match(RewriteParserT__8)
+			if p.HasError() {
+				// Recognition error - abort rule
+				goto errorExit
+			}
 		}
 		{
 			p.SetState(33)
 			p.Match(RewriteParserT__2)
+			if p.HasError() {
+				// Recognition error - abort rule
+				goto errorExit
+			}
 		}
 		{
 			p.SetState(34)
@@ -490,6 +571,10 @@ func (p *RewriteParser) Rewrite() (localctx IRewriteContext) {
 		{
 			p.SetState(35)
 			p.Match(RewriteParserT__5)
+			if p.HasError() {
+				// Recognition error - abort rule
+				goto errorExit
+			}
 		}
 		{
 			p.SetState(36)
@@ -498,11 +583,26 @@ func (p *RewriteParser) Rewrite() (localctx IRewriteContext) {
 		{
 			p.SetState(37)
 			p.Match(RewriteParserT__3)
+			if p.HasError() {
+				// Recognition error - abort rule
+				goto errorExit
+			}
 		}
 
 	default:
-		panic(antlr.NewNoViableAltException(p, nil, nil, nil, nil, nil))
+		p.SetError(antlr.NewNoViableAltException(p, nil, nil, nil, nil, nil))
+		goto errorExit
 	}
 
+errorExit:
+	if p.HasError() {
+		v := p.GetError()
+		localctx.SetException(v)
+		p.GetErrorHandler().ReportError(p, v)
+		p.GetErrorHandler().Recover(p, v)
+		p.SetError(nil)
+	}
+	p.ExitRule()
 	return localctx
+	goto errorExit // Trick to prevent compiler error if the label is not used
 }
