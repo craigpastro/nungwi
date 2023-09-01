@@ -9,7 +9,7 @@ require (
 	github.com/cenkalti/backoff/v4 v4.2.1
 	github.com/envoyproxy/protoc-gen-validate v1.0.2
 	github.com/felixge/fgtrace v0.2.0
-	github.com/ichiban/prolog v1.1.2
+	github.com/ichiban/prolog v1.1.3
 	github.com/sethvargo/go-envconfig v0.9.0
 	github.com/stretchr/testify v1.8.4
 	golang.org/x/exp v0.0.0-20230713183714-613f0c0eb8a1
