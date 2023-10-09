@@ -217,7 +217,6 @@ func (p *Prolog) ListObjects(ctx context.Context, namespace, relation, user stri
 		}
 		if err := sols.Scan(&s); err != nil {
 			return nil, fmt.Errorf("prolog scan error: %w", err)
-
 		}
 		ids = append(ids, string(s.ID))
 	}

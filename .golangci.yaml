@@ -6,8 +6,9 @@ linters:
   enable:
     - bodyclose
     - errname
-    - gofmt
-    - goimports
+    - gci
+    - gofumpt
+    - gosec
     - stylecheck
     - unconvert
     - unparam
