@@ -5,9 +5,9 @@
 package nungwiv1alphaconnect
 
 import (
+	connect "connectrpc.com/connect"
 	context "context"
 	errors "errors"
-	connect_go "github.com/bufbuild/connect-go"
 	v1alpha "github.com/craigpastro/nungwi/internal/gen/nungwi/v1alpha"
 	http "net/http"
 	strings "strings"
@@ -18,7 +18,7 @@ import (
 // generated with a version of connect newer than the one compiled into your binary. You can fix the
 // problem by either regenerating this code with an older version of connect or updating the connect
 // version compiled into your binary.
-const _ = connect_go.IsAtLeastVersion0_1_0
+const _ = connect.IsAtLeastVersion0_1_0
 
 const (
 	// NungwiServiceName is the fully-qualified name of the NungwiService service.
@@ -58,14 +58,14 @@ const (
 
 // NungwiServiceClient is a client for the nungwi.v1alpha.NungwiService service.
 type NungwiServiceClient interface {
-	WriteSchema(context.Context, *connect_go.Request[v1alpha.WriteSchemaRequest]) (*connect_go.Response[v1alpha.WriteSchemaResponse], error)
-	GetSchema(context.Context, *connect_go.Request[v1alpha.GetSchemaRequest]) (*connect_go.Response[v1alpha.GetSchemaResponse], error)
-	DeleteSchema(context.Context, *connect_go.Request[v1alpha.DeleteSchemaRequest]) (*connect_go.Response[v1alpha.DeleteSchemaResponse], error)
-	WriteTuples(context.Context, *connect_go.Request[v1alpha.WriteTuplesRequest]) (*connect_go.Response[v1alpha.WriteTuplesResponse], error)
-	GetTuples(context.Context, *connect_go.Request[v1alpha.GetTuplesRequest]) (*connect_go.Response[v1alpha.GetTuplesResponse], error)
-	DeleteTuples(context.Context, *connect_go.Request[v1alpha.DeleteTuplesRequest]) (*connect_go.Response[v1alpha.DeleteTuplesResponse], error)
-	Check(context.Context, *connect_go.Request[v1alpha.CheckRequest]) (*connect_go.Response[v1alpha.CheckResponse], error)
-	ListObjects(context.Context, *connect_go.Request[v1alpha.ListObjectsRequest]) (*connect_go.Response[v1alpha.ListObjectsResponse], error)
+	WriteSchema(context.Context, *connect.Request[v1alpha.WriteSchemaRequest]) (*connect.Response[v1alpha.WriteSchemaResponse], error)
+	GetSchema(context.Context, *connect.Request[v1alpha.GetSchemaRequest]) (*connect.Response[v1alpha.GetSchemaResponse], error)
+	DeleteSchema(context.Context, *connect.Request[v1alpha.DeleteSchemaRequest]) (*connect.Response[v1alpha.DeleteSchemaResponse], error)
+	WriteTuples(context.Context, *connect.Request[v1alpha.WriteTuplesRequest]) (*connect.Response[v1alpha.WriteTuplesResponse], error)
+	GetTuples(context.Context, *connect.Request[v1alpha.GetTuplesRequest]) (*connect.Response[v1alpha.GetTuplesResponse], error)
+	DeleteTuples(context.Context, *connect.Request[v1alpha.DeleteTuplesRequest]) (*connect.Response[v1alpha.DeleteTuplesResponse], error)
+	Check(context.Context, *connect.Request[v1alpha.CheckRequest]) (*connect.Response[v1alpha.CheckResponse], error)
+	ListObjects(context.Context, *connect.Request[v1alpha.ListObjectsRequest]) (*connect.Response[v1alpha.ListObjectsResponse], error)
 }
 
 // NewNungwiServiceClient constructs a client for the nungwi.v1alpha.NungwiService service. By
@@ -75,45 +75,45 @@ type NungwiServiceClient interface {
 //
 // The URL supplied here should be the base URL for the Connect or gRPC server (for example,
 // http://api.acme.com or https://acme.com/grpc).
-func NewNungwiServiceClient(httpClient connect_go.HTTPClient, baseURL string, opts ...connect_go.ClientOption) NungwiServiceClient {
+func NewNungwiServiceClient(httpClient connect.HTTPClient, baseURL string, opts ...connect.ClientOption) NungwiServiceClient {
 	baseURL = strings.TrimRight(baseURL, "/")
 	return &nungwiServiceClient{
-		writeSchema: connect_go.NewClient[v1alpha.WriteSchemaRequest, v1alpha.WriteSchemaResponse](
+		writeSchema: connect.NewClient[v1alpha.WriteSchemaRequest, v1alpha.WriteSchemaResponse](
 			httpClient,
 			baseURL+NungwiServiceWriteSchemaProcedure,
 			opts...,
 		),
-		getSchema: connect_go.NewClient[v1alpha.GetSchemaRequest, v1alpha.GetSchemaResponse](
+		getSchema: connect.NewClient[v1alpha.GetSchemaRequest, v1alpha.GetSchemaResponse](
 			httpClient,
 			baseURL+NungwiServiceGetSchemaProcedure,
 			opts...,
 		),
-		deleteSchema: connect_go.NewClient[v1alpha.DeleteSchemaRequest, v1alpha.DeleteSchemaResponse](
+		deleteSchema: connect.NewClient[v1alpha.DeleteSchemaRequest, v1alpha.DeleteSchemaResponse](
 			httpClient,
 			baseURL+NungwiServiceDeleteSchemaProcedure,
 			opts...,
 		),
-		writeTuples: connect_go.NewClient[v1alpha.WriteTuplesRequest, v1alpha.WriteTuplesResponse](
+		writeTuples: connect.NewClient[v1alpha.WriteTuplesRequest, v1alpha.WriteTuplesResponse](
 			httpClient,
 			baseURL+NungwiServiceWriteTuplesProcedure,
 			opts...,
 		),
-		getTuples: connect_go.NewClient[v1alpha.GetTuplesRequest, v1alpha.GetTuplesResponse](
+		getTuples: connect.NewClient[v1alpha.GetTuplesRequest, v1alpha.GetTuplesResponse](
 			httpClient,
 			baseURL+NungwiServiceGetTuplesProcedure,
 			opts...,
 		),
-		deleteTuples: connect_go.NewClient[v1alpha.DeleteTuplesRequest, v1alpha.DeleteTuplesResponse](
+		deleteTuples: connect.NewClient[v1alpha.DeleteTuplesRequest, v1alpha.DeleteTuplesResponse](
 			httpClient,
 			baseURL+NungwiServiceDeleteTuplesProcedure,
 			opts...,
 		),
-		check: connect_go.NewClient[v1alpha.CheckRequest, v1alpha.CheckResponse](
+		check: connect.NewClient[v1alpha.CheckRequest, v1alpha.CheckResponse](
 			httpClient,
 			baseURL+NungwiServiceCheckProcedure,
 			opts...,
 		),
-		listObjects: connect_go.NewClient[v1alpha.ListObjectsRequest, v1alpha.ListObjectsResponse](
+		listObjects: connect.NewClient[v1alpha.ListObjectsRequest, v1alpha.ListObjectsResponse](
 			httpClient,
 			baseURL+NungwiServiceListObjectsProcedure,
 			opts...,
@@ -123,66 +123,66 @@ func NewNungwiServiceClient(httpClient connect_go.HTTPClient, baseURL string, op
 
 // nungwiServiceClient implements NungwiServiceClient.
 type nungwiServiceClient struct {
-	writeSchema  *connect_go.Client[v1alpha.WriteSchemaRequest, v1alpha.WriteSchemaResponse]
-	getSchema    *connect_go.Client[v1alpha.GetSchemaRequest, v1alpha.GetSchemaResponse]
-	deleteSchema *connect_go.Client[v1alpha.DeleteSchemaRequest, v1alpha.DeleteSchemaResponse]
-	writeTuples  *connect_go.Client[v1alpha.WriteTuplesRequest, v1alpha.WriteTuplesResponse]
-	getTuples    *connect_go.Client[v1alpha.GetTuplesRequest, v1alpha.GetTuplesResponse]
-	deleteTuples *connect_go.Client[v1alpha.DeleteTuplesRequest, v1alpha.DeleteTuplesResponse]
-	check        *connect_go.Client[v1alpha.CheckRequest, v1alpha.CheckResponse]
-	listObjects  *connect_go.Client[v1alpha.ListObjectsRequest, v1alpha.ListObjectsResponse]
+	writeSchema  *connect.Client[v1alpha.WriteSchemaRequest, v1alpha.WriteSchemaResponse]
+	getSchema    *connect.Client[v1alpha.GetSchemaRequest, v1alpha.GetSchemaResponse]
+	deleteSchema *connect.Client[v1alpha.DeleteSchemaRequest, v1alpha.DeleteSchemaResponse]
+	writeTuples  *connect.Client[v1alpha.WriteTuplesRequest, v1alpha.WriteTuplesResponse]
+	getTuples    *connect.Client[v1alpha.GetTuplesRequest, v1alpha.GetTuplesResponse]
+	deleteTuples *connect.Client[v1alpha.DeleteTuplesRequest, v1alpha.DeleteTuplesResponse]
+	check        *connect.Client[v1alpha.CheckRequest, v1alpha.CheckResponse]
+	listObjects  *connect.Client[v1alpha.ListObjectsRequest, v1alpha.ListObjectsResponse]
 }
 
 // WriteSchema calls nungwi.v1alpha.NungwiService.WriteSchema.
-func (c *nungwiServiceClient) WriteSchema(ctx context.Context, req *connect_go.Request[v1alpha.WriteSchemaRequest]) (*connect_go.Response[v1alpha.WriteSchemaResponse], error) {
+func (c *nungwiServiceClient) WriteSchema(ctx context.Context, req *connect.Request[v1alpha.WriteSchemaRequest]) (*connect.Response[v1alpha.WriteSchemaResponse], error) {
 	return c.writeSchema.CallUnary(ctx, req)
 }
 
 // GetSchema calls nungwi.v1alpha.NungwiService.GetSchema.
-func (c *nungwiServiceClient) GetSchema(ctx context.Context, req *connect_go.Request[v1alpha.GetSchemaRequest]) (*connect_go.Response[v1alpha.GetSchemaResponse], error) {
+func (c *nungwiServiceClient) GetSchema(ctx context.Context, req *connect.Request[v1alpha.GetSchemaRequest]) (*connect.Response[v1alpha.GetSchemaResponse], error) {
 	return c.getSchema.CallUnary(ctx, req)
 }
 
 // DeleteSchema calls nungwi.v1alpha.NungwiService.DeleteSchema.
-func (c *nungwiServiceClient) DeleteSchema(ctx context.Context, req *connect_go.Request[v1alpha.DeleteSchemaRequest]) (*connect_go.Response[v1alpha.DeleteSchemaResponse], error) {
+func (c *nungwiServiceClient) DeleteSchema(ctx context.Context, req *connect.Request[v1alpha.DeleteSchemaRequest]) (*connect.Response[v1alpha.DeleteSchemaResponse], error) {
 	return c.deleteSchema.CallUnary(ctx, req)
 }
 
 // WriteTuples calls nungwi.v1alpha.NungwiService.WriteTuples.
-func (c *nungwiServiceClient) WriteTuples(ctx context.Context, req *connect_go.Request[v1alpha.WriteTuplesRequest]) (*connect_go.Response[v1alpha.WriteTuplesResponse], error) {
+func (c *nungwiServiceClient) WriteTuples(ctx context.Context, req *connect.Request[v1alpha.WriteTuplesRequest]) (*connect.Response[v1alpha.WriteTuplesResponse], error) {
 	return c.writeTuples.CallUnary(ctx, req)
 }
 
 // GetTuples calls nungwi.v1alpha.NungwiService.GetTuples.
-func (c *nungwiServiceClient) GetTuples(ctx context.Context, req *connect_go.Request[v1alpha.GetTuplesRequest]) (*connect_go.Response[v1alpha.GetTuplesResponse], error) {
+func (c *nungwiServiceClient) GetTuples(ctx context.Context, req *connect.Request[v1alpha.GetTuplesRequest]) (*connect.Response[v1alpha.GetTuplesResponse], error) {
 	return c.getTuples.CallUnary(ctx, req)
 }
 
 // DeleteTuples calls nungwi.v1alpha.NungwiService.DeleteTuples.
-func (c *nungwiServiceClient) DeleteTuples(ctx context.Context, req *connect_go.Request[v1alpha.DeleteTuplesRequest]) (*connect_go.Response[v1alpha.DeleteTuplesResponse], error) {
+func (c *nungwiServiceClient) DeleteTuples(ctx context.Context, req *connect.Request[v1alpha.DeleteTuplesRequest]) (*connect.Response[v1alpha.DeleteTuplesResponse], error) {
 	return c.deleteTuples.CallUnary(ctx, req)
 }
 
 // Check calls nungwi.v1alpha.NungwiService.Check.
-func (c *nungwiServiceClient) Check(ctx context.Context, req *connect_go.Request[v1alpha.CheckRequest]) (*connect_go.Response[v1alpha.CheckResponse], error) {
+func (c *nungwiServiceClient) Check(ctx context.Context, req *connect.Request[v1alpha.CheckRequest]) (*connect.Response[v1alpha.CheckResponse], error) {
 	return c.check.CallUnary(ctx, req)
 }
 
 // ListObjects calls nungwi.v1alpha.NungwiService.ListObjects.
-func (c *nungwiServiceClient) ListObjects(ctx context.Context, req *connect_go.Request[v1alpha.ListObjectsRequest]) (*connect_go.Response[v1alpha.ListObjectsResponse], error) {
+func (c *nungwiServiceClient) ListObjects(ctx context.Context, req *connect.Request[v1alpha.ListObjectsRequest]) (*connect.Response[v1alpha.ListObjectsResponse], error) {
 	return c.listObjects.CallUnary(ctx, req)
 }
 
 // NungwiServiceHandler is an implementation of the nungwi.v1alpha.NungwiService service.
 type NungwiServiceHandler interface {
-	WriteSchema(context.Context, *connect_go.Request[v1alpha.WriteSchemaRequest]) (*connect_go.Response[v1alpha.WriteSchemaResponse], error)
-	GetSchema(context.Context, *connect_go.Request[v1alpha.GetSchemaRequest]) (*connect_go.Response[v1alpha.GetSchemaResponse], error)
-	DeleteSchema(context.Context, *connect_go.Request[v1alpha.DeleteSchemaRequest]) (*connect_go.Response[v1alpha.DeleteSchemaResponse], error)
-	WriteTuples(context.Context, *connect_go.Request[v1alpha.WriteTuplesRequest]) (*connect_go.Response[v1alpha.WriteTuplesResponse], error)
-	GetTuples(context.Context, *connect_go.Request[v1alpha.GetTuplesRequest]) (*connect_go.Response[v1alpha.GetTuplesResponse], error)
-	DeleteTuples(context.Context, *connect_go.Request[v1alpha.DeleteTuplesRequest]) (*connect_go.Response[v1alpha.DeleteTuplesResponse], error)
-	Check(context.Context, *connect_go.Request[v1alpha.CheckRequest]) (*connect_go.Response[v1alpha.CheckResponse], error)
-	ListObjects(context.Context, *connect_go.Request[v1alpha.ListObjectsRequest]) (*connect_go.Response[v1alpha.ListObjectsResponse], error)
+	WriteSchema(context.Context, *connect.Request[v1alpha.WriteSchemaRequest]) (*connect.Response[v1alpha.WriteSchemaResponse], error)
+	GetSchema(context.Context, *connect.Request[v1alpha.GetSchemaRequest]) (*connect.Response[v1alpha.GetSchemaResponse], error)
+	DeleteSchema(context.Context, *connect.Request[v1alpha.DeleteSchemaRequest]) (*connect.Response[v1alpha.DeleteSchemaResponse], error)
+	WriteTuples(context.Context, *connect.Request[v1alpha.WriteTuplesRequest]) (*connect.Response[v1alpha.WriteTuplesResponse], error)
+	GetTuples(context.Context, *connect.Request[v1alpha.GetTuplesRequest]) (*connect.Response[v1alpha.GetTuplesResponse], error)
+	DeleteTuples(context.Context, *connect.Request[v1alpha.DeleteTuplesRequest]) (*connect.Response[v1alpha.DeleteTuplesResponse], error)
+	Check(context.Context, *connect.Request[v1alpha.CheckRequest]) (*connect.Response[v1alpha.CheckResponse], error)
+	ListObjects(context.Context, *connect.Request[v1alpha.ListObjectsRequest]) (*connect.Response[v1alpha.ListObjectsResponse], error)
 }
 
 // NewNungwiServiceHandler builds an HTTP handler from the service implementation. It returns the
@@ -190,43 +190,43 @@ type NungwiServiceHandler interface {
 //
 // By default, handlers support the Connect, gRPC, and gRPC-Web protocols with the binary Protobuf
 // and JSON codecs. They also support gzip compression.
-func NewNungwiServiceHandler(svc NungwiServiceHandler, opts ...connect_go.HandlerOption) (string, http.Handler) {
-	nungwiServiceWriteSchemaHandler := connect_go.NewUnaryHandler(
+func NewNungwiServiceHandler(svc NungwiServiceHandler, opts ...connect.HandlerOption) (string, http.Handler) {
+	nungwiServiceWriteSchemaHandler := connect.NewUnaryHandler(
 		NungwiServiceWriteSchemaProcedure,
 		svc.WriteSchema,
 		opts...,
 	)
-	nungwiServiceGetSchemaHandler := connect_go.NewUnaryHandler(
+	nungwiServiceGetSchemaHandler := connect.NewUnaryHandler(
 		NungwiServiceGetSchemaProcedure,
 		svc.GetSchema,
 		opts...,
 	)
-	nungwiServiceDeleteSchemaHandler := connect_go.NewUnaryHandler(
+	nungwiServiceDeleteSchemaHandler := connect.NewUnaryHandler(
 		NungwiServiceDeleteSchemaProcedure,
 		svc.DeleteSchema,
 		opts...,
 	)
-	nungwiServiceWriteTuplesHandler := connect_go.NewUnaryHandler(
+	nungwiServiceWriteTuplesHandler := connect.NewUnaryHandler(
 		NungwiServiceWriteTuplesProcedure,
 		svc.WriteTuples,
 		opts...,
 	)
-	nungwiServiceGetTuplesHandler := connect_go.NewUnaryHandler(
+	nungwiServiceGetTuplesHandler := connect.NewUnaryHandler(
 		NungwiServiceGetTuplesProcedure,
 		svc.GetTuples,
 		opts...,
 	)
-	nungwiServiceDeleteTuplesHandler := connect_go.NewUnaryHandler(
+	nungwiServiceDeleteTuplesHandler := connect.NewUnaryHandler(
 		NungwiServiceDeleteTuplesProcedure,
 		svc.DeleteTuples,
 		opts...,
 	)
-	nungwiServiceCheckHandler := connect_go.NewUnaryHandler(
+	nungwiServiceCheckHandler := connect.NewUnaryHandler(
 		NungwiServiceCheckProcedure,
 		svc.Check,
 		opts...,
 	)
-	nungwiServiceListObjectsHandler := connect_go.NewUnaryHandler(
+	nungwiServiceListObjectsHandler := connect.NewUnaryHandler(
 		NungwiServiceListObjectsProcedure,
 		svc.ListObjects,
 		opts...,
@@ -258,34 +258,34 @@ func NewNungwiServiceHandler(svc NungwiServiceHandler, opts ...connect_go.Handle
 // UnimplementedNungwiServiceHandler returns CodeUnimplemented from all methods.
 type UnimplementedNungwiServiceHandler struct{}
 
-func (UnimplementedNungwiServiceHandler) WriteSchema(context.Context, *connect_go.Request[v1alpha.WriteSchemaRequest]) (*connect_go.Response[v1alpha.WriteSchemaResponse], error) {
-	return nil, connect_go.NewError(connect_go.CodeUnimplemented, errors.New("nungwi.v1alpha.NungwiService.WriteSchema is not implemented"))
+func (UnimplementedNungwiServiceHandler) WriteSchema(context.Context, *connect.Request[v1alpha.WriteSchemaRequest]) (*connect.Response[v1alpha.WriteSchemaResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("nungwi.v1alpha.NungwiService.WriteSchema is not implemented"))
 }
 
-func (UnimplementedNungwiServiceHandler) GetSchema(context.Context, *connect_go.Request[v1alpha.GetSchemaRequest]) (*connect_go.Response[v1alpha.GetSchemaResponse], error) {
-	return nil, connect_go.NewError(connect_go.CodeUnimplemented, errors.New("nungwi.v1alpha.NungwiService.GetSchema is not implemented"))
+func (UnimplementedNungwiServiceHandler) GetSchema(context.Context, *connect.Request[v1alpha.GetSchemaRequest]) (*connect.Response[v1alpha.GetSchemaResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("nungwi.v1alpha.NungwiService.GetSchema is not implemented"))
 }
 
-func (UnimplementedNungwiServiceHandler) DeleteSchema(context.Context, *connect_go.Request[v1alpha.DeleteSchemaRequest]) (*connect_go.Response[v1alpha.DeleteSchemaResponse], error) {
-	return nil, connect_go.NewError(connect_go.CodeUnimplemented, errors.New("nungwi.v1alpha.NungwiService.DeleteSchema is not implemented"))
+func (UnimplementedNungwiServiceHandler) DeleteSchema(context.Context, *connect.Request[v1alpha.DeleteSchemaRequest]) (*connect.Response[v1alpha.DeleteSchemaResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("nungwi.v1alpha.NungwiService.DeleteSchema is not implemented"))
 }
 
-func (UnimplementedNungwiServiceHandler) WriteTuples(context.Context, *connect_go.Request[v1alpha.WriteTuplesRequest]) (*connect_go.Response[v1alpha.WriteTuplesResponse], error) {
-	return nil, connect_go.NewError(connect_go.CodeUnimplemented, errors.New("nungwi.v1alpha.NungwiService.WriteTuples is not implemented"))
+func (UnimplementedNungwiServiceHandler) WriteTuples(context.Context, *connect.Request[v1alpha.WriteTuplesRequest]) (*connect.Response[v1alpha.WriteTuplesResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("nungwi.v1alpha.NungwiService.WriteTuples is not implemented"))
 }
 
-func (UnimplementedNungwiServiceHandler) GetTuples(context.Context, *connect_go.Request[v1alpha.GetTuplesRequest]) (*connect_go.Response[v1alpha.GetTuplesResponse], error) {
-	return nil, connect_go.NewError(connect_go.CodeUnimplemented, errors.New("nungwi.v1alpha.NungwiService.GetTuples is not implemented"))
+func (UnimplementedNungwiServiceHandler) GetTuples(context.Context, *connect.Request[v1alpha.GetTuplesRequest]) (*connect.Response[v1alpha.GetTuplesResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("nungwi.v1alpha.NungwiService.GetTuples is not implemented"))
 }
 
-func (UnimplementedNungwiServiceHandler) DeleteTuples(context.Context, *connect_go.Request[v1alpha.DeleteTuplesRequest]) (*connect_go.Response[v1alpha.DeleteTuplesResponse], error) {
-	return nil, connect_go.NewError(connect_go.CodeUnimplemented, errors.New("nungwi.v1alpha.NungwiService.DeleteTuples is not implemented"))
+func (UnimplementedNungwiServiceHandler) DeleteTuples(context.Context, *connect.Request[v1alpha.DeleteTuplesRequest]) (*connect.Response[v1alpha.DeleteTuplesResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("nungwi.v1alpha.NungwiService.DeleteTuples is not implemented"))
 }
 
-func (UnimplementedNungwiServiceHandler) Check(context.Context, *connect_go.Request[v1alpha.CheckRequest]) (*connect_go.Response[v1alpha.CheckResponse], error) {
-	return nil, connect_go.NewError(connect_go.CodeUnimplemented, errors.New("nungwi.v1alpha.NungwiService.Check is not implemented"))
+func (UnimplementedNungwiServiceHandler) Check(context.Context, *connect.Request[v1alpha.CheckRequest]) (*connect.Response[v1alpha.CheckResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("nungwi.v1alpha.NungwiService.Check is not implemented"))
 }
 
-func (UnimplementedNungwiServiceHandler) ListObjects(context.Context, *connect_go.Request[v1alpha.ListObjectsRequest]) (*connect_go.Response[v1alpha.ListObjectsResponse], error) {
-	return nil, connect_go.NewError(connect_go.CodeUnimplemented, errors.New("nungwi.v1alpha.NungwiService.ListObjects is not implemented"))
+func (UnimplementedNungwiServiceHandler) ListObjects(context.Context, *connect.Request[v1alpha.ListObjectsRequest]) (*connect.Response[v1alpha.ListObjectsResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("nungwi.v1alpha.NungwiService.ListObjects is not implemented"))
 }

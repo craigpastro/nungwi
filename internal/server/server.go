@@ -4,7 +4,7 @@ import (
 	"context"
 	"errors"
 
-	"github.com/bufbuild/connect-go"
+	"connectrpc.com/connect"
 	pb "github.com/craigpastro/nungwi/internal/gen/nungwi/v1alpha"
 	"github.com/craigpastro/nungwi/internal/gen/nungwi/v1alpha/nungwiv1alphaconnect"
 	"github.com/craigpastro/nungwi/internal/prolog"
