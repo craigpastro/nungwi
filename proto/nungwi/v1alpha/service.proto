@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package nungwi.v1alpha;
 
-import "validate/validate.proto";
+import "buf/validate/validate.proto";
 
 service NungwiService {
   rpc WriteSchema(WriteSchemaRequest) returns (WriteSchemaResponse) {}
@@ -23,39 +23,39 @@ service NungwiService {
 }
 
 message RelationConfig {
-  string namespace = 1 [(validate.rules).string = {
+  string namespace = 1 [(buf.validate.field).string = {
     pattern: "^[-_a-zA-Z0-9]+$",
     max_bytes: 256
   }];
 
-  string relation = 2 [(validate.rules).string = {
+  string relation = 2 [(buf.validate.field).string = {
     pattern: "^[-_a-zA-Z0-9]+$",
     max_bytes: 256
   }];
 
-  string rewrite = 3 [(validate.rules).string = {
+  string rewrite = 3 [(buf.validate.field).string = {
     pattern: "^[-_a-zA-Z0-9(), ]+$",
     max_bytes: 1024
   }];
 }
 
 message Tuple {
-  string namespace = 1 [(validate.rules).string = {
+  string namespace = 1 [(buf.validate.field).string = {
     pattern: "^[-_a-zA-Z0-9]+$",
     max_bytes: 256
   }];
 
-  string id = 2 [(validate.rules).string = {
+  string id = 2 [(buf.validate.field).string = {
     pattern: "^[-_a-zA-Z0-9]+$",
     max_bytes: 256
   }];
 
-  string relation = 3 [(validate.rules).string = {
+  string relation = 3 [(buf.validate.field).string = {
     pattern: "^[-_a-zA-Z0-9]+$",
     max_bytes: 256
   }];
 
-  string user = 4 [(validate.rules).string = {
+  string user = 4 [(buf.validate.field).string = {
     pattern: "^[-_a-zA-Z0-9(), ]+$",
     max_bytes: 512
   }];
@@ -96,22 +96,22 @@ message DeleteTuplesRequest {
 message DeleteTuplesResponse {}
 
 message CheckRequest {
-  string namespace = 1 [(validate.rules).string = {
+  string namespace = 1 [(buf.validate.field).string = {
     pattern: "^[-_a-zA-Z0-9]+$",
     max_bytes: 256
   }];
 
-  string id = 2 [(validate.rules).string = {
+  string id = 2 [(buf.validate.field).string = {
     pattern: "^[-_a-zA-Z0-9]+$",
     max_bytes: 256
   }];
 
-  string relation = 3 [(validate.rules).string = {
+  string relation = 3 [(buf.validate.field).string = {
     pattern: "^[-_a-zA-Z0-9]+$",
     max_bytes: 256
   }];
 
-  string user = 4 [(validate.rules).string = {
+  string user = 4 [(buf.validate.field).string = {
     pattern: "^[-_a-zA-Z0-9(), ]+$",
     max_bytes: 512
   }];
@@ -122,17 +122,17 @@ message CheckResponse {
 }
 
 message ListObjectsRequest {
-  string namespace = 1 [(validate.rules).string = {
+  string namespace = 1 [(buf.validate.field).string = {
     pattern: "^[-_a-zA-Z0-9]+$",
     max_bytes: 256
   }];
 
-  string relation = 3 [(validate.rules).string = {
+  string relation = 3 [(buf.validate.field).string = {
     pattern: "^[-_a-zA-Z0-9]+$",
     max_bytes: 256
   }];
 
-  string user = 4 [(validate.rules).string = {
+  string user = 4 [(buf.validate.field).string = {
     pattern: "^[-_a-zA-Z0-9(), ]+$",
     max_bytes: 512
   }];

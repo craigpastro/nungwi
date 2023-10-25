@@ -9,8 +9,8 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/bufbuild/connect-go"
-	grpcreflect "github.com/bufbuild/connect-grpcreflect-go"
+	"connectrpc.com/connect"
+	"connectrpc.com/grpcreflect"
 	"github.com/craigpastro/nungwi/internal/gen/nungwi/v1alpha/nungwiv1alphaconnect"
 	"github.com/craigpastro/nungwi/internal/middleware"
 	"github.com/craigpastro/nungwi/internal/prolog"

@@ -1,19 +1,19 @@
 module github.com/craigpastro/nungwi
 
-go 1.20
+go 1.21
 
 require (
+	buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go v1.31.0-20231017183020-0de7443d03cf.2
+	connectrpc.com/connect v1.12.0
+	connectrpc.com/grpcreflect v1.2.0
 	github.com/antlr4-go/antlr/v4 v4.13.0
-	github.com/bufbuild/connect-go v1.10.0
-	github.com/bufbuild/connect-grpcreflect-go v1.1.0
 	github.com/cenkalti/backoff/v4 v4.2.1
-	github.com/envoyproxy/protoc-gen-validate v1.0.2
 	github.com/felixge/fgtrace v0.2.0
 	github.com/ichiban/prolog v1.1.3
 	github.com/sethvargo/go-envconfig v0.9.0
 	github.com/stretchr/testify v1.8.4
-	golang.org/x/exp v0.0.0-20230713183714-613f0c0eb8a1
-	golang.org/x/net v0.15.0
+	golang.org/x/exp v0.0.0-20231006140011-7918f672742d
+	golang.org/x/net v0.17.0
 	google.golang.org/protobuf v1.31.0
 	gopkg.in/yaml.v3 v3.0.1
 )

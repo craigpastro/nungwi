@@ -5,12 +5,12 @@
     default: github.com/craigpastro/nungwi/internal/gen
     except:
       - buf.build/googleapis/googleapis
-      - buf.build/envoyproxy/protoc-gen-validate
+      - buf.build/bufbuild/protovalidate
  plugins:
   - plugin: buf.build/protocolbuffers/go
     out: internal/gen
     opt: paths=source_relative
-  - plugin: buf.build/bufbuild/connect-go
+  - plugin: buf.build/connectrpc/go
     out: internal/gen
     opt: paths=source_relative
   - plugin: buf.build/bufbuild/validate-go

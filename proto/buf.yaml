@@ -1,7 +1,7 @@
 version: v1
 deps:
   - buf.build/googleapis/googleapis
-  - buf.build/envoyproxy/protoc-gen-validate
+  - buf.build/bufbuild/protovalidate
 breaking:
   ignore_unstable_packages: true
   use:
