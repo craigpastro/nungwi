@@ -37,7 +37,7 @@ func main() {
 }
 
 func run(ctx context.Context, config *config) {
-	handler := slog.NewTextHandler(os.Stdout, nil)
+	handler := slog.NewTextHandler(os.Stdout, &slog.HandlerOptions{Level: slog.LevelInfo})
 	logger := slog.New(handler)
 	slog.SetDefault(logger)
 

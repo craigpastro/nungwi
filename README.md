@@ -7,8 +7,6 @@ located at the northern end of the island of Zanzibar.
 
 This is a PoC WIP. Don't use in production :stuck_out_tongue_closed_eyes:
 
-I welcome all contributions.
-
 ## Example Usage
 
 ```console
@@ -140,6 +138,14 @@ You can run nungwi using Docker with:
 ```
 docker compose up
 ```
+
+## How does it perform?
+
+Not so well. You can try to run the load tests in the [k6](./k6) directory.
+
+## Contributions
+
+We :heart: contributions.
 
 ## Acknowledgements
 
