@@ -1,6 +1,0 @@
-{
-    "namespace": "document",
-    "id": "a21b21",
-    "relation": "viewer",
-    "user": "aardvark"
-}

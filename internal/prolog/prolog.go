@@ -6,7 +6,6 @@ import (
 
 	pb "github.com/craigpastro/nungwi/internal/gen/nungwi/v1alpha"
 	"github.com/ichiban/prolog"
-	"golang.org/x/exp/slog"
 )
 
 type Prolog struct {
@@ -71,8 +70,6 @@ func (p *Prolog) WriteSchema(ctx context.Context, configs []*pb.RelationConfig) 
 		if err := p.interpreter.ExecContext(ctx, ff); err != nil {
 			return fmt.Errorf("prolog exec error: %w", err)
 		}
-
-		slog.Info(ff)
 	}
 
 	return nil
@@ -133,8 +130,6 @@ func (p *Prolog) WriteTuples(ctx context.Context, tuples []*pb.Tuple) error {
 		if err := p.interpreter.ExecContext(ctx, ff); err != nil {
 			return fmt.Errorf("prolog exec error: %w", err)
 		}
-
-		slog.Info(ff)
 	}
 
 	return nil
