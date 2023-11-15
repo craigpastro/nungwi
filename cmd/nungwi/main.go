@@ -100,7 +100,7 @@ func run(ctx context.Context, config *config) {
 	}
 	slog.Info("nungwi attempting to shutdown gracefully")
 
-	ctx, cancel := context.WithTimeout(ctx, 5*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
 
 	if err := srv.Shutdown(ctx); err != nil {
