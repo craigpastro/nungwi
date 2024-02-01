@@ -10,7 +10,7 @@ require (
 	github.com/cenkalti/backoff/v4 v4.2.1
 	github.com/felixge/fgtrace v0.2.0
 	github.com/ichiban/prolog v1.1.3
-	github.com/sethvargo/go-envconfig v0.9.0
+	github.com/sethvargo/go-envconfig v1.0.0
 	github.com/stretchr/testify v1.8.4
 	golang.org/x/exp v0.0.0-20231006140011-7918f672742d
 	golang.org/x/net v0.20.0
