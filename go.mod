@@ -4,7 +4,7 @@ go 1.21
 
 require (
 	buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go v1.32.0-20240221180331-f05a6f4403ce.1
-	connectrpc.com/connect v1.14.0
+	connectrpc.com/connect v1.15.0
 	connectrpc.com/grpcreflect v1.2.0
 	github.com/antlr4-go/antlr/v4 v4.13.0
 	github.com/cenkalti/backoff/v4 v4.2.1
