@@ -3,7 +3,7 @@ module github.com/craigpastro/nungwi
 go 1.21
 
 require (
-	buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go v1.31.0-20231115204500-e097f827e652.2
+	buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go v1.32.0-20240221180331-f05a6f4403ce.1
 	connectrpc.com/connect v1.14.0
 	connectrpc.com/grpcreflect v1.2.0
 	github.com/antlr4-go/antlr/v4 v4.13.0
