@@ -1,6 +1,7 @@
 module github.com/craigpastro/nungwi
 
 go 1.21
+toolchain go1.22.1
 
 require (
 	buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go v1.32.0-20240221180331-f05a6f4403ce.1
@@ -10,7 +11,7 @@ require (
 	github.com/cenkalti/backoff/v4 v4.2.1
 	github.com/felixge/fgtrace v0.2.0
 	github.com/ichiban/prolog v1.2.0
-	github.com/sethvargo/go-envconfig v1.0.0
+	github.com/sethvargo/go-envconfig v1.0.1
 	github.com/stretchr/testify v1.9.0
 	golang.org/x/exp v0.0.0-20231006140011-7918f672742d
 	golang.org/x/net v0.21.0
